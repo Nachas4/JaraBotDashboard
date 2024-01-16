@@ -4,6 +4,8 @@
 
 Some stuff needs to be done first to run it, because a large chunk of the project is not copied to GitHub.
 
-- Create own `.env` file from `.env.example`
+- Go to `composer.json` and press `Install` on the top of the code
 - Run `npm i` so `npm run dev` can function
-- Go to `composer.json` and press `Install` on the top of the code=
+- Create own `.env` file from `.env.example`
+    - Set `APP_NAME` to `Jara Bot Dashboard`
+    - Set `DB_DATABASE` to `jarabot`
