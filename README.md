@@ -9,3 +9,4 @@ Some stuff needs to be done first to run it, because a large chunk of the projec
 - Create own `.env` file from `.env.example`
     - Set `APP_NAME` to `Jara Bot Dashboard`
     - Set `DB_DATABASE` to `jarabot`
+- Run `php artisan migrate:fresh --seed`
