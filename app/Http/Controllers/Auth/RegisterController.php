@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,17 +19,18 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
+    | But now it doesn't!!
+    |
     */
 
-    use RegistersUsers;
-
+    
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
+    
     /**
      * Create a new controller instance.
      *
@@ -39,6 +39,19 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+    
+
+    /**
+     * Show the application registration form.
+     * 
+     * Taken from RegistersUsers so we can change it without 'git pull' and compose.json install interfering with each other
+     * 
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
     }
 
     /**
@@ -50,9 +63,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user_id' => ['required', 'string'],
+            'username' => ['required', 'string'],
+            'global_name' => ['required', 'string'],
+            'avatar' => ['required', 'string'],
+            'banner_color' => ['required', 'string'],
+            'mfa_enabled' => ['required', 'booalean'],
+            'access_token' => ['required', 'string'],
         ]);
     }
 
@@ -65,9 +82,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'user_id' => $data['id'],
+            'username' => $data['username'],
+            'global_name' => $data['global_name'],
+            'avatar' => $data['avatar'],
+            'banner_color' => $data['banner_color'],
+            'mfa_enabled' => $data['mfa_enabled'],
+            'access_token' => Hash::make($data['access_token']),
         ]);
     }
 }

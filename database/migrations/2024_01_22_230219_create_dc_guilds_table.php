@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('dc_guilds', function (Blueprint $table) {
             $table->id();
-            
-            $table->text('user_id')->unique();
-            $table->string('username')->unique();
-            $table->string('global_name');
-            $table->string('avatar');
-            $table->string('banner_color');
-            $table->boolean('mfa_enabled');
-            
-            $table->string('access_token');
-            
+
+            $table->text('guild_id')->unique();
+            $table->string('name');
+            $table->string('icon')->nullable();
+            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('dc_guilds');
     }
 };

@@ -47,6 +47,12 @@
                                 </li>
                             @endif
 
+                            @if (Route::has('discord.login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('discord.login') }}">{{ __('Login using Discord') }}</a>
+                                </li>
+                            @endif
+
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -57,10 +63,10 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span>
-                                        <img src="{{ asset('storage/profile_pictures/' . Auth::user()->pfp_file . '') }}"
+                                        <img src="{{ asset('https://cdn.discordapp.com/avatars/' . Auth::user()->user_id . '/' . Auth::user()->avatar . '') }}"
                                             class="rounded-circle me-1" id="navbar-profile-image" alt="Profile Picture">
                                     </span>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->global_name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end"

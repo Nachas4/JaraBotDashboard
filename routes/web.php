@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DiscordController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,18 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+
+/*
+    |--------------------------------------------------------------------------
+    | Discord OAuth2 Login Routes
+    |--------------------------------------------------------------------------
+    */
+
+Route::get('/login/discord', [DiscordController::class, 'RedirectToDiscord'])->name('discord.login');
+Route::get('/login/discord/callback', [DiscordController::class, 'OAuthCallback']);
+
+
 
 /** Only for logged in users **/
 Route::middleware(Authenticate::class)->group(function () {

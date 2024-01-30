@@ -8,7 +8,7 @@ Some stuff needs to be done first to run it, because a large chunk of the projec
 - Run `npm i` so `npm run dev` can function
 - Create own `.env` file from `.env.example`
     - Set `APP_NAME` to `Jara Bot Dashboard`
-    - Set `DB_DATABASE` to `jarabot`
+    - Set `DB_DATABASE` to `jarabot` (will also help if you create the db)
 - Run `php artisan migrate:fresh --seed`
 
 You also will need to set these `.env` variables:

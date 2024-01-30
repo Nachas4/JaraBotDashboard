@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\DcGuild;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -14,21 +14,29 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => 'Nachas4',
-            'email' => 'test@test.com',
-            // 'pfp_file' => '1_pfp.png' ==> Remember, images don't get pushed to GH; setting a custom pfp only exists on your PC
+            'username' => 'nachas4',
+            'global_name' => 'Nachas4',
+            'avatar' => '3b0fdc6d1f3d287ac396006504b967db.png',
+            'user_id' => 711348770104672308
         ]);
 
         User::factory()->create([
-            'name' => 'Klozon',
-            'email' => 'test@example.com'
+            'username' => 'csiszar.',
+            'global_name' => 'Klozon',
+            'avatar' => 'bc3bee1d104a43269a1e5062d2be5b02.png',
+            'user_id' => 619514971868626973
         ]);
 
         User::factory()->create([
-            'name' => 'hason4',
-            'email' => 'example@test.com'
+            'username' => 'Gyula#1498',
+            'global_name' => 'Gyula',
+            'avatar' => 'a871188ffcc050ee86fb6c1852c6ce06.gif',
+            'user_id' => 444435951041773568
         ]);
-        
-        User::factory(10)->create();
+
+        //Creates 3 users, then creates 3 owned guilds for each of them.
+        User::factory(3)
+            ->has(DcGuild::factory()->count(3), 'owned_guilds')
+            ->create();
     }
 }
