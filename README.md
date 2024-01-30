@@ -10,3 +10,12 @@ Some stuff needs to be done first to run it, because a large chunk of the projec
     - Set `APP_NAME` to `Jara Bot Dashboard`
     - Set `DB_DATABASE` to `jarabot`
 - Run `php artisan migrate:fresh --seed`
+
+You also will need to set these `.env` variables:
+
+- DISCORD_CLIENT_ID
+- DISCORD_CLIENT_SECRET=
+- DISCORD_REDIRECT_URI=''
+- DISCORD_OAUTH2_LOGIN_URL=''
+
+Ask in dev discord for details on these.
