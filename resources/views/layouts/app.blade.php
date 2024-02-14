@@ -93,14 +93,32 @@
                 </nav>
             </div>
 
+
             <main class="py-4">
                 @yield('content')
             </main>
         </div>
-        <footer class="align-self-end w-100" style="height: 200px; background:red;">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis voluptatum sed excepturi quas aperiam ea
-                corporis, dolore consequuntur, doloribus sapiente exercitationem. Ab explicabo laborum, eveniet eum
-                vitae earum iusto ut.</p>
+        <footer class="align-self-end w-100 p-3" style="height: 150px; background:#131414;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="d-flex flex-column">
+                            <h5>Contacts</h5>
+                            <span>Csiszár - lorem</span>
+                            <span>Simon   - lorem</span>
+                            <span>Kristin - lorem</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="d-flex flex-column">
+                            <h5>Github</h5>
+                            <span>Csiszár - lorem</span>
+                            <span>Simon   - lorem</span>
+                            <span>Kristin - lorem</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </footer>
     </div>
 

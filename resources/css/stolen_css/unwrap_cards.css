@@ -101,7 +101,7 @@ input {
 }
 
 input:checked + label {
-    width: 30vw;
+    width: 50vw;
 }
 
 input:checked + label .description {

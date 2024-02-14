@@ -3,7 +3,7 @@
 @section('content')
     <div class="container text-white mb-5">
         <div class="row">
-            <div class="col-lg-4 col-sm-12 col-md-6 col-12 pb-5 text-center">
+            <div class="col-lg-4 col-sm-12 col-md-6 col-12 pb-md-5 pb-sm-4 text-center">
                 <div class="card--">
                     <div class="shape"></div>
                     <div class="shape"></div>
@@ -52,56 +52,108 @@
         </div>
     </div>
 
+    <div class="card--holder mb-5 p-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12"><h1>About Us</h1></div>
+                <div class="col-12">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda eos sequi, doloremque nulla optio
+                    quis inventore doloribus eaque fuga soluta vel iste voluptatum repellat architecto accusantium facere.
+                    Sit, accusamus architecto.
+                    Inventore labore esse cum tempore debitis dolore praesentium, neque aperiam dolores temporibus cumque
+                    ratione. Eveniet illum assumenda inventore. Cupiditate omnis, libero fuga cum labore magni praesentium
+                    modi natus. A, non?
+                    Modi, voluptates minus! Exercitationem, quibusdam dignissimos quos maiores veniam expedita provident
+                    minus esse unde enim asperiores ipsa nesciunt ipsam mollitia deleniti aliquam. Nemo, eaque. Ratione
+                    nulla eligendi officiis quas fugit.
+                    Repudiandae nostrum earum neque at. Rerum veritatis ex voluptate nam, quis iusto asperiores a illo
+                    commodi tenetur ad repellendus, eos voluptatum, ea ipsa quae sed repellat quo. Deserunt, delectus animi.
+                    Nulla repellendus laborum aut labore nam necessitatibus consequuntur expedita officia corrupti. Nisi
+                    cumque quibusdam minus facere dolor sequi alias, iste delectus quas deleniti sit at impedit modi maxime
+                    tenetur non.
+                    Eum nulla dicta necessitatibus inventore voluptatibus error rem modi. Perferendis ipsa temporibus
+                    quibusdam, totam sit harum et suscipit cum quos sint? Illo nemo veniam ea doloribus sint, velit
+                    necessitatibus dicta.
+                    Molestiae facilis sint, at neque laudantium earum inventore doloremque vel iste velit obcaecati animi
+                    ducimus error eligendi repellat, natus quasi nam, dolorum deserunt commodi totam quos quaerat
+                    repellendus. Accusantium, mollitia.
+                    Expedita nemo quas voluptatum et laudantium natus veritatis, quasi voluptatibus numquam? Excepturi
+                    quibusdam fuga eligendi maiores voluptatum at minima consequatur aliquam id in quidem, sed, delectus
+                    provident? Vel, magnam eius.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mb-5">
         <div class="row">
-            <div class="col-lg-6 col-md-12 mb-md-3 mb-sm-3">
-                <div class="card--small">
-                    <canvas id="barchart"></canvas>
+            <div class="col-lg-6 col-md-12 mb-lg-0 mb-sm-3 pb-3">
+                <div class="card--small h-100">
+                    <canvas id="barchart" class=""></canvas>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 mb-md-3 mb-sm-3">
                 <div class="card--small h-100">
                     <div class="container h-100">
                         <div class="row h-100">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-sm-3">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-sm-3 mb-md-0">
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <h3><i class="fa-solid fa-ranking-star"></i> XYZ Top players</h3>
-                                    <div class="card--list">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid rounded-circle"> <span
-                                            class="ml-2">Coffee - 120 win</span>
+                                    <div class="card--list d-flex align-item-center">
+                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <div class="d-flex flex-wrap">
+                                            <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
+                                            <span class="align-self-center" style="height: min-content;">120 win</span>
+                                        </div>
                                     </div>
-                                    <div class="card--list">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid  rounded-circle"> <span
-                                            class="ml-2">Coffee - 98 win</span>
+                                    <div class="card--list d-flex align-item-center">
+                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <div class="d-flex flex-wrap">
+                                            <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
+                                            <span class="align-self-center" style="height: min-content;">120 win</span>
+                                        </div>
                                     </div>
-                                    <div class="card--list">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid rounded-circle"> <span
-                                            class="ml-2">Coffee - 75 win</span>
+                                    <div class="card--list d-flex align-item-center">
+                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <div class="d-flex flex-wrap">
+                                            <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
+                                            <span class="align-self-center" style="height: min-content;">120 win</span>
+                                        </div>
                                     </div>
-                                    <div class="card--list">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid rounded-circle"> <span
-                                            class="ml-2">Coffee - 53 win</span>
+                                    <div class="card--list d-flex align-item-center">
+                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <div class="d-flex flex-wrap">
+                                            <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
+                                            <span class="align-self-center" style="height: min-content;">120 win</span>
+                                        </div>
                                     </div>
-                                    <div class="card--list">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid rounded-circle"> <span
-                                            class="ml-2">Coffee - 49 win</span>
+                                    <div class="card--list d-flex align-item-center">
+                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <div class="d-flex flex-wrap">
+                                            <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
+                                            <span class="align-self-center" style="height: min-content;">120 win</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="row m-0 h-100">
-                                    <div class="white--box col-lg-12 col-md-12 col-sm-12 col-12 flex-fill mb-3">
-                                        <div class="d-flex justify-content-center flex-column align-items-center h-100 text-white">
-                                            <h3>Commands count</h3>
+                                <div class="row m-0 h-100 text-center">
+                                    <div class="card-- col-lg-12 col-md-12 col-sm-12 col-12 flex-fill mb-3"
+                                        style="height: auto; box-sizing: border-box; ">
+                                        <div
+                                            class="d-flex justify-content-center flex-column align-items-center h-100 text-white">
+                                            <h3 class="">Commands count</h3>
                                             {{-- <div class="odometer" id="odometer">0</div> --}}
                                             <h2>34971</h2>
                                         </div>
                                     </div>
-                                    <div class="white--box col-lg-12 col-md-12 col-sm-12 col-12 flex-fill ">
-                                        <div class="d-flex justify-content-center flex-column align-items-center h-100 text-white">
-                                            <h3>Member count</h3>
+                                    <div class="card-- col-lg-12 col-md-12 col-sm-12 col-12 flex-fill"
+                                        style="height: auto;">
+                                        <div
+                                            class="d-flex justify-content-center flex-column align-items-center h-100 text-white">
+                                            <h3>Commands count</h3>
                                             {{-- <div class="odometer" id="odometer">0</div> --}}
-                                            <h2>35256</h2>
+                                            <h2>34971</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +167,8 @@
 
     <div class="mt-5 mb-5">‎ </div>
     <div class="mt-5 mb-5">‎ </div>
-    <div class="card--holder d-flex justify-content-center align-items-center mt-5 mb-5" style="height: 280px;">
+    <div class="card--holder d-flex justify-content-center align-items-center mt-5 mb-5 d-none d-md-flex"
+        style="height: 280px;">
         <div class="wrapper">
             <div class="xy">
                 <input type="radio" name="slide" id="c1" checked>
