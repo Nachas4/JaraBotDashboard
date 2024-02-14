@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* SCROLL BAR */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #212521;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6e6e6e;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4f4f4f;
+    border-radius: 10px;
+}
+
+.wrapper {
+    width: 100%;
+    height: 200%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xy {
+    height: 80%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: start;
+}
+
+.warp-card {
+    width: 80px;
+    border-radius: 0.75rem;
+    background-size: cover;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2rem;
+    margin: 0 10px;
+    display: flex;
+    align-items: flex-end;
+    transition: 0.6s cubic-bezier(0.28, -0.03, 0, 0.99);
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.8);
+}
+
+.warp-card > .warp-row {
+    color: white;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.warp-card > .warp-row > .icon {
+    background: #223;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+}
+
+.warp-card > .warp-row > .description {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    height: 80px;
+    width: 520px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition-delay: 0.3s;
+    transition: all 0.3s ease;
+}
+
+.description p {
+    color: #b0b0ba;
+    padding-top: 5px;
+}
+
+.description h4 {
+    text-transform: uppercase;
+}
+
+input {
+    display: none;
+}
+
+input:checked + label {
+    width: 30vw;
+}
+
+input:checked + label .description {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.warp-card[for="c1"] {
+    background-image: url("./../../../public/th3.png");
+}
+.warp-card[for="c2"] {
+    background-image: url("./../../../public/th3.png");
+}
+.warp-card[for="c3"] {
+    background-image: url("./../../../public/th3.png");
+}
+.warp-card[for="c4"] {
+    background-image: url("./../../../public/th3.png");
+}
