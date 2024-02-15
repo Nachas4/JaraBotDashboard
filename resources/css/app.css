@@ -1,16 +1,19 @@
 :root {
-    --clr-neon: #0dcaf0;
+    --clr-dark-base: #212529;
+    --anim-delay: 1;
+    
 }
 
 * {
     color: white;
 }
 
+/* NAVBAR */
 .float-nav {
     width: 60% !important;
     margin: 20px;
     padding: 10px;
-    background-color: #212529;
+    background-color: var(--clr-dark-base);
 
     border: solid 5px transparent;
     border-radius: 20px !important;
@@ -20,6 +23,8 @@
         inset 15px 15px 15px rgba(0, 0, 0, 0.2);
 }
 
+
+/* CARDS */
 .card--holder {
     color: white;
     width: 100%;
@@ -27,7 +32,7 @@
 }
 
 .card-- {
-    background-color: #212529;
+    background-color: var(--clr-dark-base);
     z-index: -2;
     position: relative;
     width: 100%;
@@ -40,6 +45,17 @@
     overflow: hidden;
 }
 
+.card--small {
+    background-color: var(--clr-dark-base);
+    position: relative;
+    border-radius: 20px !important;
+    width: 100%;
+    padding: 25px;
+    height: 320px;
+    box-shadow: inset -4px -4px 5px rgba(255, 255, 255, 0.1),
+        inset 4px 4px 5px rgba(0, 0, 0, 0.2);
+}
+
 .card--list {
     height: 40px;
     font-size: 1.3rem;
@@ -49,47 +65,20 @@
     height: 40px;
     aspect-ratio: 1/1;
 }
-canvas {
-    width: 100% !important;
-    height: 100% !important;
+
+
+/* CARDS END */
+
+.logo {
+    font-size: 70px;
+    width: 110px;
+    height: 110px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #fff; /* Background color of the circle */
+    border-radius: 50%;
 }
 
-.card--small {
-    background-color: #212529;
-    position: relative;
-    border-radius: 20px !important;
-    width: 100%;
-    padding: 25px;
-    height: 320px;
-    box-shadow: inset -4px -4px 5px rgba(255, 255, 255, 0.1),
-        inset 4px 4px 5px rgba(0, 0, 0, 0.2);
-}
-p {
-    z-index: 100000;
-}
-.white--box {
-    /* padding: 10px 20px;
-    border: none;
-    border-radius: 20px; */
-
-    /* box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.6),
-        -1px -1px 5px rgba(255, 255, 255, 0.3),
-        inset -5px -5px 6px rgba(0, 0, 0, 0.3),
-        inset 6px 6px 7px rgba(255, 255, 255, 0.7);
-    transition: background-color 0.3s ease; */
-
-    background: #131414;
-
-    display: inline-block;
-    cursor: pointer;
-    text-decoration: none;
-    color: var(--clr-neon);
-    border: var(--clr-neon) 0.125em solid;
-    padding: 0.25em 1em;
-    border-radius: 0.25em;
-    box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
-    position: relative;
-}
 
 /* SHAPES */
 .shape {
@@ -131,16 +120,17 @@ p {
     background-color: yellowgreen;
     clip-path: polygon(27% 7%, 99% 18%, 76% 76%, 28% 93%, 0 55%);
 }
+/* SHAPES END */
 
-.logo {
-    font-size: 70px;
-    width: 110px;
-    height: 110px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 2px solid #fff; /* Background color of the circle */
-    border-radius: 50%;
+
+/* DIAGRAMM */
+canvas {
+    width: 100% !important;
+    height: 100% !important;
 }
+
+
+
 
 .svg-holder {
     width: 100vw;
@@ -180,4 +170,11 @@ svg {
 
 main {
     overflow-x: hidden;
+}
+body{
+    background-color: var(--clr-dark-base) !important;
+}
+
+p {
+    z-index: 100000;
 }
