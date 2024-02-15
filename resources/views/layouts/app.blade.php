@@ -76,7 +76,7 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}
                                             </a>
 
@@ -98,14 +98,14 @@
                 @yield('content')
             </main>
         </div>
-        <footer class="align-self-end w-100 p-3" style="height: 150px; background:#131414;">
+        <footer class="align-self-end w-100 p-3" style="height: 140px; background:#0f0f0f;">
             <div class="container">
                 <div class="row">
                     <div class="col-3">
                         <div class="d-flex flex-column">
                             <h5>Contacts</h5>
                             <span>Csiszár - lorem</span>
-                            <span>Simon   - lorem</span>
+                            <span>Simon - lorem</span>
                             <span>Kristin - lorem</span>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                         <div class="d-flex flex-column">
                             <h5>Github</h5>
                             <span>Csiszár - lorem</span>
-                            <span>Simon   - lorem</span>
+                            <span>Simon - lorem</span>
                             <span>Kristin - lorem</span>
                         </div>
                     </div>
