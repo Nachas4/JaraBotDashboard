@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('banner_color');
             $table->boolean('mfa_enabled');
             
-            $table->string('access_token');
-            
             $table->timestamps();
             $table->softDeletes();
         });

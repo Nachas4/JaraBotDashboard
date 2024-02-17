@@ -30,8 +30,6 @@ class UserFactory extends Factory
             'avatar' => Str::random(20),
             'banner_color' => fake()->hexColor(),
             'mfa_enabled' => fake()->boolean(),
-
-            'access_token' => static::$password ??= Hash::make('1234'),
         ];
     }
 
