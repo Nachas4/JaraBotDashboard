@@ -11,11 +11,11 @@ Some stuff needs to be done first to run it, because a large chunk of the projec
     - Set `DB_DATABASE` to `jarabot` (will also help if you create the db)
 - Run `php artisan migrate:fresh --seed`
 
-You also will need to set these `.env` variables:
+You also will need to set these `.env` variables for Discord OAuth2 to work:
 
-- DISCORD_CLIENT_ID
-- DISCORD_CLIENT_SECRET=
-- DISCORD_REDIRECT_URI=''
-- DISCORD_OAUTH2_LOGIN_URL=''
+- `DISCORD_CLIENT_ID`
+- `DISCORD_CLIENT_SECRET`=
+- `DISCORD_REDIRECT_URI`=''
+- `DISCORD_OAUTH2_LOGIN_URL`=''
 
 Ask in dev discord for details on these.
