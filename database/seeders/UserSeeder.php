@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AccessToken;
 use App\Models\DcGuild;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -34,9 +35,10 @@ class UserSeeder extends Seeder
             'user_id' => 444435951041773568
         ]);
 
-        //Creates 3 users, then creates 3 owned guilds for each of them.
+        //Creates 3 users, then creates 3 owned guilds for each of them, and an access token.
         User::factory(3)
             ->has(DcGuild::factory()->count(3), 'owned_guilds')
+            ->has(AccessToken::factory()->count(1), 'access_token')
             ->create();
     }
 }

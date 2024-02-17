@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccessToken;
 use App\Models\DcGuild;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -23,7 +24,7 @@ class DiscordController extends Controller
     public function OAuthCallback(Request $request)
     {
         // Retrieve the authorization code from the query parameters
-        $code = $request->query('code');
+       $code = $request->query('code');
 
         // Exchange the code for an access token
         $access_token = null;
@@ -40,12 +41,12 @@ class DiscordController extends Controller
                     'scope' => 'identify%20guilds'
                 ]);
 
-            $access_token = $response['access_token'];
-        } catch (\Throwable $th) {
-            return view('welcome', ['error' => 'There was an error while logging in using Discord.']);
-        }
-
-        // After a successful response, extract user data
+                $access_token = $response['access_token'];
+            } catch (\Throwable $th) {
+                return view('welcome', ['error' => 'There was an error while logging in using Discord.']);
+            }
+            
+            // After a successful response, extract user data
         $userData = Http::withToken($access_token)->get('https://discord.com/api/users/@me')->json();
         $userPfpExt = DiscordController::getPfpExt($userData['id'], $userData['avatar']);
 
@@ -59,7 +60,12 @@ class DiscordController extends Controller
                 'avatar' => '' . $userData['avatar'] . '.' . $userPfpExt . '',
                 'banner_color' => $userData['banner_color'],
                 'mfa_enabled' => $userData['mfa_enabled'],
+            ]);
 
+
+
+            $old_access_token = $user->get()[0]->access_token();
+            $old_access_token->update([
                 'access_token' => Hash::make($access_token)
             ]);
 
@@ -72,11 +78,9 @@ class DiscordController extends Controller
                 'avatar' => '' . $userData['avatar'] . '.' . $userPfpExt . '',
                 'banner_color' => $userData['banner_color'],
                 'mfa_enabled' => $userData['mfa_enabled'],
-
-                'access_token' => Hash::make($access_token)
             ];
 
-            $success = DiscordController::register($userData);
+            $success = DiscordController::register($userData, Hash::make($access_token));
         }
 
         if ($success) {
@@ -148,20 +152,26 @@ class DiscordController extends Controller
      * Handle a registration request for the application.
      *
      * @param  array $userData
+     * @param  string $accessToken
      */
-    public function register($userData)
+    public function register($userData, $accessToken)
     {
-        try {
+        // try {
             $this->validator($userData)->validate();
 
             event(new Registered($user = $this->create($userData)));
 
+            AccessToken::create([
+                'user_id' => $user['id'],
+                'access_token' => $accessToken
+            ]);
+
             $this->guard()->login($user);
 
             return true;
-        } catch (\Throwable $th) {
-            return false;
-        }
+        // } catch (\Throwable $th) {
+        //     return false;
+        // }
     }
 
     /**
@@ -183,7 +193,6 @@ class DiscordController extends Controller
             'avatar' => ['required', 'string'],
             'banner_color' => ['required', 'string'],
             'mfa_enabled' => ['required', 'boolean'],
-            'access_token' => ['required', 'string'],
         ]);
     }
 
@@ -202,7 +211,6 @@ class DiscordController extends Controller
             'avatar' => $data['avatar'],
             'banner_color' => $data['banner_color'],
             'mfa_enabled' => $data['mfa_enabled'],
-            'access_token' => Hash::make($data['access_token']),
         ]);
     }
 
