@@ -42,7 +42,7 @@
                             <a class="text-white nav-logo" href="{{ url('/') }}">
                                 Jara
                                 <img src="{{asset('log6.png')}}" class="img-fluid" style="margin:0 -10px; height:160px;">
-                                Bot
+                                Bots
                             </a>
                             <div class="c-1" style="--height:3;"></div>
                             <div class="c-1" style="--height:2;"></div>

@@ -1,10 +1,32 @@
 :root {
     --clr-dark-base: #212529;
+    --clr-black-base: #131414;
     --height: 1;
+    --clr-yellow: #ffcd4b;
+    --crl-neon: #75dd75;
+    --clr-pink:#f86f54;
 }
 
 * {
     color: white;
+}
+.text--black *{
+    color: grey;
+}
+.bg--black{
+    background-color: var(--clr-black-base);
+}
+.bg--pink{
+    background-color: var(--clr-pink);
+}
+.bg--neon{
+    background-color: var(--crl-neon);
+}
+.text--neon *{
+    color: var(--crl-neon) !important; 
+}
+.bg--yellow{
+    background-color: var(--clr-yellow);
 }
 
 /* NAVBAR */
@@ -24,6 +46,12 @@
 
 
 /* -------------------------------------- */
+a{
+    text-decoration: none !important;
+}
+.text--middle{
+    font-size: 1.3rem;
+}
 .welcome-p{
     overflow: hidden;
     display: -webkit-box;
@@ -62,6 +90,12 @@
     position: relative;
     overflow: hidden; 
 }
+
+
+.notification{
+   padding: 10px;
+
+}
 /* -------------------------------------- */
 
 
@@ -78,7 +112,7 @@
 .c-1 {
     padding-top: -50px;
     margin: 0 6px;
-    border: 4px solid #131414;
+    border: 4px solid var(--clr-black-base);
     border-radius: 50px;
     content: "";
     height: calc(var(--height) * 48px);
@@ -97,8 +131,8 @@
 /* CARDS */
 .card--holder {
     color: white;
-    width: 100%;
-    background-color: #131414;
+    background-color: var(--clr-black-base);
+    
 }
 
 

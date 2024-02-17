@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <div class="card--holder mb-5 p-5">
+    <div class="card--holder w-100 mb-5 p-5">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -179,7 +179,7 @@
     <div class="mt-5 mb-5 d-none d-md-block">‎ </div>
 
 
-    <div class="card--holder d-flex flex-column align-items-center justify-content-center mt-5 h-100 pt-5 pb-5 ">
+    <div class="card--holder w-100 d-flex flex-column align-items-center justify-content-center mt-5 h-100 pt-5 pb-5 ">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-12 mb-4 member">
