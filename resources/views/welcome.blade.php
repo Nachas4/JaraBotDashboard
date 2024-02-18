@@ -23,10 +23,12 @@
                                 <i class="fa-brands fa-discord text-white"></i>
                             </div>
                             <h1>Login with Discord</h1>
-                            <p class="welcome-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia fugit excepturi
+                            <p class="welcome-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
+                                fugit excepturi
                                 cum.
                                 Quidem,
-                                ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore vel?</p>
+                                ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore
+                                vel?</p>
                             <a href="#" class="btn btn-primary button mt-auto">Login</a>
                         </div>
                     </div>
@@ -35,7 +37,8 @@
                 <div class="col-lg-4 col-sm-12 col-md-12 col-12 pb-md-3 pb-4 text-center order-md-1 order-lg-0 order-1">
                     <div class="card-- pt-5">
                         <h1>Welcome</h1>
-                        <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia fugit excepturi cum.
+                        <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia fugit
+                            excepturi cum.
                             Quidem,
                             ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore cumque
                             temporibus vel?</p>
@@ -49,13 +52,15 @@
                         <div class="shape"></div>
                         <div class="d-flex flex-column h-100 align-items-center" style="position: relative">
                             <div class="mt-1 mb-2 logo d-flex align-items-center justify-content-center ">
-                                <i class="fa-solid fa-book text-white"  style="font-size: 60px;"></i>
+                                <i class="fa-solid fa-book text-white" style="font-size: 60px;"></i>
                             </div>
                             <h1>Documentation</h1>
-                            <p class="welcome-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia fugit excepturi
+                            <p class="welcome-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
+                                fugit excepturi
                                 cum.
                                 Quidem,
-                                ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore vel?</p>
+                                ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore
+                                vel?</p>
                             <a href="#" class="btn btn-primary button mt-auto">Learn More</a>
                         </div>
                     </div>
@@ -111,35 +116,35 @@
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <h3><i class="fa-solid fa-ranking-star"></i> XYZ Top players</h3>
                                     <div class="card--list d-flex align-item-center">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle">
                                         <div class="d-flex flex-wrap">
                                             <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
                                             <span class="align-self-center" style="height: min-content;">120 win</span>
                                         </div>
                                     </div>
                                     <div class="card--list d-flex align-item-center">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle">
                                         <div class="d-flex flex-wrap">
                                             <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
                                             <span class="align-self-center" style="height: min-content;">120 win</span>
                                         </div>
                                     </div>
                                     <div class="card--list d-flex align-item-center">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle">
                                         <div class="d-flex flex-wrap">
                                             <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
                                             <span class="align-self-center" style="height: min-content;">120 win</span>
                                         </div>
                                     </div>
                                     <div class="card--list d-flex align-item-center">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle">
                                         <div class="d-flex flex-wrap">
                                             <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
                                             <span class="align-self-center" style="height: min-content;">120 win</span>
                                         </div>
                                     </div>
                                     <div class="card--list d-flex align-item-center">
-                                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle">
+                                        <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle">
                                         <div class="d-flex flex-wrap">
                                             <span class="align-self-center" style="height: min-content;">Coffee ‎</span>
                                             <span class="align-self-center" style="height: min-content;">120 win</span>
@@ -249,9 +254,40 @@
 
 
 
-<style>
+    <style>
+        @media screen and (max-width: 770px) {
+            .c-1 {
+                display: none !important;
+            }
 
-</style>
+            .nav-logo {
+                padding: 10px 25px;
+                font-size: 80px;
+                margin: 0px;
+                margin-bottom: -30px;
+
+            }
+
+            .nav-logo img {
+                height: 120px !important;
+            }
+        }
+
+        @media screen and (max-width: 450px) {
+            .c-1 {
+                display: none !important;
+            }
+
+            .nav-logo {
+                padding-left: 20px;
+                font-size: 70px;
+            }
+
+            .nav-logo img {
+                height: 110px !important;
+            }
+        }
+    </style>
 
 
 

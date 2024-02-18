@@ -7,6 +7,33 @@
     --clr-pink:#f86f54;
 }
 
+::-webkit-scrollbar-corner {
+    background: rgba(0,0,0,0);
+}
+
+/* SCROLL BAR */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6e6e6e;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4f4f4f;
+    border-radius: 10px;
+}
+
 * {
     color: white;
 }
@@ -22,7 +49,7 @@
 .bg--neon{
     background-color: var(--crl-neon);
 }
-.text--neon *{
+.text--neon *,.text--neon {
     color: var(--crl-neon) !important; 
 }
 .bg--yellow{
@@ -91,11 +118,6 @@ a{
     overflow: hidden; 
 }
 
-
-.notification{
-   padding: 10px;
-
-}
 /* -------------------------------------- */
 
 
@@ -277,31 +299,16 @@ p {
     font-size: larger;
 }
 
-@media screen and (max-width: 770px) {
-    .c-1{display: none !important;}
-    .nav-logo{
-        padding: 10px 25px;
-        font-size: 80px;
-        margin:0px;
-        margin-bottom: -30px;
-    
-    }
-    .nav-logo img{
-        height: 120px !important;
-    }
-}
 
-@media screen and (max-width: 450px) {
-    .c-1{display: none !important;}
-    .nav-logo{
-        padding-left: 20px;
-        font-size: 70px;   
-    }
-    .nav-logo img{
-        height: 110px !important;
-    }
-}
 
 .footer-link {
     text-decoration: none;
 }
+
+/* DASHBOARD */
+.notification{
+    padding: 10px;
+ }
+ .menu{
+    min-width: 300px;
+ }

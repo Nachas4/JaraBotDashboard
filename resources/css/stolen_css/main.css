@@ -1,0 +1,235 @@
+:root {
+    --dgray: #161619;
+    --gray: #222224;
+    --lgray: #323233;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* WIDGETS SETTINGS */
+.board {
+    background-color: var(--dgray);
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1.5 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 0.5%;
+}
+
+@media only screen and (max-width: 1650px) {
+    .board {
+        width: 70vw;
+    }
+}
+
+.board-row {
+    width: 100%;
+    height: 33.333%;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* CARDS */
+
+.cserver-- {
+    position: relative;
+    height: 100%;
+    border-radius: 10px;
+    padding: 0.6% 0.7%;
+}
+
+/* SMALL CARD */
+.cserver--small {
+    /* INTERSTING */
+    /* min-width: 20.90%; */
+    width: 20.9%;
+}
+
+.small--top {
+    height: 70%;
+    margin-bottom: -3%;
+}
+
+.small--bottom {
+    position: relative;
+    height: 30%;
+    width: 100%;
+    padding: 5px 15px;
+    background-color: var(--gray);
+    border-radius: 10px;
+}
+
+.small--text {
+    font-size: 0.85rem;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0px;
+}
+/* END SMALL CARD */
+
+/* MEDIUM CARD */
+.cserver--medium {
+    width: 29.09%;
+}
+
+.medium--top {
+    height: 63%;
+    margin-bottom: -3%;
+}
+
+.medium--bottom {
+    position: relative;
+    height: 38%;
+    width: 100%;
+    padding: 5px 15px;
+    background-color: var(--gray);
+    border-radius: 10px;
+}
+
+.medium--text {
+    font-size: 0.85rem;
+    width: 100%;
+    height: 100%;
+    height: min-content;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0px;
+}
+/* END MEDIUM CARD */
+
+/* BIG CARD */
+.cserver--big {
+    width: 50%;
+}
+
+.big--left {
+    flex: 40%;
+    height: 100%;
+}
+
+.big--right {
+    flex: 60%;
+    height: 100%;
+    position: relative;
+}
+
+.big--text {
+    font-size: 0.85rem;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0px;
+}
+
+.bg-holder {
+    width: 100%;
+    /*height-3% because margin-bottom: -3%;*/
+    height: 97%;
+    background-color: var(--gray);
+    border-radius: 10px;
+    padding: 20px 20px;
+}
+/* END BIG CARD */
+
+
+
+
+
+
+
+
+
+
+
+.cserver--btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(42, 42, 42, 0.667);
+    height: min-content;
+    font-size: auto;
+    padding: 5px 15px;
+    justify-content: center;
+    align-self: self-end;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    margin-left: 5px;
+}
+
+.cserver--date {
+    color: rgba(181, 181, 181, 0.9);
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.cserver--img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.cserver--user{
+    top: 10px;
+    left: 10px;
+    position: absolute;
+}
+.user-img{
+    border-radius: 50%;
+    object-fit: fill;
+    width: 35px;
+    height: 35px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.cserver--.dragging :where(.medium--top, .medium--bottom) {
+    opacity: 0;
+}
+
+.cserver--.dragging :where(.small--top, .small--bottom) {
+    opacity: 0;
+}
+
+.dragging {
+    border: 5px dotted #ffffff;
+}
