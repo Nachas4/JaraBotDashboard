@@ -255,6 +255,7 @@
 
 
     <style>
+        /* NAV */
         @media screen and (max-width: 770px) {
             .c-1 {
                 display: none !important;
