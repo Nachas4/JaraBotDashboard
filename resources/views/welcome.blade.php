@@ -23,7 +23,7 @@
                                 <i class="fa-brands fa-discord text-white"></i>
                             </div>
                             <h1>Login with Discord</h1>
-                            <p class="welcome-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
+                            <p class="card--p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
                                 fugit excepturi
                                 cum.
                                 Quidem,
@@ -37,7 +37,7 @@
                 <div class="col-lg-4 col-sm-12 col-md-12 col-12 pb-md-3 pb-4 text-center order-md-1 order-lg-0 order-1">
                     <div class="card-- pt-5">
                         <h1>Welcome</h1>
-                        <p class="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia fugit
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia fugit
                             excepturi cum.
                             Quidem,
                             ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore cumque
@@ -55,7 +55,7 @@
                                 <i class="fa-solid fa-book text-white" style="font-size: 60px;"></i>
                             </div>
                             <h1>Documentation</h1>
-                            <p class="welcome-p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
+                            <p class="card--p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
                                 fugit excepturi
                                 cum.
                                 Quidem,

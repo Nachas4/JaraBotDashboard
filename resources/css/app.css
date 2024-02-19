@@ -1,10 +1,16 @@
+/*--------------BASE SETTINGS----------------*/
+
 :root {
-    --clr-dark-base: #212529;
-    --clr-black-base: #131414;
-    --height: 1;
+    --clr-black: #161619;
+    --clr-dark: #131414;
+    --clr-greyD: #212529;
+    --clr-grey: #323233; 
     --clr-yellow: #ffcd4b;
     --crl-neon: #75dd75;
     --clr-pink:#f86f54;
+
+
+    --height: 1;
 }
 
 ::-webkit-scrollbar-corner {
@@ -12,7 +18,6 @@
 }
 
 /* SCROLL BAR */
-/* width */
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -20,8 +25,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: transparent;
-    
+    background: transparent;  
 }
 
 /* Handle */
@@ -39,11 +43,41 @@
 * {
     color: white;
 }
-.text--grey *{
+
+a{
+    text-decoration: none !important;
+}
+
+main {
+    overflow-x: hidden;
+}
+
+/*------------------------------------------*/
+
+
+/*------------------COLORS------------------*/
+
+/*TEXT color*/
+.text--grey *,.text--grey{
     color: grey;
 }
+.text--neon *,.text--neon {
+    color: var(--crl-neon) !important; 
+}
+
+
+/*BACKGROUND color*/
 .bg--black{
-    background-color: var(--clr-black-base);
+    background-color: var(--clr-black);
+}
+.bg--dark,.card--holder{
+    background-color: var(--clr-dark);
+}
+.bg--greyd,.card--body{
+    background-color: var(--clr-greyD);
+}
+.bg--grey{
+    background-color: var(--clr-grey);
 }
 .bg--pink{
     background-color: var(--clr-pink);
@@ -51,79 +85,42 @@
 .bg--neon{
     background-color: var(--crl-neon);
 }
-.text--neon *,.text--neon {
-    color: var(--crl-neon) !important; 
-}
 .bg--yellow{
     background-color: var(--clr-yellow);
 }
 
-/* NAVBAR */
-/* .float-nav {
-    width: 80% !important;
-    margin: 20px;
-    padding: 10px;
-    background-color: var(--clr-dark-base);
-
-    border: solid 5px transparent;
-    border-radius: 20px !important;
-    box-shadow: -8px -8px 8px rgba(255, 255, 255, 0.1),
-        15px 15px 15px rgba(0, 0, 0, 0.2),
-        inset -9px -9px 9px rgba(255, 255, 255, 0.1),
-        inset 15px 15px 15px rgba(0, 0, 0, 0.2);    
-} */
-
-
-/* -------------------------------------- */
-a{
-    text-decoration: none !important;
-}
-.text--middle{
-    font-size: 1.3rem;
-}
-.welcome-p{
+/* Background svg*/
+.svg-holder {
+    width: 100vw;
+    height: 100%;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    text-shadow: 1px 1px black;
-}
-.member-info {
-    padding: 25px 15px;
-    background-color: var(--clr-dark-base);
-    color: white;
-}
-
-.social {
     position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 40px;
-    opacity: 0;
-    transition: ease-in-out 0.3s;
-    background: rgba(255, 255, 255, 0.85);
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    top: 0px;
+    left: 0px;
+    z-index: -2;
 }
-.social a{
-    margin: 0 10px;
-    font-size: 25px;
-}
-.member:hover .social{
-    opacity: 0.8;
+svg {
+    animation: example 3s ease-in-out infinite alternate;
+    z-index: -2;
+    opacity: 0.1;
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
 }
 
-.member-img {
-    position: relative;
-    overflow: hidden; 
+@keyframes example {
+    0% {opacity: 0.1;}
+    20% { opacity: 0.1;}
+    80% {opacity: 0.5;}
+    100% {opacity: 0.5;} 
+    /* Hold the opacity for 2 seconds */
 }
 
 /* -------------------------------------- */
 
 
 
+/* ----------------NAV------------------- */
 .nav-logo {
     margin: 0 15px;
     font-size: 96px;
@@ -136,32 +133,20 @@ a{
 .c-1 {
     padding-top: -50px;
     margin: 0 6px;
-    border: 4px solid var(--clr-black-base);
+    border: 4px solid var(--clr-dark);
     border-radius: 50px;
     content: "";
     height: calc(var(--height) * 48px);
 }
 
-.button{
-    background-color: cadetblue !important;
-    border: 1px solid black !important;
-    z-index: 100 !important;
-    width: max-content !important;
-}
-.button:hover{
-    background-color: rgb(62, 147, 181) !important;
+/* -------------------------------------- */
 
-}
-/* CARDS */
-.card--holder {
-    color: white;
-    background-color: var(--clr-black-base);
-    
-}
 
+
+/* ---------------CARDS------------------ */
 
 .card-- {
-    background-color: var(--clr-dark-base);
+    background-color: var(--clr-greyD);
     position: relative;
     width: 100%;
     padding: 25px;
@@ -173,8 +158,16 @@ a{
     overflow: hidden;
 }
 
+.card--p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    text-shadow: 1px 1px black;
+}
+
 .card--small {
-    background-color: var(--clr-dark-base);
+    background-color: var(--clr-greyD);
     position: relative;
     border-radius: 20px !important;
     width: 100%;
@@ -194,7 +187,10 @@ a{
     aspect-ratio: 1/1;
 }
 
-/* CARDS END */
+.card--header{
+    border: 2px solid #131414;
+}
+
 
 .logo {
     font-size: 70px;
@@ -202,11 +198,16 @@ a{
     min-height: 110px;
     margin-left: auto;
     margin-right: auto;
-    border: 2px solid #fff; /* Background color of the circle */
+    border: 2px solid #fff;
     border-radius: 50%;
 }
 
-/* SHAPES */
+/* -------------------------------------- */
+
+
+
+/* ---------------SHAPES----------------- */
+
 .shape {
     position: absolute;
     content: "";
@@ -245,55 +246,26 @@ a{
     background-color: yellowgreen;
     clip-path: polygon(27% 7%, 99% 18%, 76% 76%, 28% 93%, 0 55%);
 }
-/* SHAPES END */
+/* -------------------------------------- */
 
-/* DIAGRAMM */
+
+
+/* --------------- ECT ------------------ */
+
 canvas {
     width: 100% !important;
     height: 100% !important;
 }
 
-.svg-holder {
-    width: 100vw;
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: -2;
+.button{
+    background-color: cadetblue !important;
+    border: 1px solid black !important;
+    z-index: 100 !important;
+    width: max-content !important;
 }
-svg {
-    animation: example 3s ease-in-out infinite alternate;
-    z-index: -2;
-    opacity: 0.1;
-    width: 100vw;
-    height: auto;
-    overflow: hidden;
-}
+.button:hover{
+    background-color: rgb(62, 147, 181) !important;
 
-@keyframes example {
-    /* from{opacity: 0.08;}
-    to{opacity: 0.55;} */
-
-    0% {
-        opacity: 0.1;
-    }
-    20% {
-        opacity: 0.1;
-    }
-    80% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 0.5;
-    } /* Hold the opacity for 2 seconds */
-}
-
-main {
-    overflow-x: hidden;
-}
-body {
-    background-color: var(--clr-dark-base) !important;
 }
 
 p {
@@ -301,34 +273,65 @@ p {
     font-size: larger;
 }
 
+/* -------------------------------------- */
 
 
-.footer-link {
-    text-decoration: none;
+
+/* ---------- MEMBER SETTINGS ----------- */
+
+.member-info {
+    padding: 25px 15px;
+    background-color: var(--clr-greyD);
+    color: white;
 }
 
-/* DASHBOARD */
+.social {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 40px;
+    opacity: 0;
+    transition: ease-in-out 0.3s;
+    background: rgba(255, 255, 255, 0.85);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.social a{
+    margin: 0 10px;
+    font-size: 25px;
+}
+.member:hover .social{
+    opacity: 0.8;
+}
+
+.member-img {
+    position: relative;
+    overflow: hidden; 
+}
+
+/* -------------------------------------- */
+
+
+
+/* ------------- DASHBOARD --------------- */
+
 .notification{
     padding: 10px;
- }
- .menu{
+}
+.menu{
     min-width: 300px;
- }
+}
 
- .server--list{
+.server--list{
     aspect-ratio: 1/1;
     height: 100%;
     margin-right: 15px;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; 
- }
-
-
-.card--header{
-    border: 2px solid #131414;
 }
 
-.card--body{
- background-color: #323233;
-}
+/* -------------------------------------- */
+

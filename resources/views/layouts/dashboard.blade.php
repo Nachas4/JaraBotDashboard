@@ -38,11 +38,11 @@
                         JaraBots
                     </a>
 
-                    <div class="card--holder p-3 d-flex align-items-center justify-content-between w-100 rounded mt-4 mb-2"
+                    <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
                         style="height:80px;">
                         <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle h-100">
-                        <div class="d-flex flex-column justify-content-between text--grey">
-                            <span class="fs-5 text-white" style="height: min-content;">Klozon</span>
+                        <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                            <span class="fs-5 text-white" style="height: min-content; margin-bottom:-10px;">Klozon</span>
                             <span class="fs-6" style="height: min-content;font-size:80%;">csiszár</span>
                         </div>
                         <i class="text--neon ms-auto me-1 fa-solid fa-arrow-right-from-bracket"></i>
