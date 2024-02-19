@@ -26,11 +26,11 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body style="overflow: hidden;">
-    <div class="d-flex" style="height:100vh;">
+<body style="overflow: hidden; background-color: #161619 !important;">
+    <div class="d-flex" style="height:100vh; max-width:100vw">
         <div class="menu h-100 p-3">
             <div class="card-- p-4 h-100 " style="overflow: scroll;">
-                <div class="d-flex flex-column justify-content-between h-100" >
+                <div class="d-flex flex-column justify-content-between h-100">
                     <a class="text-white nav-logo" href="{{ url('/') }}" style="font-size: 30px;"
                         style="height:10%;">
                         <img src="{{ asset('log6.png') }}" class="img-fluid me-1"
@@ -38,9 +38,10 @@
                         JaraBots
                     </a>
 
-                    <div class="card--holder p-3 d-flex align-items-center justify-content-between w-100 rounded mt-4 mb-2" style="height:80px;">
-                        <img src="{{ asset('th2.jpg') }}" class="img-fluid me-2 rounded-circle h-100">
-                        <div class="d-flex flex-column justify-content-between text--black">
+                    <div class="card--holder p-3 d-flex align-items-center justify-content-between w-100 rounded mt-4 mb-2"
+                        style="height:80px;">
+                        <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle h-100">
+                        <div class="d-flex flex-column justify-content-between text--grey">
                             <span class="fs-5 text-white" style="height: min-content;">Klozon</span>
                             <span class="fs-6" style="height: min-content;font-size:80%;">csiszár</span>
                         </div>
@@ -49,7 +50,7 @@
                     </div>
 
 
-                    <div class="d-flex flex-column justify-content-around text--black w-100 rounded mt-2 mb-2"
+                    <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mt-2 mb-2"
                         style="height:160px;">
                         <div class="fs-5 ms-4">
                             <i class="fa-solid fa-house me-2" style="color:rgb(136, 224, 227);"></i><span
@@ -101,14 +102,131 @@
             </div>
         </div>
 
+        <div class="d-flex flex-column p-3 flex-fill">
 
-        <main class="p-5 w-100 h-100">
-            @yield('content')
+            {{-- <div class="card-- d-flex justify-content-start p-3 w-100" style="width: 100%;height: 150px; gap:15px;overflow:scroll; ">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list rounded">
+
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
+                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
 
 
-        </main>
+    
+            </div> --}}
+            <div class="card-- p-3 mb-4" style="width: 100%;height: 150px;">
+                <div class="d-flex justify-content-start h-100 w-100" style="overflow-y: hidden;  overflow-x: auto; " id="servers">
+
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
+                        draggable="false">
+
+                </div>
+
+
+            </div>
+            <main class="w-100 h-100">
+                @yield('content')
+                <div class="card-- d-flex flex-column w-100 h-100">
+                    <div class="card--header text-white p-2 mb-3">
+                        <div class="row">
+                            <div class="col-3 text-decoration-underline"><b>Some shit</b></div>
+                            <div class="col-3">fuck this</div>
+                            <div class="col-3">CSS -_-</div>
+                            <div class="col-3">sdf</div>
+                        </div>
+                    </div>
+                    <div class="card--body p-3 h-100 text-white rounded">
+                        <h4 class="card-title">Title</h4>
+                        <p class="card-text">Text</p>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
     </div>
 
 </body>
 
 </html>
+<script>
+    //horizontal scrolling with mouse wheel
+    let servers = document.getElementById('servers');
+    servers.addEventListener("wheel", function(e) {
+        if (e.wheelDelta > 0) {
+            console.log(e);
+            this.scrollLeft -= 30;
+        }else{
+            this.scrollLeft += 30;
+        }
+    },{passive:true});
+</script>

@@ -15,11 +15,13 @@
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
     background: transparent;
+    
 }
 
 /* Handle */
@@ -37,7 +39,7 @@
 * {
     color: white;
 }
-.text--black *{
+.text--grey *{
     color: grey;
 }
 .bg--black{
@@ -312,3 +314,21 @@ p {
  .menu{
     min-width: 300px;
  }
+
+ .server--list{
+    aspect-ratio: 1/1;
+    height: 100%;
+    margin-right: 15px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; 
+ }
+
+
+.card--header{
+    border: 2px solid #131414;
+}
+
+.card--body{
+ background-color: #323233;
+}
