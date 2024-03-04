@@ -4,17 +4,16 @@
     --clr-black: #161619;
     --clr-dark: #131414;
     --clr-greyD: #212529;
-    --clr-grey: #323233; 
+    --clr-grey: #323233;
     --clr-yellow: #ffcd4b;
     --crl-neon: #75dd75;
-    --clr-pink:#f86f54;
-
+    --clr-pink: #f86f54;
 
     --height: 1;
 }
 
 ::-webkit-scrollbar-corner {
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
 }
 
 /* SCROLL BAR */
@@ -25,7 +24,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: transparent;  
+    background: transparent;
 }
 
 /* Handle */
@@ -44,7 +43,7 @@
     color: white;
 }
 
-a{
+a {
     text-decoration: none !important;
 }
 
@@ -54,38 +53,40 @@ main {
 
 /*------------------------------------------*/
 
-
 /*------------------COLORS------------------*/
 
 /*TEXT color*/
-.text--grey *,.text--grey{
+.text--grey *,
+.text--grey {
     color: grey;
 }
-.text--neon *,.text--neon {
-    color: var(--crl-neon) !important; 
+.text--neon *,
+.text--neon {
+    color: var(--crl-neon) !important;
 }
-
 
 /*BACKGROUND color*/
-.bg--black{
+.bg--black,option {
     background-color: var(--clr-black);
 }
-.bg--dark,.card--holder{
+.bg--dark,
+.card--holder {
     background-color: var(--clr-dark);
 }
-.bg--greyd,.card--body{
+.bg--greyd,
+.card--body {
     background-color: var(--clr-greyD);
 }
-.bg--grey{
+.bg--grey {
     background-color: var(--clr-grey);
 }
-.bg--pink{
+.bg--pink {
     background-color: var(--clr-pink);
 }
-.bg--neon{
+.bg--neon {
     background-color: var(--crl-neon);
 }
-.bg--yellow{
+.bg--yellow {
     background-color: var(--clr-yellow);
 }
 
@@ -109,16 +110,22 @@ svg {
 }
 
 @keyframes example {
-    0% {opacity: 0.1;}
-    20% { opacity: 0.1;}
-    80% {opacity: 0.5;}
-    100% {opacity: 0.5;} 
+    0% {
+        opacity: 0.1;
+    }
+    20% {
+        opacity: 0.1;
+    }
+    80% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0.5;
+    }
     /* Hold the opacity for 2 seconds */
 }
 
 /* -------------------------------------- */
-
-
 
 /* ----------------NAV------------------- */
 .nav-logo {
@@ -141,8 +148,6 @@ svg {
 
 /* -------------------------------------- */
 
-
-
 /* ---------------CARDS------------------ */
 
 .card-- {
@@ -158,7 +163,7 @@ svg {
     overflow: hidden;
 }
 
-.card--p{
+.card--p {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 6;
@@ -187,10 +192,9 @@ svg {
     aspect-ratio: 1/1;
 }
 
-.card--header{
+.card--header {
     border: 2px solid #131414;
 }
-
 
 .logo {
     font-size: 70px;
@@ -203,8 +207,6 @@ svg {
 }
 
 /* -------------------------------------- */
-
-
 
 /* ---------------SHAPES----------------- */
 
@@ -248,8 +250,6 @@ svg {
 }
 /* -------------------------------------- */
 
-
-
 /* --------------- ECT ------------------ */
 
 canvas {
@@ -257,15 +257,14 @@ canvas {
     height: 100% !important;
 }
 
-.button{
+.button {
     background-color: cadetblue !important;
     border: 1px solid black !important;
     z-index: 100 !important;
     width: max-content !important;
 }
-.button:hover{
+.button:hover {
     background-color: rgb(62, 147, 181) !important;
-
 }
 
 p {
@@ -274,8 +273,6 @@ p {
 }
 
 /* -------------------------------------- */
-
-
 
 /* ---------- MEMBER SETTINGS ----------- */
 
@@ -298,40 +295,60 @@ p {
     justify-content: center;
     align-items: center;
 }
-.social a{
+.social a {
     margin: 0 10px;
     font-size: 25px;
 }
-.member:hover .social{
+.member:hover .social {
     opacity: 0.8;
 }
 
 .member-img {
     position: relative;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 /* -------------------------------------- */
 
 
-
 /* ------------- DASHBOARD --------------- */
 
-.notification{
+.notification {
     padding: 10px;
 }
-.menu{
+.menu-closed {
     min-width: 300px;
+    transition: transform 0.5s ease; /* Add transition for smooth sliding effect */
 }
 
-.server--list{
+.menu-open {
+    transform: translateX(0%) !important; /* Slide in from left */
+}
+
+.menu-mini {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    left: -5px;
+    top: 30px;
+    z-index: 5;
+    width: 60px;
+    border: 2px solid white;
+    transition: transform 0.1s ease 0.1s; /* Add transition for smooth sliding effect */
+}
+
+.menu-mini-closed {
+    transform: translateX(50px) !important; /* Slide in from left */
+}
+
+.server--list {
     aspect-ratio: 1/1;
     height: 100%;
     margin-right: 15px;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; 
+    user-select: none;
+    z-index: 2;
 }
 
 /* -------------------------------------- */
-
