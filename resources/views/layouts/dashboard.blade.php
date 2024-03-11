@@ -37,7 +37,7 @@
         {{-- MENU  on Left --}}
         <div class="menu-closed h-100 p-3" style="z-index:10;" id="menu">
             <div class="card-- p-4 h-100 overflow-auto">
-                <div class="d-flex flex-column justify-content-between h-100">
+                <div class="d-flex flex-column justify-content-start h-100">
 
                     {{-- Menu Close Lable --}}
                     <i class="fa-solid fa-minus fs-5 p-2 d-lg-none position-absolute"
@@ -124,11 +124,18 @@
 
 
 
+
+
+                    <span id="invisible-gap" class="d-none">
+                        ‎
+                    </span>
+
+
                     {{-- Log Out --}}
-                    <div class="text--neon w-100 text-center mt-auto">
+                    {{-- <div class="text--neon w-100 text-center mt-auto">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         <a href="" class="btn btn-link">LogOut</a>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -168,7 +175,7 @@
             </div> --}}
 
             {{-- SERVERS SLIDER --}}
-            <div class="card-- p-3 mb-4 w-100" style="height: 150px;z-index:2;">
+            <div class="card-- p-3 mb-4 w-100" style="height: 140px;z-index:2;">
                 <div class="d-flex justify-content-start h-100 w-100 overflow-auto" style="overflow-y: hidden;"
                     id="servers">
 
@@ -245,6 +252,12 @@
     @media screen and (max-width: 576px) {
         .menu-open {
             min-width: 100vw;
+        }
+    }
+
+    @media screen and (max-height: 755px) {
+        #invisible-gap {
+            display: block !important;
         }
     }
 </style>

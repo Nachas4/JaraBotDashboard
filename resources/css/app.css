@@ -8,6 +8,7 @@
     --clr-yellow: #ffcd4b;
     --crl-neon: #75dd75;
     --clr-pink: #f86f54;
+    --clr-cyan: #88e0e3;
 
     --height: 1;
 }
@@ -64,6 +65,10 @@ main {
 .text--neon {
     color: var(--crl-neon) !important;
 }
+.text--cyan *,
+.text--cyan {
+    color: var(--clr-cyan) !important;
+}
 
 /*BACKGROUND color*/
 .bg--black,option {
@@ -71,7 +76,7 @@ main {
 }
 .bg--dark,
 .card--holder {
-    background-color: var(--clr-dark);
+    background-color: var(--clr-dark) !important;
 }
 .bg--greyd,
 .card--body {
