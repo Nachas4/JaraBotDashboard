@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\DcGuild;
+use App\Models\Prefix;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

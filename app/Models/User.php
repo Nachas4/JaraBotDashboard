@@ -16,11 +16,13 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
 
-    public function owned_guilds(): HasMany {
+    public function owned_guilds(): HasMany
+    {
         return $this->hasMany(DcGuild::class, 'owner_id');
     }
 
-    public function access_token(): HasOne {
+    public function access_token(): HasOne
+    {
         return $this->hasOne(AccessToken::class);
     }
 
@@ -29,7 +31,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [        
+    protected $fillable = [
         'user_id',
         'username',
         'global_name',

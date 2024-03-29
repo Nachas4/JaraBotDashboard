@@ -10,15 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('auto_messages', function (Blueprint $table) {
             $table->id();
 
-            $table->text('user_id')->unique();
-            $table->string('username')->unique();
-            $table->string('global_name');
-            $table->string('avatar');
-            $table->string('banner_color');
-            $table->boolean('mfa_enabled');
+            $table->foreignId('dc_guild_id')->constrained()->onDelete('cascade');
+            $table->tinyText('message');
+            $table->dateTime('time');
 
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('auto_messages');
     }
 };

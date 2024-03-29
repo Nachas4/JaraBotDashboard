@@ -10,15 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        //tinyText: max 255 chars
+        Schema::create('auto_responses', function (Blueprint $table) {
             $table->id();
 
-            $table->text('user_id')->unique();
-            $table->string('username')->unique();
-            $table->string('global_name');
-            $table->string('avatar');
-            $table->string('banner_color');
-            $table->boolean('mfa_enabled');
+            $table->foreignId('dc_guild_id')->constrained()->onDelete('cascade');
+            $table->tinyText('respond_to');
+            $table->tinyText('respond_with');
+            $table->boolean('on_contain');
 
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('auto_responses');
     }
 };
