@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/docs', function () {
-    return view('documentation');
+    return view('docs/general');
 });
 
 Auth::routes();

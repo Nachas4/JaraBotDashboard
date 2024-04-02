@@ -3,3 +3,7 @@
     border-radius: 7px;
     padding: 3px;
 }
+
+.docs-card:hover > h3 {
+    color: rgb(136, 224, 227);
+}

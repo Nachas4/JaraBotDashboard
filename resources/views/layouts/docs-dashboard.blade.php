@@ -126,7 +126,9 @@
                 <div class="card-- d-flex flex-column w-100 h-100">
 
                     {{-- CONTENT --}}
-                    @yield('content')
+                    <div>
+                        @yield('general-doc')
+                    </div>
 
                 </div>
             </main>
