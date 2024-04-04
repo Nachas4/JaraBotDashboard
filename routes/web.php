@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -17,8 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('servers');
+    return view('welcome');
 });
+
+Route::get('/docs/module/{module}', function (string $module) {
+    return view('docs.'.$module, ['module' => $module]);
+})->name('docs');
 
 Auth::routes();
 
