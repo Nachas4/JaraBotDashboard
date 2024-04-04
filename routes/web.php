@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome'); //Originally 'welcome'
+    return view('welcome');
 });
 
 Route::get('/docs/module/{module}', function (string $module) {
