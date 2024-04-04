@@ -21,8 +21,7 @@
     <!-- Scripts -->
     {{-- Counter animation --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/odometer.min.js"></script>
-    {{-- Charts --}}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -69,46 +68,98 @@
 
 
                     {{-- Navigation --}}
-                    <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mt-2 mb-2"
+                    <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mb-2"
                         style="height:160px;">
+                        {{-- Modules --}}
                         <div class="fs-5 ms-4">
-                            <a href="">
-                                <i class="fa-solid fa-house me-2" style="color:rgb(136, 224, 227);"></i><span
-                                    style="color:rgb(136, 224, 227);">General</span>
+                            <a href="{{ route('docs', ['module' => 'general']) }}"
+                                @if ($module == 'general') class="text--teal" @endif>
+                                <i class="fa-solid fa-house me-2"></i><span>General</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="">
+                            <a href="{{ route('docs', ['module' => 'moderation']) }}"
+                                @if ($module == 'moderation') class="text--teal" @endif>
                                 <i class="fa-solid fa-user-check me-2"></i><span>Moderation</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="">
+                            <a href="{{ route('docs', ['module' => 'fun']) }}"
+                                @if ($module == 'fun') class="text--teal" @endif>
                                 <i class="fa-solid fa-face-laugh-wink me-2"></i><span>Fun</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="">
+                            <a href="{{ route('docs', ['module' => 'minigame']) }}"
+                                @if ($module == 'minigame') class="text--teal" @endif>
                                 <i class="fa-solid fa-gamepad me-2"></i><span>Duel Minigame</span>
                             </a>
                         </div>
                     </div>
-                    <hr>
 
-                    <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mt-2 mb-2"
-                        style="height:160px;">
-                        <div class="fs-5 ms-5">
-                            <span>Prefix</span>
-                        </div>
-                        <div class="fs-5 ms-5">
-                            <span>Welcome Message</span>
-                        </div>
-                        <div class="fs-5 ms-5">
-                            <span>Autorole</span>
-                        </div>
-                        <div class="fs-5 ms-5">
-                            <span>Automessage</span>
-                        </div>
+                    <hr class="my-1">
+
+                    {{-- Commands --}}
+                    <div class="d-flex flex-column justify-content-around gap-2 text--grey w-100 rounded mt-2 mb-2">
+                        @if ($module == 'general')
+                            <div class="fs-5 ms-5">
+                                <span>Prefix</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Welcome Message</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Autorole</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Automessage</span>
+                            </div>
+                        @elseif ($module == 'moderation')
+                            <div class="fs-5 ms-5">
+                                <span>Mod Message Channels</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Mod Roles</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Moderators</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Server Settings</span>
+                            </div>
+
+                            <hr class="m-0 ms-3" style="width: 90%">
+
+                            <div class="fs-5 ms-5">
+                                <span>Kick</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Ban</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Timeout</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Quarantine</span>
+                            </div>
+                        @elseif ($module == 'fun')
+                            <div class="fs-5 ms-5">
+                                <span>Use Pickup Lines</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Get Quotes</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Pickup Lines</span>
+                            </div>
+                            <div class="fs-5 ms-5">
+                                <span>Quotes</span>
+                            </div>
+                        @elseif ($module == 'minigame')
+                            <div class="fs-5 ms-5">
+                                <span>TBD</span>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="mt-auto"></div>
@@ -119,20 +170,15 @@
 
 
         {{-- Right  Side --}}
-        <div class="d-flex flex-column p-3 flex-fill">
+        <main class="h-100 p-3">
+            <div class="card-- h-100 overflow-scroll">
 
-            {{-- SERVERS SLIDER --}}
-            <main class="w-100 h-100">
-                <div class="card-- d-flex flex-column w-100 h-100">
+                {{-- CONTENT --}}
+                @yield('content')
 
-                    {{-- CONTENT --}}
-                    <div>
-                        @yield('general-doc')
-                    </div>
+            </div>
+        </main>
 
-                </div>
-            </main>
-        </div>
     </div>
 
 </body>

@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('servers'); //Originally 'welcome'
+    return view('welcome'); //Originally 'welcome'
 });
 
-Route::get('/docs', function () {
-    return view('docs/general');
-});
+Route::get('/docs/module/{module}', function (string $module) {
+    return view('docs.'.$module, ['module' => $module]);
+})->name('docs');
 
 Auth::routes();
 

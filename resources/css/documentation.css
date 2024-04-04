@@ -4,6 +4,15 @@
     padding: 3px;
 }
 
-.docs-card:hover > h3 {
-    color: rgb(136, 224, 227);
+.docs-card:hover > h3,
+.docs-card:hover i {
+    color: var(--clr-teal);
+}
+
+.card-info:hover i {
+    color: var(--bs-info)
+}
+
+.module-selector:hover {
+    color: var(--clr-teal) !important;
 }
