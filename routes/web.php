@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard.general', ['server' => "asdasdasd"]);
 });
 
 Route::get('/docs/module/{module}', function (string $module) {
@@ -34,6 +35,15 @@ Auth::routes();
 
 Route::get('/login/discord', [DiscordController::class, 'RedirectToDiscord'])->name('discord.login');
 Route::get('/login/discord/callback', [DiscordController::class, 'OAuthCallback']);
+
+Route::get('/welcome', function () {return view('welcome');})->name( 'welcome' );
+
+Route::get('/dashboard/general/{server}', [DashboardController::class, 'General'])->name('dashboard.general');
+Route::get('/dashboard/fun/{server}', [DashboardController::class, 'Fun'])->name('dashboard.fun');
+Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'Moderation'])->name('dashboard.moderation');
+Route::get('/dashboard/minigame/{server}', [DashboardController::class, 'MiniGame'])->name('dashboard.minigame');
+
+Route::post('/save', [DashboardController::class, 'saveAutoMsg'])->name('dashboard.savegeneral');
 
 
 

@@ -73,7 +73,7 @@
                         style="height:160px;">
                         <div class="fs-5 ms-4">
                             <a href="">
-                                <i class="fa-solid fa-house me-2" style="color:rgb(136, 224, 227);"></i><span
+                                <i class="fa-solid fa-list me-2" style="color:rgb(136, 224, 227);"></i><span
                                     style="color:rgb(136, 224, 227);">Dashboard</span>
                             </a>
                         </div>

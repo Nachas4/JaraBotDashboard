@@ -105,7 +105,7 @@ main {
     left: 0px;
     z-index: -2;
 }
-svg {
+.svg-holder > img {
     animation: example 3s ease-in-out infinite alternate;
     z-index: -2;
     opacity: 0.1;
