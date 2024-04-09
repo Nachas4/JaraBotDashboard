@@ -1,0 +1,18 @@
+.usage-example {
+    background-color: #2b2d31;
+    border-radius: 7px;
+    padding: 3px;
+}
+
+.docs-card:hover > h3,
+.docs-card:hover i {
+    color: var(--clr-teal);
+}
+
+.card-info:hover i {
+    color: var(--bs-info)
+}
+
+.module-selector:hover {
+    color: var(--clr-teal) !important;
+}

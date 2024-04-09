@@ -8,6 +8,7 @@
     --clr-yellow: #ffcd4b;
     --crl-neon: #75dd75;
     --clr-pink: #f86f54;
+    --clr-teal: #88e0e0;
 
     --height: 1;
 }
@@ -63,6 +64,10 @@ main {
 .text--neon *,
 .text--neon {
     color: var(--crl-neon) !important;
+}
+.text--teal *,
+.text--teal {
+    color: var(--clr-teal);
 }
 
 /*BACKGROUND color*/
@@ -250,7 +255,7 @@ svg {
 }
 /* -------------------------------------- */
 
-/* --------------- ECT ------------------ */
+/* --------------- ETC ------------------ */
 
 canvas {
     width: 100% !important;

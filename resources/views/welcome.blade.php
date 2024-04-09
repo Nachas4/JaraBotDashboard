@@ -61,7 +61,7 @@
                                 Quidem,
                                 ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore
                                 vel?</p>
-                            <a href="#" class="btn btn-primary button mt-auto">Learn More</a>
+                            <a href="{{ route('docs', ['module' => 'general']) }}" class="btn btn-primary button mt-auto">Learn More</a>
                         </div>
                     </div>
                 </div>
