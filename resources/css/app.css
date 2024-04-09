@@ -51,6 +51,10 @@ a {
 main {
     overflow-x: hidden;
 }
+.fa-solid,
+.fa-regular {
+    width: 23px !important;
+}
 
 /*------------------------------------------*/
 
@@ -60,6 +64,10 @@ main {
 .text--grey *,
 .text--grey {
     color: grey;
+}
+.text--black,
+.text--black * {
+    color: var(--clr-black);
 }
 .text--neon *,
 .text--neon {
@@ -71,7 +79,8 @@ main {
 }
 
 /*BACKGROUND color*/
-.bg--black,option {
+.bg--black,
+option {
     background-color: var(--clr-black);
 }
 .bg--dark,
@@ -93,6 +102,13 @@ main {
 }
 .bg--yellow {
     background-color: var(--clr-yellow);
+}
+.bg--teal {
+    background-color: var(--clr-teal);
+}
+
+.border-active {
+    border: white solid 4px !important;
 }
 
 /* Background svg*/
@@ -315,7 +331,6 @@ p {
 
 /* -------------------------------------- */
 
-
 /* ------------- DASHBOARD --------------- */
 
 .notification {
@@ -357,3 +372,50 @@ p {
 }
 
 /* -------------------------------------- */
+
+/* ------------MULTI SELECT-------------- */
+
+.mult-select-tag .body{
+    /*it was not responsive...*/
+    min-width: 0px !important;
+}
+
+/* fixing the design (OCD)  */
+.mult-select-tag .btn-container {
+    padding: 0 !important;
+}
+
+.mult-select-tag .btn-container button {
+    width: 35px !important;
+    height: 35px !important;
+}
+.mult-select-tag .btn-container svg {
+    stroke: black;
+    width: 18px !important;
+    margin-top: -10px !important;
+    height: 30px !important;
+}
+
+/* design formating */
+.input-container .item-container {
+    border-radius: 5px !important;
+    border: 2px solid red !important;
+    background-color: #323232 !important;
+    color: white !important;
+}
+
+.input-container .item-container .item-label {
+    color: white !important;
+}
+
+.no--search .mult-select-tag input {
+    display: none !important;
+}
+
+.item-close-svg {
+    stroke: red;
+}
+
+.mult-select-tag li {
+    color: black;
+}

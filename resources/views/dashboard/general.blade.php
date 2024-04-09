@@ -103,14 +103,8 @@
 
 
     <script>
+        //auto Post in the background with Ajax 
         let inputs = document.querySelectorAll('.input');
-        console.log(inputs);
-
-        inputs.forEach(element => {
-            console.log(element);
-        });
-
-
         $(document).ready(function() {
 
             inputs.forEach(element => {
@@ -123,7 +117,9 @@
                     $.ajax({
                         url: '{{route("dashboard.savegeneral")}}',
                         type: 'POST',
+                        //#general -> form ID
                         data: $("#general").serialize(),
+                        //optional
                         success: function(response) {
                             console.log(response);
                         }
