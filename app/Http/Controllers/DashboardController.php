@@ -27,6 +27,7 @@ class DashboardController extends Controller
         return view('dashboard.moderation', ['server' => $server, 'page' => 'moderation']);
     }
 
+    //ajax auto save
     public function saveAutoMsg(Request $request)
     {
         $data = (object)$request->all();
@@ -38,4 +39,11 @@ class DashboardController extends Controller
             return response()->json(["success" => $data->wMsg]);
         }
     }
+
+    //jquery dynamic page loading
+    public function Docs($subject)
+    {
+        return view('docs.'.$subject);
+    }
+
 }

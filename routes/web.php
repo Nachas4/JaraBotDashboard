@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Middleware\Authenticate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    //return view('template',['module'=>'general']);
     return redirect()->route('dashboard.general', ['server' => "asdasdasd"]);
 });
 
@@ -43,8 +45,11 @@ Route::get('/dashboard/fun/{server}', [DashboardController::class, 'Fun'])->name
 Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'Moderation'])->name('dashboard.moderation');
 Route::get('/dashboard/minigame/{server}', [DashboardController::class, 'MiniGame'])->name('dashboard.minigame');
 
+//Ajax POST template
 Route::post('/save', [DashboardController::class, 'saveAutoMsg'])->name('dashboard.savegeneral');
 
+//jQuery dynamic page loading
+Route::get('/dashboard/docs/{subject}', [DashboardController::class, 'Docs'])->name('dashboard.docs');
 
 
 /** Only for logged in users **/

@@ -21,7 +21,8 @@
     <!-- Scripts -->
     {{-- Counter animation --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/odometer.min.js"></script>
-
+    {{-- Ajax jQuery --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -170,8 +171,8 @@
 
 
         {{-- Right  Side --}}
-        <main class="h-100 p-3">
-            <div class="card-- h-100 overflow-scroll">
+        <main class="h-100 w-100 p-3">
+            <div class="card-- h-100 w-100 overflow-scroll">
 
                 {{-- CONTENT --}}
                 @yield('content')

@@ -1,6 +1,3 @@
-@extends('layouts.docs-dashboard')
-
-@section('content')
     <div class="text-white p-2 mb-3">
         <div class="row">
             <div class="col-12 text-center text-light fs-3"><i class="fa-solid fa-user-check me-2"></i><b>Moderation
@@ -187,4 +184,3 @@
         </div>
 
     </div>
-@endsection
