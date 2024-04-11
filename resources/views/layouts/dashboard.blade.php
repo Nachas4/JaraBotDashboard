@@ -23,28 +23,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/odometer.min.js"></script>
     {{-- Charts --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    {{-- MUlti Select --}}
+    {{-- https://github.com/habibmhamadi/multi-select-tag --}}
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+
+    {{-- Ajax jQuery --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 
 <body class="bg--black overflow-hidden">
     <div class="d-flex vh-100">
 
         {{-- Sidebar Lable --}}
-        <div class="d-flex justify-content-end bg--black rounded menu-mini d-lg-none" id="menu-mini" onclick="toggle()">
+        <div class="d-flex justify-content-end bg--black rounded menu-mini d-lg-none pe-2" id="menu-mini"
+            onclick="toggle()">
             <i class="fa-solid fa-bars fs-4 p-2"></i>
         </div>
 
         {{-- MENU  on Left --}}
         <div class="menu-closed h-100 p-3" style="z-index:10;" id="menu">
             <div class="card-- p-4 h-100 overflow-auto">
-                <div class="d-flex flex-column justify-content-between h-100">
+                <div class="d-flex flex-column justify-content-start h-100">
 
                     {{-- Menu Close Lable --}}
-                    <i class="fa-solid fa-minus fs-5 p-2 d-lg-none position-absolute"
-                        style="right:10px; top:20px;cursor: pointer;" onclick="toggle()"></i>
+                    <i class="fa-solid fa-xmark fs-5 p-2 d-lg-none position-absolute"
+                        style="right:15px; top:10px;cursor: pointer;" onclick="toggle()"></i>
 
                     {{-- Brand --}}
-                    <a class="text-white nav-logo" href="{{ url('/') }}" style="font-size: 30px;">
+                    <a class="text-white nav-logo" href="{{ route('welcome') }}" style="font-size: 30px;">
                         <img src="{{ asset('log6.png') }}" class="img-fluid me-1"
                             style="height:60px;margin-left:-10px;">
                         JaraBots
@@ -72,30 +84,60 @@
                     <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mt-2 mb-2"
                         style="height:160px;">
                         <div class="fs-5 ms-4">
-                            <a href="">
-                                <i class="fa-solid fa-list me-2" style="color:rgb(136, 224, 227);"></i><span
+                            <a>
+                                <i class="fa-solid fa-house me-2" style="color:rgb(136, 224, 227);"></i><span
                                     style="color:rgb(136, 224, 227);">Dashboard</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="">
-                                <i class="fa-solid fa-robot me-2"></i><span>Bots</span>
+                            <a href="{{ route('docs', '') }}">
+                                <i class="fa-solid fa-robot me-2"></i><span>Documentation</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="">
+                            <a>
                                 <i class="fa-regular fa-user me-2"></i><span>Your Profile</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="">
+                            <a>
                                 <i class="fa-solid fa-gear me-2"></i><span>Settings</span>
                             </a>
                         </div>
                     </div>
                     <hr>
 
-                    {{-- Notifications --}}
+
+                    <div class="text--black">
+                        {{-- Modules --}}
+                        <a href="{{ route('dashboard.general', $server) }}">
+                            <div
+                                class="notification bg--teal rounded-3 fs-5 mb-2 @if ($page == 'general') border-active fw-bold @endif">
+                                <i class="fa-solid fa-list me-2"></i><span>General</span>
+                            </div>
+                        </a>
+                        <a href="{{ route('dashboard.moderation', $server) }}">
+                            <div
+                                class="notification bg--pink rounded-3 fs-5 mb-2 @if ($page == 'moderation') border-active fw-bold @endif">
+                                <i class="fa-solid fa-user-check me-2 "></i><span>Moderation</span>
+                            </div>
+                        </a>
+                        <a href="{{ route('dashboard.fun', $server) }}">
+                            <div
+                                class="notification bg--neon rounded-3 fs-5 mb-2 @if ($page == 'fun') border-active fw-bold @endif">
+                                <i class="fa-solid fa-face-laugh-wink me-2"></i><span>Fun</span>
+                            </div>
+                        </a>
+                        <a href="{{ route('dashboard.minigame', $server) }}">
+                            <div
+                                class="notification bg--yellow rounded-3 fs-5 mb-2 @if ($page == 'minigame') border-active fw-bold @endif">
+                                <i class="fa-solid fa-gamepad me-2"></i><span>Duel Minigame</span>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    {{-- Notifications
                     <div class="d-flex mt-2 mb-3 w-100 justify-content-between ">
                         <span>Notifications</span>
                         <a class="text-secondary">View All ></a>
@@ -120,15 +162,7 @@
                             <span class="text-black fs-6">XYZ server</span>
                             <span class="text-muted fs-6">01.23 16:00</span>
                         </div>
-                    </div>
-
-
-
-                    {{-- Log Out --}}
-                    <div class="text--neon w-100 text-center mt-auto">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        <a href="" class="btn btn-link">LogOut</a>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -168,7 +202,7 @@
             </div> --}}
 
             {{-- SERVERS SLIDER --}}
-            <div class="card-- p-3 mb-4 w-100" style="height: 150px;z-index:2;">
+            <div class="card-- p-3 mb-4 w-100" style="height: 140px;z-index:2;">
                 <div class="d-flex justify-content-start h-100 w-100 overflow-auto" style="overflow-y: hidden;"
                     id="servers">
 
@@ -205,7 +239,7 @@
                 </div>
             </div>
             <main class="w-100 h-100">
-                <div class="card-- d-flex flex-column w-100 h-100">
+                <div class="card-- d-flex flex-column w-100 h-100 pe-0">
                     {{-- CONTENT --}}
                     @yield('content')
 
@@ -245,6 +279,12 @@
     @media screen and (max-width: 576px) {
         .menu-open {
             min-width: 100vw;
+        }
+    }
+
+    @media screen and (max-height: 755px) {
+        #invisible-gap {
+            display: block !important;
         }
     }
 </style>

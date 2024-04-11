@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscordController;
+use App\Http\Controllers\DocsController;
 use App\Http\Middleware\Authenticate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,35 +19,48 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    //return view('template',['module'=>'general']);
     return redirect()->route('dashboard.general', ['server' => "asdasdasd"]);
 });
 
-Route::get('/docs/module/{module}', function (string $module) {
-    return view('docs.'.$module, ['module' => $module]);
-})->name('docs');
-
 Auth::routes();
+
+/*
+|--------------------------------------------------------------------------
+| Documentation Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/docs', function () {
+    return view('layouts.docs-dashboard');
+});
+
+//jQuery dynamic page loading used here
+Route::get('/docs/{module}', [DocsController::class, 'load_module'])->name('docs');
 
 
 /*
-    |--------------------------------------------------------------------------
-    | Discord OAuth2 Login Routes
-    |--------------------------------------------------------------------------
-    */
+|--------------------------------------------------------------------------
+| Dashboard Routes (only for logged in users)
+|--------------------------------------------------------------------------
+*/
+Route::get('/dashboard/general/{server}', [DashboardController::class, 'general'])->name('dashboard.general');
+Route::get('/dashboard/fun/{server}', [DashboardController::class, 'fun'])->name('dashboard.fun');
+Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'moderation'])->name('dashboard.moderation');
+Route::get('/dashboard/minigame/{server}', [DashboardController::class, 'miniGame'])->name('dashboard.minigame');
 
+//Ajax POST template
+Route::post('/save', [DashboardController::class, 'saveAutoMsg'])->name('dashboard.savegeneral');
+
+/*
+|--------------------------------------------------------------------------
+| Discord OAuth2 Login Routes
+|--------------------------------------------------------------------------
+*/
 Route::get('/login/discord', [DiscordController::class, 'RedirectToDiscord'])->name('discord.login');
 Route::get('/login/discord/callback', [DiscordController::class, 'OAuthCallback']);
 
+
 Route::get('/welcome', function () {return view('welcome');})->name( 'welcome' );
-
-Route::get('/dashboard/general/{server}', [DashboardController::class, 'General'])->name('dashboard.general');
-Route::get('/dashboard/fun/{server}', [DashboardController::class, 'Fun'])->name('dashboard.fun');
-Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'Moderation'])->name('dashboard.moderation');
-Route::get('/dashboard/minigame/{server}', [DashboardController::class, 'MiniGame'])->name('dashboard.minigame');
-
-Route::post('/save', [DashboardController::class, 'saveAutoMsg'])->name('dashboard.savegeneral');
-
-
 
 /** Only for logged in users **/
 Route::middleware(Authenticate::class)->group(function () {

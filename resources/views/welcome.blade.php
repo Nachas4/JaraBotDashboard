@@ -48,7 +48,7 @@
                         <div class="shape"></div>
                         <div class="d-flex flex-column h-100 align-items-center" style="position: relative">
                             <div class="mt-1 mb-2 logo d-flex align-items-center justify-content-center ">
-                                <i class="fa-solid fa-book text-white" style="font-size: 60px;"></i>
+                                <i class="fa-solid fa-book text-white" style="font-size: 60px; width: auto !important"></i>
                             </div>
                             <h1>Documentation</h1>
                             <p class="card--p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
@@ -57,7 +57,7 @@
                                 Quidem,
                                 ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore
                                 vel?</p>
-                            <a href="{{ route('docs', ['module' => 'general']) }}" class="btn btn-primary button mt-auto">Learn More</a>
+                            <a href="{{ route('docs', '') }}" class="btn btn-primary button mt-auto">Learn More</a>
                         </div>
                     </div>
                 </div>
