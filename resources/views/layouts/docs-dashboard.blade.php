@@ -30,7 +30,7 @@
     <div class="d-flex vh-100">
 
         {{-- Sidebar Lable --}}
-        <div class="d-flex justify-content-end bg--black rounded menu-mini d-lg-none" id="menu-mini" onclick="toggle()">
+        <div class="d-flex justify-content-end bg--black rounded menu-mini d-lg-none pe-2" id="menu-mini" onclick="toggle()">
             <i class="fa-solid fa-bars fs-4 p-2"></i>
         </div>
 
@@ -40,8 +40,8 @@
                 <div class="d-flex flex-column justify-content-between h-100">
 
                     {{-- Menu Close Lable --}}
-                    <i class="fa-solid fa-minus fs-5 p-2 d-lg-none position-absolute"
-                        style="right:10px; top:20px;cursor: pointer;" onclick="toggle()"></i>
+                    <i class="fa-solid fa-xmark fs-5 p-2 d-lg-none position-absolute"
+                        style="right:15px; top:10px;cursor: pointer;" onclick="toggle()"></i>
 
                     {{-- Brand --}}
                     <a class="text-white nav-logo" href="{{ url('/') }}" style="font-size: 30px;">
@@ -73,26 +73,22 @@
                         style="height:160px;">
                         {{-- Modules --}}
                         <div class="fs-5 ms-4">
-                            <a href="{{ route('docs', ['module' => 'general']) }}"
-                                @if ($module == 'general') class="text--teal" @endif>
+                            <a class="nav-btn text--teal" id="general" role="button">
                                 <i class="fa-solid fa-house me-2"></i><span>General</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="{{ route('docs', ['module' => 'moderation']) }}"
-                                @if ($module == 'moderation') class="text--teal" @endif>
+                            <a class="nav-btn" id="moderation" role="button">
                                 <i class="fa-solid fa-user-check me-2"></i><span>Moderation</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="{{ route('docs', ['module' => 'fun']) }}"
-                                @if ($module == 'fun') class="text--teal" @endif>
+                            <a class="nav-btn" id="fun" role="button">
                                 <i class="fa-solid fa-face-laugh-wink me-2"></i><span>Fun</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="{{ route('docs', ['module' => 'minigame']) }}"
-                                @if ($module == 'minigame') class="text--teal" @endif>
+                            <a class="nav-btn" id="minigame" role="button">
                                 <i class="fa-solid fa-gamepad me-2"></i><span>Duel Minigame</span>
                             </a>
                         </div>
@@ -102,65 +98,68 @@
 
                     {{-- Commands --}}
                     <div class="d-flex flex-column justify-content-around gap-2 text--grey w-100 rounded mt-2 mb-2">
-                        @if ($module == 'general')
-                            <div class="fs-5 ms-5">
-                                <span>Prefix</span>
-                            </div>
-                            <div class="fs-5 ms-5">
+                        <div class="commands" id="cmds-general">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Welcome Message</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Autorole</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Automessage</span>
                             </div>
-                        @elseif ($module == 'moderation')
-                            <div class="fs-5 ms-5">
+                        </div>
+
+                        <div class="commands d-none" id="cmds-moderation">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Mod Message Channels</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Mod Roles</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Moderators</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Server Settings</span>
                             </div>
 
-                            <hr class="m-0 ms-3" style="width: 90%">
+                            <hr class="m-0 ms-3 my-1" style="width: 90%">
 
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Kick</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Ban</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Timeout</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Quarantine</span>
                             </div>
-                        @elseif ($module == 'fun')
-                            <div class="fs-5 ms-5">
+                        </div>
+
+                        <div class="commands d-none" id="cmds-fun">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Use Pickup Lines</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Get Quotes</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Pickup Lines</span>
                             </div>
-                            <div class="fs-5 ms-5">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>Quotes</span>
                             </div>
-                        @elseif ($module == 'minigame')
-                            <div class="fs-5 ms-5">
+                        </div>
+
+                        <div class="commands d-none" id="cmds-minigame">
+                            <div class="fs-5 ms-5 my-1">
                                 <span>TBD</span>
                             </div>
-                        @endif
+                        </div>
                     </div>
 
                     <div class="mt-auto"></div>
@@ -171,14 +170,14 @@
 
 
         {{-- Right  Side --}}
-        <main class="h-100 w-100 p-3">
+        <div class="h-100 w-100 p-3">
             <div class="card-- h-100 w-100 overflow-scroll">
 
                 {{-- CONTENT --}}
-                @yield('content')
+                <div id="docs-container"></div>
 
             </div>
-        </main>
+        </div>
 
     </div>
 
@@ -203,11 +202,47 @@
 
 <script>
     //Toggle Menu
-    let menu = document.getElementById('menu');
-    let menumini = document.getElementById('menu-mini');
+    const menu = document.getElementById('menu');
+    const menumini = document.getElementById('menu-mini');
 
-    let toggle = () => {
+    const toggle = () => {
         menu.classList.toggle('menu-open');
         menumini.classList.toggle('menu-mini-closed');
     }
+
+    //Dynamic page loading through controller
+    const nav_btns = document.getElementsByClassName('nav-btn');
+    const cmds = document.getElementsByClassName('commands');
+
+    $(document).ready(function() {
+        //Load the default module
+        let url = "{{ route('docs', ['module' => ':module']) }}";
+        url = url.replace(':module', 'general');
+        $('#docs-container').load(url);
+
+        for (const btn of nav_btns) {
+            $(btn).on('click', function(button) {
+                //Change nav button colors and {{-- Commands --}} part
+                for (const btn_2 of nav_btns) {
+                    if (this == btn_2) {
+                        btn_2.classList.add('text--teal');
+
+                        for (const cmd of cmds) cmd.classList.add('d-none');
+
+                        $(`#cmds-${this.id}`).removeClass('d-none');
+
+                        continue;
+                    }
+
+                    btn_2.classList.remove('text--teal');
+                }
+
+                //Load the requested module
+                let routeName = $(this).attr('id');
+                let url = "{{ route('docs', ['module' => ':module']) }}";
+                url = url.replace(':module', routeName);
+                $('#docs-container').load(url);
+            });
+        }
+    });
 </script>

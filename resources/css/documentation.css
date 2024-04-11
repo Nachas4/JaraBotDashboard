@@ -4,9 +4,10 @@
     padding: 3px;
 }
 
-.docs-card:hover > h3,
-.docs-card:hover i {
+.docs-card:hover > h3
+{
     color: var(--clr-teal);
+    cursor: pointer;
 }
 
 .card-info:hover i {

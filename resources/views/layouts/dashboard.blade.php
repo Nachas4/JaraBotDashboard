@@ -84,23 +84,23 @@
                     <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mt-2 mb-2"
                         style="height:160px;">
                         <div class="fs-5 ms-4">
-                            <a href="">
+                            <a>
                                 <i class="fa-solid fa-house me-2" style="color:rgb(136, 224, 227);"></i><span
                                     style="color:rgb(136, 224, 227);">Dashboard</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="{{ route('docs', 'general') }}">
+                            <a href="{{ route('docs', '') }}">
                                 <i class="fa-solid fa-robot me-2"></i><span>Documentation</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="">
+                            <a>
                                 <i class="fa-regular fa-user me-2"></i><span>Your Profile</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">
-                            <a href="">
+                            <a>
                                 <i class="fa-solid fa-gear me-2"></i><span>Settings</span>
                             </a>
                         </div>
@@ -163,14 +163,6 @@
                             <span class="text-muted fs-6">01.23 16:00</span>
                         </div>
                     </div> --}}
-
-
-
-
-
-                    <span id="invisible-gap" class="d-none">
-                        ‎
-                    </span>
 
                 </div>
             </div>

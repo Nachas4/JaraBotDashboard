@@ -20,8 +20,8 @@
             for (btn of btns) {
                 $(btn).on('click', function(button) {
                     let routeName = $(this).attr('id');
-                    let url = "{{ route('dashboard.docs', ['subject' => ':subject']) }}";
-                    url = url.replace(':subject', routeName);
+                    let url = "{{ route('docs', ['module' => ':module']) }}";
+                    url = url.replace(':module', routeName);
                     $('#docsContainer').load(url);
                 });
             }

@@ -39,11 +39,4 @@ class DashboardController extends Controller
             return response()->json(["success" => $data->wMsg]);
         }
     }
-
-    //jquery dynamic page loading
-    public function Docs($subject)
-    {
-        return view('docs.'.$subject);
-    }
-
 }
