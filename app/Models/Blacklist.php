@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Prefix extends Model
+class Blacklist extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -22,7 +22,6 @@ class Prefix extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'dc_guild_id',
-        'prefix'
+        'word'
     ];
 }

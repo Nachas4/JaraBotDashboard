@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\AccessToken;
 use App\Models\AutoMessage;
 use App\Models\AutoResponse;
+use App\Models\Blacklist;
 use App\Models\DcGuild;
 use App\Models\Moderator;
 use App\Models\ModMessageChannel;
@@ -26,7 +27,6 @@ class DefaultSeeder extends Seeder
         User::factory(3)
             ->has(
                 DcGuild::factory()->count(3)
-                    ->has(Prefix::factory())
                     ->has(AutoResponse::factory()->count(3))
                     ->has(AutoMessage::factory()->count(3))
                     ->has(Quote::factory()->count(3))
@@ -34,7 +34,8 @@ class DefaultSeeder extends Seeder
                     ->has(ModMessageChannel::factory())
                     ->has(ModRole::factory())
                     ->has(Moderator::factory()->count(3))
-                    ->has(ServerSetting::factory()),
+                    ->has(ServerSetting::factory())
+                    ->has(Blacklist::factory()->count(3)),
                 'owned_guilds'
             )
             ->has(AccessToken::factory()->count(1), 'access_token')

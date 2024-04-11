@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Prefix>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blacklist>
  */
-class PrefixFactory extends Factory
+class BlacklistFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class PrefixFactory extends Factory
     public function definition(): array
     {
         return [
-            'prefix' => fake()->randomElement(['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'])
+            'word' => fake()->word()
         ];
     }
 }

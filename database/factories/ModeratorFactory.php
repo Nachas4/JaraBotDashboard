@@ -19,7 +19,6 @@ class ModeratorFactory extends Factory
     public function definition(): array
     {
         return [
-            'dc_guild_id' => fake()->randomElement(DcGuild::all('id')),
             'user_id' => fake()->randomElement(User::all('id')),
             'is_admin' => fake()->boolean()
         ];
