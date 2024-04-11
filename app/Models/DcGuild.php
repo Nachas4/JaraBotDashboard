@@ -18,11 +18,6 @@ class DcGuild extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function prefix(): HasOne
-    {
-        return $this->hasOne(Prefix::class);
-    }
-
     public function modmessagechannels(): HasOne
     {
         return $this->hasOne(ModMessageChannel::class);
@@ -41,6 +36,11 @@ class DcGuild extends Model
     public function serversetting(): HasOne
     {
         return $this->hasOne(ServerSetting::class);
+    }
+
+    public function blacklist(): HasOne
+    {
+        return $this->hasOne(Blacklist::class);
     }
 
     public function autoresponses(): HasMany
