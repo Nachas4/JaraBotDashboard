@@ -166,6 +166,12 @@ option {
     content: "";
     height: calc(var(--height) * 48px);
 }
+.logout-button:hover {
+    background: var(--clr-pink);
+}
+.login-button:hover {
+    background: #317131;
+}
 
 /* -------------------------------------- */
 

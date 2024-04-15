@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\DocsController;
 use App\Http\Middleware\Authenticate;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,11 +19,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    //return view('template',['module'=>'general']);
-    return redirect()->route('dashboard.general', ['server' => "asdasdasd"]);
+    return view('welcome');
 });
 
-Auth::routes();
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +31,10 @@ Auth::routes();
 */
 Route::get('/docs', function () {
     return view('layouts.docs-dashboard');
-});
+})->name('docs');
 
 //jQuery dynamic page loading used here
-Route::get('/docs/{module}', [DocsController::class, 'load_module'])->name('docs');
+Route::get('/docs/{module}', [DocsController::class, 'load_module'])->name('doc.module');
 
 
 /*
@@ -72,6 +71,6 @@ Route::middleware(Authenticate::class)->group(function () {
     */
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        return redirect()->route('dashboard.general', ['server' => "asdasdasd"]);
+    });
 });
