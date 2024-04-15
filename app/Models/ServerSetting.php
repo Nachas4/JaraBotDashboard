@@ -28,6 +28,7 @@ class ServerSetting extends Model
         'welcome_messages_enabled',
         'mod_message_channels_enabled',
         'mod_roles_enabled',
-        'moderators_enabled'
+        'moderators_enabled',
+        'blacklist_enabled'
     ];
 }
