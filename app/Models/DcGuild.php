@@ -63,6 +63,11 @@ class DcGuild extends Model
         return $this->hasMany(Moderator::class);
     }
 
+    public function autoroles(): HasMany
+    {
+        return $this->hasMany(AutoRole::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

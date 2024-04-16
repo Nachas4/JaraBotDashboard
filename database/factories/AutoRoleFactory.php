@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\WelcomeMessage>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoRole>
  */
-class WelcomeMessageFactory extends Factory
+class AutoRoleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class WelcomeMessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'channel_id' => fake()->numberBetween(619514971868626973, 711348770104672308),
-            'message' => fake()->text()
+            'role_id' => fake()->numberBetween(619514971868626973, 711348770104672308)
         ];
     }
 }

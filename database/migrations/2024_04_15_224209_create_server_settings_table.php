@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->boolean('mod_roles_enabled');
             $table->boolean('moderators_enabled');
             $table->boolean('blacklist_enabled');
+            $table->boolean('auto_roles_enabled');
 
             $table->timestamps();
             $table->softDeletes();

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class WelcomeMessage extends Model
+class AutoRole extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -22,9 +22,6 @@ class WelcomeMessage extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'dc_guild_id',
-        'channel_id',
-        'message',
-        'bg_image'
+        'role_id'
     ];
 }
