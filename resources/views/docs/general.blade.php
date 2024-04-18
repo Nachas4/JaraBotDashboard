@@ -6,22 +6,22 @@
 </div>
 
 <div class="card--body p-3 text-white rounded">
-
-    <div class="row">
-
-        <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Get a list of Automessages</h3>
     
+    <div class="row">
+        {{-- Welcome Message --}}
+        <div class="docs-card col-12 col-md-6 mt-4">
+            <h3>Welcome Message</h3>
+
             <div class="card-- mt-3" style="height: fit-content">
                 <div>
                     <div>
-                        <h4><b>automessages</b></h4>
-    
-                        <p>Usage: <span class="usage-example">&automessages</span></p>
+                        <h4><b>welcome-message</b></h4>
+
+                        <p>Usage: <span class="usage-example">&welcome-message</span></p>
                     </div>
-    
+
                     <div>
-                        <p>Get a list of all the automessages the server has set up.</p>
+                        <p>Sends a template welcome message.</p>
                         <div>This can only be changed by the server owner in the <a
                                 href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
                     </div>
@@ -29,6 +29,28 @@
             </div>
         </div>
 
+        {{-- Autoresponses --}}
+        <div class="docs-card col-12 col-md-6 mt-4">
+            <h3>Get a list of Autoresponses</h3>
+        
+            <div class="card-- mt-3" style="height: fit-content">
+                <div>
+                    <div>
+                        <h4><b>autoresponses</b></h4>
+        
+                        <p>Usage: <span class="usage-example">&autoresponses</span></p>
+                    </div>
+        
+                    <div>
+                        <p>Get a list of all the autoresponses the server has set up.</p>
+                        <div>This can only be changed by the server owner in the <a
+                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Autoroles --}}
         <div class="docs-card col-12 col-md-6 mt-4">
             <h3>Get a list of Autoroles</h3>
 
@@ -48,32 +70,29 @@
                 </div>
             </div>
         </div>
-
-        <div class="d-flex justify-content-center col-12 mt-4">
         
-            <div class="docs-card w-100">
-                <h3>Welcome Message</h3>
-    
-                <div class="card-- mt-3" style="height: fit-content">
+        {{-- Server Settings --}}
+        <div class="docs-card col-12 col-md-6 mt-4">
+            <h3>Get a list of Server Settings</h3>
+
+            <div class="card-- mt-3" style="height: fit-content">
+                <div>
                     <div>
-                        <div>
-                            <h4><b>welcome-message</b></h4>
-    
-                            <p>Usage: <span class="usage-example">&welcome-message</span></p>
-                        </div>
-    
-                        <div>
-                            <p>Sends a template welcome message.</p>
-                            <div>This can only be changed by the server owner in the <a
-                                    href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
-                        </div>
+                        <h4><b>settings</b></h4>
+
+                        <p>Usage: <span class="usage-example">&settings</span></p>
+                    </div>
+
+                    <div>
+                        <p>See what modules are enabled on this server.</p>
+                        <div>These can only be changed by the server owner in the <a
+                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
-    
         </div>
 
     </div>
 
-    
+
 </div>

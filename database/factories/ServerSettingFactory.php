@@ -18,7 +18,6 @@ class ServerSettingFactory extends Factory
     {
         return [
             'auto_responses_enabled' => fake()->boolean(),
-            'auto_messages_enabled' => fake()->boolean(),
             'quotes_enabled' => fake()->boolean(),
             'welcome_messages_enabled' => fake()->boolean(),
             'mod_message_channels_enabled' => fake()->boolean(),

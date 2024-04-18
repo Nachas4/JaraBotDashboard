@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\AccessToken;
-use App\Models\AutoMessage;
 use App\Models\AutoResponse;
 use App\Models\AutoRole;
 use App\Models\Blacklist;
@@ -28,7 +27,6 @@ class DefaultSeeder extends Seeder
             ->has(
                 DcGuild::factory()->count(3)
                     ->has(AutoResponse::factory()->count(3))
-                    ->has(AutoMessage::factory()->count(3))
                     ->has(Quote::factory()->count(3))
                     ->has(WelcomeMessage::factory())
                     ->has(ModMessageChannel::factory())

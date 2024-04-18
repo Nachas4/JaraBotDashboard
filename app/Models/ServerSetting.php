@@ -23,7 +23,6 @@ class ServerSetting extends Model
      */
     protected $fillable = [
         'auto_responses_enabled',
-        'auto_messages_enabled',
         'quotes_enabled',
         'welcome_messages_enabled',
         'mod_message_channels_enabled',

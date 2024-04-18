@@ -48,11 +48,6 @@ class DcGuild extends Model
         return $this->hasMany(AutoResponse::class);
     }
 
-    public function automessages(): HasMany
-    {
-        return $this->hasMany(AutoMessage::class);
-    }
-
     public function quotes(): HasMany
     {
         return $this->hasMany(Quote::class);
