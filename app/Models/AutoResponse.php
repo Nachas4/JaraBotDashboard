@@ -24,7 +24,6 @@ class AutoResponse extends Model
     protected $fillable = [
         'dc_guild_id',
         'respond_to',
-        'respond_with',
-        'on_contain'
+        'respond_with'
     ];
 }
