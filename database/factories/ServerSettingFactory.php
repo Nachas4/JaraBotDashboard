@@ -22,7 +22,6 @@ class ServerSettingFactory extends Factory
             'welcome_messages_enabled' => fake()->boolean(),
             'mod_message_channels_enabled' => fake()->boolean(),
             'quarantine_enabled' => fake()->boolean(),
-            'moderators_enabled' => fake()->boolean(),
             'blacklist_enabled' => fake()->boolean(),
             'auto_roles_enabled' => fake()->boolean()
         ];

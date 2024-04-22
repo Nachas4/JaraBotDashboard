@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->boolean('welcome_messages_enabled');
             $table->boolean('mod_message_channels_enabled');
             $table->boolean('quarantine_enabled');
-            $table->boolean('moderators_enabled');
             $table->boolean('blacklist_enabled');
             $table->boolean('auto_roles_enabled');
 
