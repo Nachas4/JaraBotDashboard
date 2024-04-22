@@ -9,7 +9,7 @@ use App\Models\Blacklist;
 use App\Models\DcGuild;
 use App\Models\Moderator;
 use App\Models\ModMessageChannel;
-use App\Models\ModRole;
+use App\Models\Quarantine;
 use App\Models\Quote;
 use App\Models\ServerSetting;
 use App\Models\User;
@@ -30,7 +30,7 @@ class DefaultSeeder extends Seeder
                     ->has(Quote::factory()->count(3))
                     ->has(WelcomeMessage::factory())
                     ->has(ModMessageChannel::factory())
-                    ->has(ModRole::factory())
+                    ->has(Quarantine::factory())
                     ->has(Moderator::factory()->count(3))
                     ->has(ServerSetting::factory())
                     ->has(Blacklist::factory()->count(3))

@@ -22,6 +22,7 @@ class Blacklist extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'dc_guild_id',
         'word'
     ];
 }

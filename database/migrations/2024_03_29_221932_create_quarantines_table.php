@@ -10,14 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('mod_roles', function (Blueprint $table) {
+        Schema::create('quarantines', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('dc_guild_id')->constrained()->onDelete('cascade');
-            $table->tinyText('ban');
-            $table->tinyText('kick');
-            $table->tinyText('timeout');
-            $table->tinyText('quarantine');
+            $table->tinyText('role_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -29,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('mod_roles');
+        Schema::dropIfExists('quarantines');
     }
 };

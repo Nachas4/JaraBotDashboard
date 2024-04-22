@@ -22,6 +22,7 @@ class AutoRole extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'dc_guild_id',
         'role_id'
     ];
 }

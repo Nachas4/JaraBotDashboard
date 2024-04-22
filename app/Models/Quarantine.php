@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ModRole extends Model
+class Quarantine extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -23,9 +23,6 @@ class ModRole extends Model
      */
     protected $fillable = [
         'dc_guild_id',
-        'ban',
-        'kick',
-        'timeout',
         'quarantine'
     ];
 }

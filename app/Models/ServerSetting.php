@@ -22,12 +22,14 @@ class ServerSetting extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'dc_guild_id',
         'auto_responses_enabled',
         'quotes_enabled',
         'welcome_messages_enabled',
         'mod_message_channels_enabled',
-        'mod_roles_enabled',
+        'quarantine_enabled',
         'moderators_enabled',
-        'blacklist_enabled'
+        'blacklist_enabled',
+        'auto_roles_enabled'
     ];
 }

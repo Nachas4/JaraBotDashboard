@@ -5,26 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\AutoRole;
 use App\Models\WelcomeMessage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function General($server)
+    public function general($server)
     {
         return view('dashboard.general', ['server' => $server, 'page' => 'general']);
     }
 
-    public function Fun($server)
+    public function fun($server)
     {
         return view('dashboard.fun', ['server' => $server, 'page' => 'fun']);
     }
 
-    public function MiniGame($server)
+    public function miniGame($server)
     {
         return view('dashboard.minigame', ['server' => $server, 'page' => 'minigame']);
     }
 
-    public function Moderation($server)
+    public function moderation($server)
     {
         return view('dashboard.moderation', ['server' => $server, 'page' => 'moderation']);
     }
@@ -34,42 +33,47 @@ class DashboardController extends Controller
     {
         $data = (object) $request->all();
 
-        if ($data->wMsg != null) {
-            /* Welcome Message */
-            $wcmMsg = WelcomeMessage::where('guild_id', $data->guildId)->first();
+        /* Welcome Message */
+        $wcmMsg = WelcomeMessage::where('dc_guild_id', $data->guildId)->first();
 
-            if ($wcmMsg != null) {
-                $wcmMsg->update([
-                    'channel_id' => $data->wMsgChannel,
-                    'message' => $data->wMsg
-                ]);
-            } else {
-                WelcomeMessage::create([
-                    'guild_id'=> $data->guildId,
-                    'channel_id'=> $data->wMsgChannel,
-                    'message'=> $data->wMsg
-                ]);
-            }
+        if ($wcmMsg !== null) {
+            if ($data->wMsg === null)
+                return response()->json(["error" => "Message cannot be null."]);
+            if ($data->wMsgChannel === null)
+                return response()->json(["error" => "Channel cannot be null."]);
 
-            /* Autoroles */
-            $autoroles = AutoRole::where('guild_id', $data->guildId)->get();
-            
-            foreach ($autoroles as $autorole) {
-                if ($autorole != null) {
-                    $autorole->update([
-                        'role_id' => $data->wMsgChannel,
-                        'message' => $data->wMsg
-                    ]);
-                } else {
-                    WelcomeMessage::create([
-                        'guild_id'=> $data->guildId,
-                        'channel_id'=> $data->wMsgChannel,
-                        'message'=> $data->wMsg
-                    ]);
-                }
-            }
+            $wcmMsg->update([
+                'channel_id' => $data->wMsgChannel,
+                'message' => $data->wMsg,
+                // 'bg_image' => $data->wMsgImg
+            ]);
 
-            return response()->json(["success" => $data->wMsg]);
+        } else {
+            if ($data->wMsg === null)
+                return response()->json(["error" => "Message cannot be null."]);
+            if ($data->wMsgChannel === null)
+                return response()->json(["error" => "Channel cannot be null."]);
+
+            WelcomeMessage::create([
+                'dc_guild_id' => $data->guildId,
+                'channel_id' => $data->wMsgChannel,
+                'message' => $data->wMsg,
+                // 'bg_image' => $data->wMsgImg
+            ]);
         }
+
+
+        /* Autoroles */
+        $autoroles = AutoRole::where('dc_guild_id', $data->guildId)->get();
+        foreach ($autoroles as $autorole) $autorole->delete();
+        
+        foreach ($data->autoRoles as $autorole) {
+            AutoRole::create([
+                'dc_guild_id' => $data->guildId,
+                'role_id' => $autorole // this is an array, needs better handling
+            ]);
+        }
+
+        return response()->json(["success" => "Successfully updated the general settings."]);
     }
 }
