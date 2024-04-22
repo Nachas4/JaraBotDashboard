@@ -25,6 +25,7 @@ class ServerSetting extends Model
         'dc_guild_id',
         'auto_responses_enabled',
         'quotes_enabled',
+        'pickups_enabled',
         'welcome_messages_enabled',
         'mod_message_channels_enabled',
         'quarantine_enabled',

@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignId('dc_guild_id')->constrained()->onDelete('cascade');
             $table->boolean('auto_responses_enabled');
             $table->boolean('quotes_enabled');
+            $table->boolean('pickups_enabled');
             $table->boolean('welcome_messages_enabled');
             $table->boolean('mod_message_channels_enabled');
             $table->boolean('quarantine_enabled');
