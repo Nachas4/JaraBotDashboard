@@ -66,7 +66,7 @@
                     {{-- User Data --}}
                     @auth {{-- Only for development, remove @auth at end --}}
                         {{-- User Data --}}
-                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mb-2" style="height:80px;">
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2" style="height:80px;">
                             <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
                                 class="img-fluid me-2 rounded-circle h-100">
                             <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">

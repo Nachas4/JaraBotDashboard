@@ -11,7 +11,7 @@
     <div class="row">
 
         <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Get the Moderation Message Channels</h3>
+            <h3>See Moderation Message Channels</h3>
 
             <div class="card-- mt-3" style="height: fit-content">
                 <div>
@@ -31,26 +31,6 @@
         </div>
 
         <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Get the Moderation Roles</h3>
-
-            <div class="card-- mt-3" style="height: fit-content">
-                <div>
-                    <div>
-                        <h4><b>modroles</b></h4>
-
-                        <p>Usage: <span class="usage-example">&modroles</span></p>
-                    </div>
-
-                    <div>
-                        <p>Get a list of the roles used for moderation within the server.</p>
-                        <div>These can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="docs-card col-12 mt-4">
             <h3>Get a list of Moderators</h3>
 
             <div class="card-- mt-3" style="height: fit-content">

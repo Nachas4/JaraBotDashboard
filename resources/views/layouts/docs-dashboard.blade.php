@@ -120,10 +120,13 @@
                                 <span>Welcome Message</span>
                             </div>
                             <div class="fs-5 ms-5 my-1">
-                                <span>Autorole</span>
+                                <span>Auto Responses</span>
                             </div>
                             <div class="fs-5 ms-5 my-1">
-                                <span>Automessage</span>
+                                <span>Autoroles</span>
+                            </div>
+                            <div class="fs-5 ms-5 my-1">
+                                <span>Server Settings</span>
                             </div>
                         </div>
 

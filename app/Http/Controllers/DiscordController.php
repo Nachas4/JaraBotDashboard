@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AccessToken;
 use App\Models\DcGuild;
+use App\Models\ServerSetting;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -119,14 +120,15 @@ class DiscordController extends Controller
                     'owner_id' => $owner_id
                 ]);
             } else {
-                $dcGuild = new DcGuild([
+                $dcGuild = DcGuild::create([
                     'guild_id' => $guild['id'],
                     'name' => $guild['name'],
                     'icon' => '' . $guild['icon'] . '.' . $guildIconExt . '',
                     'owner_id' => $owner_id
                 ]);
 
-                $dcGuild->save();
+                //Also create the default ServerSettings model for this guild
+                ServerSetting::create(['dc_guild_id', $guild['id']]);
             }
         }
 

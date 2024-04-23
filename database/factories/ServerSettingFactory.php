@@ -17,14 +17,7 @@ class ServerSettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'auto_responses_enabled' => fake()->boolean(),
-            'quotes_enabled' => fake()->boolean(),
-            'pickups_enabled' => fake()->boolean(),
-            'welcome_messages_enabled' => fake()->boolean(),
-            'mod_message_channels_enabled' => fake()->boolean(),
-            'quarantine_enabled' => fake()->boolean(),
-            'blacklist_enabled' => fake()->boolean(),
-            'auto_roles_enabled' => fake()->boolean()
+            //
         ];
     }
 }

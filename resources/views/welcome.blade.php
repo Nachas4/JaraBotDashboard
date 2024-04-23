@@ -5,6 +5,18 @@
         <div class="svg-holder d-none d-md-block">
             <img src="{{ asset('images/background.svg') }}"></img>
         </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        {{-- TODO: format --}}
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="container text-white" style="position:relative;">
             <div class="row pe-2 ps-2">
 
@@ -23,13 +35,14 @@
                                 <h1>Go to the Dashboard</h1>
 
                                 {{-- User Data --}}
-                                <div class="card--holder p-3 d-flex align-items-center w-100 rounded mb-2"
-                                    style="height:80px;">
-                                    <img src="{{ 'https://cdn.discordapp.com/avatars/'.Auth()->user()->user_id.'/'.Auth()->user()->avatar }}" class="img-fluid me-2 rounded-circle h-100">
+                                <div class="card--holder p-3 d-flex align-items-center w-100 rounded mb-2" style="height:80px;">
+                                    <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
+                                        class="img-fluid me-2 rounded-circle h-100">
                                     <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
                                         <span class="fs-5 text-white"
                                             style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
-                                        <span class="fs-6" style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
+                                        <span class="fs-6"
+                                            style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
                                     </div>
 
                                     {{-- Log Out --}}

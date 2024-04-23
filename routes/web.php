@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\DocsController;
+use App\Http\Controllers\WelcomeMessageController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
@@ -47,8 +48,8 @@ Route::get('/dashboard/fun/{server}', [DashboardController::class, 'fun'])->name
 Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'moderation'])->name('dashboard.moderation');
 Route::get('/dashboard/minigame/{server}', [DashboardController::class, 'miniGame'])->name('dashboard.minigame');
 
-//Ajax POST template
-Route::post('/save', [DashboardController::class, 'saveAutoMsg'])->name('dashboard.savegeneral');
+/* Ajax POST template for saving automatically to DB */
+Route::post('/save', [DashboardController::class, 'save'])->name('dashboard.save');
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +60,9 @@ Route::get('/login/discord', [DiscordController::class, 'RedirectToDiscord'])->n
 Route::get('/login/discord/callback', [DiscordController::class, 'OAuthCallback']);
 
 
-Route::get('/welcome', function () {return view('welcome');})->name( 'welcome' );
+Route::get('/welcome', function () {
+    return view('welcome'); 
+})->name('welcome');
 
 /** Only for logged in users **/
 Route::middleware(Authenticate::class)->group(function () {
