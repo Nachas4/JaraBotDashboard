@@ -1,13 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="card--header text-white p-2 me-4">
-        <div class="row">
-            <div class="col-12 text-center fs-3"><b>XYZ server settings</b></div>
-        </div>
+    <div class="card--header pt-2 me-4">
+            <div class="text-center fs-3 text-uppercase text--teal text-decoration-underline">XYZ server settings</div>
     </div>
 
-    <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
+    <div class="card--body p-sm-3 pt-sm-2 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
 
         <hr class="me-2">
 
@@ -114,7 +112,8 @@ hello there->General Kenobi!"></textarea>
                             </button>
                         </div>
 
-                        <div class="d-flex flex-row justify-content-start gap-5 fs-5 mb-3">
+                        <div class="d-grid fs-5"
+                            style="max-width:1000px;grid-template-columns: repeat(auto-fit,minmax(10px,230px)); ">
 
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('welcome_messages_enabled');">
@@ -123,6 +122,15 @@ hello there->General Kenobi!"></textarea>
                                 <div class="indicator me-2"></div>
 
                                 <label for="welcome_messages_enabled">Welcome Messages</label>
+                            </div>
+                            
+                            <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
+                                onclick="toggleSetting('mod_message_channels_enabled');">
+                                <input type="checkbox" name="mod_message_channels_enabled" class="custom-checkbox"
+                                    id="mod_message_channels_enabled" @checked(false)>
+                                <div class="indicator me-2"></div>
+
+                                <label for="mod_message_channels_enabled">Mod Message Channels</label>
                             </div>
 
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
@@ -143,18 +151,9 @@ hello there->General Kenobi!"></textarea>
                                 <label for="auto_roles_enabled">Auto Roles</label>
                             </div>
 
-                        </div>
 
-                        <div class="d-flex flex-row justify-content-start gap-5 fs-5 mb-3">
 
-                            <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
-                                onclick="toggleSetting('mod_message_channels_enabled');">
-                                <input type="checkbox" name="mod_message_channels_enabled" class="custom-checkbox"
-                                    id="mod_message_channels_enabled" @checked(false)>
-                                <div class="indicator me-2"></div>
 
-                                <label for="mod_message_channels_enabled">Mod Message Channels</label>
-                            </div>
 
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('pickups_enabled');">
@@ -173,10 +172,6 @@ hello there->General Kenobi!"></textarea>
 
                                 <label for="quotes_enabled">Quotes</label>
                             </div>
-
-                        </div>
-
-                        <div class="d-flex flex-row justify-content-start gap-5 fs-5 mb-3">
 
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('blacklist_enabled');">
@@ -230,7 +225,7 @@ hello there->General Kenobi!"></textarea>
                     });
                 });
             });
-            
+
             const autoroles_form_id = 'autoRolesForm';
             new MultiSelectTag('autoRoles', {
                 rounded: true,
