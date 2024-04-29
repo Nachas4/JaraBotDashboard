@@ -96,8 +96,8 @@
                 <div class="mb-4">
                     {{-- Placeholder must be like this because reasons --}}
                     <textarea name="autoResponses" class="bgs-input form-control flex-fill" rows="3"
-                        placeholder="help>Hey there! Please visit this channel if you want to know more about the server: #server-rules->
-hello there>General Kenobi!"></textarea>
+                        placeholder="help->Hey there! Please visit this channel if you want to know more about the server: #server-rules
+hello there->General Kenobi!"></textarea>
                 </div>
             </div>
         </form>

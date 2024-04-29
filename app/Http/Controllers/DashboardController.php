@@ -98,11 +98,11 @@ class DashboardController extends Controller
                 $autoresponse->delete();
 
 
-            $autoresponses_toAdd = explode('->', $data->autoResponses);
+            $autoresponses_toAdd = explode("\r\n", $data->autoResponses);
 
             foreach ($autoresponses_toAdd as $autoresponse) {
                 trim($autoresponse);
-                $autoresponse = explode(">", $autoresponse);
+                $autoresponse = explode("->", $autoresponse);
 
                 AutoResponse::create([
                     'dc_guild_id' => $data->guildId,
