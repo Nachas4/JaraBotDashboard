@@ -24,17 +24,15 @@
     {{-- Charts --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    {{-- MUlti Select --}}
+    {{-- Multi Select --}}
     {{-- https://github.com/habibmhamadi/multi-select-tag --}}
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
-    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+    <script src="{{ asset('js/multi-select-tag.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/multi-select-tag.css') }}">
+    
+    {{-- jQuery --}}
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
 
-    {{-- Ajax jQuery --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body class="bg--black overflow-hidden">

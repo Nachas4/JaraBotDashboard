@@ -212,16 +212,14 @@ hello there>General Kenobi!"></textarea>
 
 
     <script>
-        /* TODO: download source JS for jquery so it doesn't depend on internet connection */
         let toggleSetting = (id) => {
             let checkbox = document.getElementById(id);
             checkbox.checked = !checkbox.checked;
         }
 
         //Autosave in the background with Ajax (bgs => background-save)
-        const inputs = document.querySelectorAll('.bgs-input');
         $(document).ready(function() {
-
+            const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
                 $(element).on('focusout', function() {
                     $.ajaxSetup({
@@ -242,7 +240,7 @@ hello there>General Kenobi!"></textarea>
                         success: function(response) {
                             console.log(response);
                         }
-                    })
+                    });
                 });
             });
 
@@ -261,19 +259,41 @@ hello there>General Kenobi!"></textarea>
                     $.ajax({
                         url: '{{ route('dashboard.save') }}',
                         type: 'POST',
-                        //#general -> form ID
                         data: $(`#${element.form.id}`).serialize() +
                             `&toSave=${element.form.id}`,
-                        //optional
+                        //debug
                         success: function(response) {
                             console.log(response);
                         }
-                    })
+                    });
                 });
             });
-        });
+            
+            const autoroles_form_id = 'autoRolesForm';
+            new MultiSelectTag('autoRoles', {
+                rounded: true,
+                onChange: function(values) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
-        /* TODO: download the JS file for this so it doesn't depend on internet connection */
-        new MultiSelectTag('autoRoles')
+                    console.log($(`#${autoroles_form_id}`));
+                    console.log($(`#${autoroles_form_id}`).serialize());
+
+                    $.ajax({
+                        url: '{{ route('dashboard.save') }}',
+                        type: 'POST',
+                        data: $(`#${autoroles_form_id}`).serialize() +
+                            `&toSave=${autoroles_form_id}`,
+                        //debug
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @endsection
