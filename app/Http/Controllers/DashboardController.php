@@ -38,6 +38,7 @@ class DashboardController extends Controller
     //ajax auto save
     public function save(Request $request)
     {
+        $forceDelete = false; // If storage space is a concern, set to true
         $data = (object) $request->all();
 
         /**
@@ -83,7 +84,7 @@ class DashboardController extends Controller
             $autoroles = AutoRole::where('dc_guild_id', $data->guildId)->get();
 
             foreach ($autoroles as $autorole)
-                $autorole->delete();
+                $forceDelete ? $autorole->forceDelete() : $autorole->delete();
 
             if (empty($data->autoRoles))
                 return response()->json(["success" => "Successfully updated the Autoroles settings."]);
@@ -103,7 +104,7 @@ class DashboardController extends Controller
             $autoresponses = AutoResponse::where('dc_guild_id', $data->guildId)->get();
 
             foreach ($autoresponses as $autoresponse)
-                $autoresponse->delete();
+                $forceDelete ? $autoresponse->forceDelete() : $autoresponse->delete();
 
             if (empty($data->autoResponses))
                 return response()->json(["success" => "Successfully updated the Autoresponses settings."]);
@@ -162,7 +163,7 @@ class DashboardController extends Controller
          *   
          */
 
-         /* Mod Message Channels */
+        /* Mod Message Channels */
         if ($data->toSave === "modMsgChsForm") {
             $modMsgChs = ModMessageChannel::where('dc_guild_id', $data->guildId)->first();
 
@@ -191,7 +192,7 @@ class DashboardController extends Controller
             $moderators = Moderator::where('dc_guild_id', $data->guildId)->get();
 
             foreach ($moderators as $moderator)
-                $moderator->delete();
+                $forceDelete ? $moderator->forceDelete() : $moderator->delete();
 
             if (empty($data->moderators))
                 return response()->json(["success" => "Successfully updated Moderators settings."]);
@@ -211,7 +212,7 @@ class DashboardController extends Controller
             $blacklist = Blacklist::where('dc_guild_id', $data->guildId)->get();
 
             foreach ($blacklist as $word)
-                $word->delete();
+                $forceDelete ? $word->forceDelete() : $word->delete();
 
             if (empty($data->blacklist))
                 return response()->json(["success" => "Successfully updated the Blacklist settings."]);
@@ -236,12 +237,12 @@ class DashboardController extends Controller
          *   
          */
 
-         /* Pickup Lines */
+        /* Pickup Lines */
         if ($data->toSave === "pickupsForm") {
             $pickups = PickupLine::where('dc_guild_id', $data->guildId)->get();
 
             foreach ($pickups as $pickup)
-                $pickup->delete();
+                $forceDelete ? $pickup->forceDelete() : $pickup->delete();
 
             if (empty($data->pickups))
                 return response()->json(["success" => "Successfully updated the Pickup Lines settings."]);
@@ -265,7 +266,7 @@ class DashboardController extends Controller
             $quotes = Quote::where('dc_guild_id', $data->guildId)->get();
 
             foreach ($quotes as $quote)
-                $quote->delete();
+                $forceDelete ? $quote->forceDelete() : $quote->delete();
 
             if (empty($data->quotes))
                 return response()->json(["success" => "Successfully updated the Quotes settings."]);
