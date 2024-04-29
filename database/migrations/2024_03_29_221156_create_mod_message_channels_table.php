@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->tinyText('ban');
             $table->tinyText('kick');
             $table->tinyText('timeout');
-            $table->tinyText('quarantine');
+            $table->tinyText('blacklist');
 
             $table->timestamps();
             $table->softDeletes();

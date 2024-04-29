@@ -26,6 +26,6 @@ class ModMessageChannel extends Model
         'ban',
         'kick',
         'timeout',
-        'quarantine'
+        'blacklist'
     ];
 }

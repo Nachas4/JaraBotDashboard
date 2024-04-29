@@ -10,7 +10,11 @@
     cursor: pointer;
 }
 
-.card-info:hover i {
+.card-info:hover .fa-warning {
+    color: var(--bs-warning)
+}
+
+.card-info:hover .fa-circle-exclamation {
     color: var(--bs-info)
 }
 

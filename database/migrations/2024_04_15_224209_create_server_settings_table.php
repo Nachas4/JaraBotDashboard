@@ -14,13 +14,13 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignId('dc_guild_id')->constrained()->onDelete('cascade');
-            $table->boolean('auto_responses_enabled');
-            $table->boolean('auto_messages_enabled');
-            $table->boolean('quotes_enabled');
-            $table->boolean('welcome_messages_enabled');
-            $table->boolean('mod_message_channels_enabled');
-            $table->boolean('mod_roles_enabled');
-            $table->boolean('moderators_enabled');
+            $table->boolean('auto_responses_enabled')->default(false);
+            $table->boolean('quotes_enabled')->default(true);
+            $table->boolean('pickups_enabled')->default(true);
+            $table->boolean('welcome_messages_enabled')->default(false);
+            $table->boolean('mod_message_channels_enabled')->default(false);
+            $table->boolean('blacklist_enabled')->default(true);
+            $table->boolean('auto_roles_enabled')->default(false);
 
             $table->timestamps();
             $table->softDeletes();

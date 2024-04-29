@@ -23,6 +23,7 @@ class WelcomeMessage extends Model
      */
     protected $fillable = [
         'dc_guild_id',
+        'channel_id',
         'message',
         'bg_image'
     ];

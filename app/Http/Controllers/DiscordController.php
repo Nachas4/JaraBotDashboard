@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\AccessToken;
 use App\Models\DcGuild;
+use App\Models\ModMessageChannel;
+use App\Models\ServerSetting;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -24,7 +26,7 @@ class DiscordController extends Controller
     public function OAuthCallback(Request $request)
     {
         // Retrieve the authorization code from the query parameters
-       $code = $request->query('code');
+        $code = $request->query('code');
 
         // Exchange the code for an access token
         $access_token = null;
@@ -41,12 +43,12 @@ class DiscordController extends Controller
                     'scope' => 'identify%20guilds'
                 ]);
 
-                $access_token = $response['access_token'];
-            } catch (\Throwable $th) {
-                return view('welcome', ['error' => 'There was an error while logging in using Discord.']);
-            }
-            
-            // After a successful response, extract user data
+            $access_token = $response['access_token'];
+        } catch (\Throwable $th) {
+            return redirect('welcome')->with('error', 'There was an error while logging in using Discord: '.$th->getMessage());
+        }
+
+        // After a successful response, extract user data
         $userData = Http::withToken($access_token)->get('https://discord.com/api/users/@me')->json();
         $userPfpExt = DiscordController::getPfpExt($userData['id'], $userData['avatar']);
 
@@ -75,7 +77,7 @@ class DiscordController extends Controller
                 'user_id' => $userData['id'],
                 'username' => $userData['username'],
                 'global_name' => $userData['global_name'],
-                'avatar' => '' . $userData['avatar'] . '.' . $userPfpExt . '',
+                'avatar' => '' . $userData['avatar'] . '.' . $userPfpExt,
                 'banner_color' => $userData['banner_color'],
                 'mfa_enabled' => $userData['mfa_enabled'],
             ];
@@ -89,14 +91,14 @@ class DiscordController extends Controller
             //create, update or delete guild info belonging to user
             $userGuilds = Http::withToken($access_token)->get('https://discord.com/api/users/@me/guilds')->json();
             DiscordController::reCheckUserGuilds($user->id, $userGuilds);
-            
+
             $this->guard()->login($user);
 
-            return view('dashboard');
+            return redirect()->route('dashboard.general', ['server' => "asdasdasd"]);
         } else {
             User::where('user_id', $userData['id'])->forceDelete();
-            
-            return view('welcome', ['error' => 'There was an error while logging in using Discord.']);
+
+            return redirect('welcome')->with('error', 'There was an error while logging in using Discord.');
         }
     }
 
@@ -105,10 +107,10 @@ class DiscordController extends Controller
         foreach ($currentGuilds as $guild) {
             //We only care about guilds belonging to user
             if (!$guild['owner'])
-            continue;
-            
+                continue;
+
             $guildIconExt = DiscordController::getIconExt($guild['id'], $guild['icon']);
-        
+
             //Create new or update existing guild
             $dcGuild = DcGuild::where('guild_id', $guild['id']);
             if (count($dcGuild->get()) !== 0) {
@@ -119,30 +121,50 @@ class DiscordController extends Controller
                     'owner_id' => $owner_id
                 ]);
             } else {
-                $dcGuild = new DcGuild([
+                $dcGuild = DcGuild::create([
                     'guild_id' => $guild['id'],
                     'name' => $guild['name'],
                     'icon' => '' . $guild['icon'] . '.' . $guildIconExt . '',
                     'owner_id' => $owner_id
                 ]);
-                
-                $dcGuild->save();
+
+                //Also create the default ServerSettings and ModMessageChannel models for this guild
+                ServerSetting::create([
+                    'dc_guild_id' => $guild['id'],
+                    'auto_responses_enabled' => false,
+                    'quotes_enabled' => true,
+                    'pickups_enabled' => true,
+                    'welcome_messages_enabled' => false,
+                    'mod_message_channels_enabled' => false,
+                    'blacklist_enabled' => true,
+                    'auto_roles_enabled' => false
+                ]);
+
+                $words = ['kill', 'stab', 'murder', 'hurt', 'die'];
+                $count = 0;
+
+                while ($count <= 5) {
+                    $count++;
+                    ModMessageChannel::create(['dc_guild_id' => $guild['id'], 'word'=>  $words[$count - 1]]);
+                }
+
             }
         }
-        
-        
+
+
         //Determine if the $guild from the old collection still exists in the current collection; delete if not
         $oldGuilds = DcGuild::where('owner_id', $owner_id)->get();
         foreach ($oldGuilds as $guild) {
-            
+
             $shouldDelete = true;
             foreach ($currentGuilds as $currentGuild) {
                 if ($guild['guild_id'] === $currentGuild['id']) {
                     $shouldDelete = false;
                 }
             }
-            
-            if ($shouldDelete) $guild->delete();
+
+            if ($shouldDelete)
+                $guild->delete();
         }
 
         //No need to search for restorable guilds, as deleteing a guild in discord is permanent.
@@ -156,7 +178,7 @@ class DiscordController extends Controller
      */
     public function register($userData, $accessToken)
     {
-        // try {
+        try {
             $this->validator($userData)->validate();
 
             event(new Registered($user = $this->create($userData)));
@@ -169,9 +191,9 @@ class DiscordController extends Controller
             $this->guard()->login($user);
 
             return true;
-        // } catch (\Throwable $th) {
-        //     return false;
-        // }
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 
     /**
@@ -214,12 +236,12 @@ class DiscordController extends Controller
         ]);
     }
 
-    private function getPfpExt($user_id, $fileName) 
+    private function getPfpExt($user_id, $fileName)
     {
         return str_replace('image/', '', Http::get('https://cdn.discordapp.com/avatars/' . $user_id . '/' . $fileName . '')->header('Content-Type'));
     }
 
-    private function getIconExt($guild_id, $fileName) 
+    private function getIconExt($guild_id, $fileName)
     {
         return str_replace('image/', '', Http::get('https://cdn.discordapp.com/icons/' . $guild_id . '/' . $fileName . '')->header('Content-Type'));
     }

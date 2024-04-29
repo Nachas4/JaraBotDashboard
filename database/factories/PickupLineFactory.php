@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoMessage>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PickupLine>
  */
-class AutoMessageFactory extends Factory
+class PickupLineFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class AutoMessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'message' => fake()->text(),
-            'time' => fake()->dateTime()
+            'line' => fake()->text(50)
         ];
     }
 }

@@ -24,17 +24,15 @@
     {{-- Charts --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    {{-- MUlti Select --}}
+    {{-- Multi Select --}}
     {{-- https://github.com/habibmhamadi/multi-select-tag --}}
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
-    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+    <script src="{{ asset('js/multi-select-tag.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/multi-select-tag.css') }}">
+    
+    {{-- jQuery --}}
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
 
-    {{-- Ajax jQuery --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body class="bg--black overflow-hidden">
@@ -63,21 +61,42 @@
                     </a>
 
 
-                    {{-- User Datas --}}
-                    <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
-                        style="height:80px;">
-                        <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle h-100">
-                        <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
-                            <span class="fs-5 text-white"
-                                style="height: min-content; margin-bottom:-10px;">Klozon</span>
-                            <span class="fs-6" style="height: min-content;font-size:80%;">csiszár</span>
-                        </div>
+                    {{-- User Data --}}
+                    @auth {{-- Only for development, remove @auth at end --}}
+                        {{-- User Data --}}
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2" style="height:80px;">
+                            <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
+                                class="img-fluid me-2 rounded-circle h-100">
+                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                                <span class="fs-5 text-white"
+                                    style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
+                                <span class="fs-6"
+                                    style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
+                            </div>
 
-                        {{-- Log Out --}}
-                        <a href="" class="ms-auto ">
-                            <i class="text--neon me-1 fa-solid fa-arrow-right-from-bracket"></i>
-                        </a>
-                    </div>
+                            {{-- Log Out --}}
+                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
+                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
+                        </div>
+                    @endauth
+
+                    @guest {{-- Only for development --}}
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
+                            style="height:80px;">
+                            <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle h-100">
+                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                                <span class="fs-5 text-white"
+                                    style="height: min-content; margin-bottom:-10px;">Klozon</span>
+                                <span class="fs-6" style="height: min-content;font-size:80%;">csiszár</span>
+                            </div>
+
+                            {{-- Log Out --}}
+                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
+                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
+                        </div>
+                    @endguest
 
 
                     {{-- Navigation --}}
@@ -91,7 +110,7 @@
                         </div>
                         <div class="fs-5 ms-4">
                             <a href="{{ route('docs', '') }}">
-                                <i class="fa-solid fa-robot me-2"></i><span>Documentation</span>
+                                <i class="fa-solid fa-book me-2"></i><span>Documentation</span>
                             </a>
                         </div>
                         <div class="fs-5 ms-4">

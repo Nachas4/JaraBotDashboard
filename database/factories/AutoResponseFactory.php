@@ -18,8 +18,7 @@ class AutoResponseFactory extends Factory
     {
         return [
             'respond_to' => fake()->text(10),
-            'respond_with' => fake()->text(10),
-            'on_contain' => fake()->boolean(),
+            'respond_with' => fake()->text(10)
         ];
     }
 }

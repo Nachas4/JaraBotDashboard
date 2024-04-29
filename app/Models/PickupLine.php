@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AutoMessage extends Model
+class PickupLine extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -23,7 +23,6 @@ class AutoMessage extends Model
      */
     protected $fillable = [
         'dc_guild_id',
-        'message',
-        'time'
+        'line'
     ];
 }

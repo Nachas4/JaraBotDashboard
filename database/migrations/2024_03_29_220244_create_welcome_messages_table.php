@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
 
             $table->foreignId('dc_guild_id')->constrained()->onDelete('cascade');
+            $table->tinyText('channel_id');
             $table->tinyText('message');
             $table->tinyText('bg_image')->default('WM_placeholder.png');
 

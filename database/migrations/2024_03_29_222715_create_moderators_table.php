@@ -15,7 +15,6 @@ return new class extends Migration {
 
             $table->foreignId('dc_guild_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->tinyText('is_admin');
 
             $table->timestamps();
             $table->softDeletes();

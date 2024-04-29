@@ -2,14 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\DcGuild;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Moderator>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoRole>
  */
-class ModeratorFactory extends Factory
+class AutoRoleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +17,7 @@ class ModeratorFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->randomElement(User::all('id'))
+            'role_id' => fake()->numberBetween(619514971868626973, 711348770104672308)
         ];
     }
 }

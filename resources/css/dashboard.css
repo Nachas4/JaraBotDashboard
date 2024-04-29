@@ -1,0 +1,26 @@
+.custom-checkbox:checked~.indicator {
+    background-color: var(--bs-success) !important;
+}
+
+.custom-checkbox {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    opacity: 0;
+}
+
+.indicator {
+    height: 10px;
+    width: 10px;
+    max-height: 10px;
+    max-width: 10px;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px 0px #000000;
+    background-color: var(--bs-danger);
+}
+
+.setting-checkbox:hover {
+    background-color: var(--clr-grey);
+    max-height: 100px;
+}

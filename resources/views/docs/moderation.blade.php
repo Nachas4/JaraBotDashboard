@@ -11,7 +11,7 @@
     <div class="row">
 
         <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Get the Moderation Message Channels</h3>
+            <h3>See Moderation Message Channels</h3>
 
             <div class="card-- mt-3" style="height: fit-content">
                 <div>
@@ -25,26 +25,6 @@
                         <p>Where do I see the ban message of an annoying griefer? Oh, here!</p>
                         <div>These can only be changed by the server owner in the <a
                                 href="{{-- {{ route('dashboard') }} --}}">dashboard</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Get the Moderation Roles</h3>
-
-            <div class="card-- mt-3" style="height: fit-content">
-                <div>
-                    <div>
-                        <h4><b>modroles</b></h4>
-
-                        <p>Usage: <span class="usage-example">&modroles</span></p>
-                    </div>
-
-                    <div>
-                        <p>Get a list of the roles used for moderation within the server.</p>
-                        <div>These can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -70,19 +50,13 @@
             </div>
         </div>
 
-        <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Get the Server Settings</h3>
+        <div class="docs-card col-12 mt-4">
+            <h3>Blacklisted Words</h3>
 
             <div class="card-- mt-3" style="height: fit-content">
                 <div>
                     <div>
-                        <h4><b>settings</b></h4>
-
-                        <p>Usage: <span class="usage-example">&settings</span></p>
-                    </div>
-
-                    <div>
-                        <p>A list of all modules and whether they're activated on the server.</p>
+                        <p>Messages containing blacklisted words will be automatically deleted and logged to the Blacklist Mod Message Channel.</p>
                         <div>These can only be changed by the server owner in the <a
                                 href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
                     </div>
@@ -92,9 +66,22 @@
 
         <hr class="mt-4">
 
-        <div class="card-- card-info col-12 mt-4" style="height: fit-content">
-            <div class="fs-5"><i class="fa-solid fa-circle-exclamation fa-xl ms-1 me-2"></i>The following methods
-                will send messages to the <a href="">Moderation Message Channels</a>.</div>
+        <div class="card-- card-info d-flex flex-row fs-5 col-12 mt-4" style="height: fit-content">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-warning fa-xl mb-1 ms-1 me-3"></i>
+            </div>
+            <div>The following commands will send messages to the <a href="">Moderation Message Channels</a>.</div>
+        </div>
+
+        <div class="card-- card-info d-flex flex-row fs-5 col-12 mt-1" style="height: fit-content">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-circle-exclamation fa-xl mb-1 ms-1 me-3"></i>
+            </div>
+            <div>
+                Explanation for syntax:
+                <span class="usage-example">{user}</span> means the user parameter is required.
+                <span class="usage-example">[reason]</span> means the reason parameter is optional.
+            </div>
         </div>
 
         <div class="docs-card col-12 col-md-6 mt-4">
@@ -106,7 +93,7 @@
                     <div>
                         <h4><b>kick</b></h4>
 
-                        <p>Usage: <span class="usage-example">&kick {user}</span></p>
+                        <p>Usage: <span class="usage-example">&kick {user} [reason]</span></p>
                     </div>
 
                     <div>
@@ -127,7 +114,7 @@
                     <div>
                         <h4><b>ban</b></h4>
 
-                        <p>Usage: <span class="usage-example">&ban {user}</span></p>
+                        <p>Usage: <span class="usage-example">&ban {user} [reason]</span></p>
                     </div>
 
                     <div>
@@ -140,9 +127,8 @@
         </div>
 
 
-        <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Timeout a User <i class="fa-solid fa-user-check" data-toggle="tooltip"
-                    title="Only for Moderators"></i>
+        <div class="docs-card col-12mt-4">
+            <h3>Timeout a User <i class="fa-solid fa-user-check" data-toggle="tooltip" title="Only for Moderators"></i>
             </h3>
 
             <div class="card-- mt-3" style="height: fit-content">
@@ -150,34 +136,13 @@
                     <div>
                         <h4><b>timeout</b> or <b>to</b></h4>
 
-                        <p>Usage: <span class="usage-example">&timeout {user}</span> or <span
+                        <p>Usage: <span class="usage-example">&timeout {user} [reason]</span> or <span
                                 class="usage-example">&to
                                 {user}</span></p>
                     </div>
 
                     <div>
                         <p>Mutes a user in the server.</p>
-                        <div>Moderators can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Quarantine a User <i class="fa-solid fa-user-check" data-toggle="tooltip"
-                    title="Only for Moderators"></i></h3>
-
-            <div class="card-- mt-3" style="height: fit-content">
-                <div>
-                    <div>
-                        <h4><b>quarantine</b></h4>
-
-                        <p>Usage: <span class="usage-example">&quarantine {user}</span></p>
-                    </div>
-
-                    <div>
-                        <p>Quarantined users only have access to a sealed channel in the server.</p>
                         <div>Moderators can only be changed by the server owner in the <a
                                 href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
                     </div>

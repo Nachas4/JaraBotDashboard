@@ -23,11 +23,6 @@ class DcGuild extends Model
         return $this->hasOne(ModMessageChannel::class);
     }
 
-    public function modroles(): HasOne
-    {
-        return $this->hasOne(ModRole::class);
-    }
-
     public function welcomemessage(): HasOne
     {
         return $this->hasOne(WelcomeMessage::class);
@@ -48,11 +43,6 @@ class DcGuild extends Model
         return $this->hasMany(AutoResponse::class);
     }
 
-    public function automessages(): HasMany
-    {
-        return $this->hasMany(AutoMessage::class);
-    }
-
     public function quotes(): HasMany
     {
         return $this->hasMany(Quote::class);
@@ -61,6 +51,16 @@ class DcGuild extends Model
     public function moderators(): HasMany
     {
         return $this->hasMany(Moderator::class);
+    }
+
+    public function autoroles(): HasMany
+    {
+        return $this->hasMany(AutoRole::class);
+    }
+
+    public function pickuplines(): HasMany
+    {
+        return $this->hasMany(PickupLine::class);
     }
 
     /**

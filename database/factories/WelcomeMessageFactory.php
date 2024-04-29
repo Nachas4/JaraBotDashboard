@@ -17,6 +17,7 @@ class WelcomeMessageFactory extends Factory
     public function definition(): array
     {
         return [
+            'channel_id' => fake()->numberBetween(619514971868626973, 711348770104672308),
             'message' => fake()->text()
         ];
     }

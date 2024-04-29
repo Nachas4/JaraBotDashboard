@@ -6,150 +6,167 @@
             <div class="col-12 text-center fs-3"><b>XYZ server settings</b></div>
         </div>
     </div>
+
     <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
         <div class="me-3">
-            <hr>
 
-            {{-- ---------------------- Moderation --------------------------- --}}
+            <hr class="me-2">
 
-            <h2 class="text--cyan mb-3"><b>Moderation Settings </b></h2>
+            <h2 class="text--cyan mb-3"><b>Moderation Settings</b></h2>
 
-            <div class="row ps-4 mb-4">
-                <h3>Moderating roles</h3>
-                <div class="col-12 col-lg-12 col-xl-6 no--search">
-                    <select name="roles[]" id="roles" multiple>
-                        <option value="1">Admin</option>
-                        <option value="2">Staff</option>
-                        <option value="3">Moderator</option>
-                        <option value="4">Member</option>
-                        <option value="5">Supporter</option>
-                    </select>
-                </div>
-            </div>
+            {{-- Mod Message Channels --}}
+            <form id="modMsgChsForm">
+                @csrf
+                <input type="hidden" name="guildId" id="guildId" value="1">
 
-            <div class="row ps-4 mb-3">
-                <div class="col-6 mb-3">
-                    <h3>Ban message</h3>
-                    <textarea name="banMsg" class="form-control" rows="2" id="exampleFormControlTextarea1"
-                        placeholder="{user} got banned for {reason} for {time}"></textarea>
-                </div>
-                <div class="col-6 mb-3">
-                    <h3>Kick message</h3>
-                    <textarea name="kickMsg" class="form-control" rows="2" id="exampleFormControlTextarea1"
-                        placeholder="{user} got kicked from {channel}"></textarea>
-                </div>
-                <div class="col-6 mb-3">
-                    <h3>TimeOut message</h3>
-                    <textarea name="timeoutMsg" class="form-control" rows="2" id="exampleFormControlTextarea1"
-                        placeholder="{user} got muted for {time}"></textarea>
-                </div>
-                <div class="col-6 mb-3">
-                    <h3 class="fs-sm-4">Quarantine message</h3>
-                    <textarea name="quartMsg" class="form-control" rows="2" id="exampleFormControlTextarea1"
-                        placeholder="{user} was puted into Quarantine"></textarea>
-                </div>
-            </div>
+                <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
+                    <h3>Mod Message Channels</h3>
 
-
-
-            <h3>Black listed words</h3>
-            <hr>
-            <div id="blackLists">
-                <div class="row ps-4 mt-4" id="template">
-                    <div class="col-12 col-xl-12 col-md-12 mb-2">
-                        <textarea name="blTextID" class="form-control" rows="3" id="exampleFormControlTextarea1"
-                            placeholder="fuck, dick, mother fucker, bitch, ect."></textarea>
+                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                        <label for="kickMsgCh" class="form-label">Kick Message Channel</label>
+                        <select name="kickMsgCh" class="bgs-input form-select">
+                            <option disabled>Select channel</option>
+                            <option value="0">None</option>
+                            <option value="619514971868626978">General</option>
+                            <option value="981514971867836971">Talk About</option>
+                            <option value="762514972868926974">Etc.</option>
+                        </select>
                     </div>
 
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-5 mb-3 no--search">
-                                <h5>Channels</h5>
-                                <select name="channelsID[]" id="channelsID" multiple>
-                                    <option value="-1">All</option>
-                                    <option value="channelID">Welcome</option>
-                                    <option value="channelID">General</option>
-                                    <option value="channelID">Talk About</option>
-                                    <option value="channelID">Ect.</option>
+                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                        <label for="banMsgCh" class="form-label">Ban Message Channel</label>
+                        <select name="banMsgCh" class="bgs-input form-select">
+                            <option disabled>Select channel</option>
+                            <option value="0">None</option>
+                            <option value="619514971868626978">General</option>
+                            <option value="981514971867836971">Talk About</option>
+                            <option value="762514972868926974">Etc.</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                        <label for="toMsgCh" class="form-label">Timeout Message Channel</label>
+                        <select name="toMsgCh" class="bgs-input form-select">
+                            <option disabled>Select channel</option>
+                            <option value="0">None</option>
+                            <option value="619514971868626978">General</option>
+                            <option value="981514971867836971">Talk About</option>
+                            <option value="762514972868926974">Etc.</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                        <label for="blklMsgCh" class="form-label">Blacklist Message Channel</label>
+                        <select name="blklMsgCh" class="bgs-input form-select">
+                            <option disabled>Select channel</option>
+                            <option value="0">None</option>
+                            <option value="619514971868626978">General</option>
+                            <option value="981514971867836971">Talk About</option>
+                            <option value="762514972868926974">Etc.</option>
+                        </select>
+                    </div>
+
+                </div>
+            </form>
+
+            {{-- Moderators --}}
+            <form id="moderatorsForm">
+                @csrf
+                <input type="hidden" name="guildId" id="guildId" value="1">
+
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="ps-4 pe-4 mb-4 me-3 no--search">
+                            <h3>Moderators</h3>
+                            <div class="d-flex flex-row flex-fill align-items-center">
+                                <select name="moderators[]" id="moderators" multiple>
+                                    <option value="1">Nachas4</option>
+                                    <option value="2">Klozon</option>
+                                    <option value="3">hason4</option>
                                 </select>
                             </div>
 
-                            <div class="col-4">
-                                <h5>Penalty</h5>
-                                <select class="form-select" name="penaltyID">
-                                    <option value="timeout">TimeOut</option>
-                                    <option value="kick">Kick</option>
-                                    <option value="ban">Ban</option>
-                                    <option value="quart">Quarantine</option>
-                                </select>
-                            </div>
-                            <div class="col-3">
-                                <h5>Timer (hour)</h5>
-                                <input name="timeID" id="" class="form-control" type="number" min="0.1"
-                                    value="1" step="0.1">
-                            </div>
+                            <label for="moderators" class="text--grey ">These people have the power to perform kicks, bans
+                                and timeouts.</label>
                         </div>
                     </div>
-
                 </div>
-                <hr>
-            </div>
-            <a onclick="newBlackList()" id="btnBlackList" class="ms-4 text--grey btn btn-secondary mt-4 border-0">+ Add new
-                black list</a>
+            </form>
+
+            {{-- Blacklist --}}
+            <form id="blacklistForm">
+                @csrf
+                <input type="hidden" name="guildId" id="guildId" value="1">
+
+                <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
+                    <h3>Word Blacklist</h3>
+
+                    <div class="mb-4">
+                        {{-- Placeholder must be like this because reasons --}}
+                        <textarea name="blacklist" class="bgs-input form-control flex-fill" rows="3">kill, stab, murder, hurt, die</textarea>
+                        <label for="blacklist">Messages containing blacklisted words will be automatically deleted and
+                            logged to the Blacklist Mod Message Channel.</label>
+                    </div>
+                </div>
+            </form>
         </div>
 
     </div>
+
+
     <script>
-        new MultiSelectTag('roles')
-        new MultiSelectTag('channelsID')
+        //Autosave in the background with Ajax (bgs => background-save)
+        $(document).ready(function() {
+            const inputs = document.querySelectorAll('.bgs-input');
+            inputs.forEach(element => {
+                $(element).on('focusout', function() {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
-        let btn = document.getElementById('btnBlackList');
-        let containerBlackList = document.getElementById('blackLists');
-        let id = 0;
-        let newBlackList = () => {
-            let template = ` <div class="col-12 col-xl-12 col-md-12 mb-2">
-                        <textarea name="blText${id}" class="form-control" rows="3" id="exampleFormControlTextarea1"
-                            placeholder="fuck, dick, mother fucker, bitch, ect." ></textarea>
-                    </div>
+                    console.log($(`#${element.form.id}`));
+                    console.log($(`#${element.form.id}`).serialize());
 
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-5 mb-3 no--search">
-                                <h5>Channels</h5>
-                                <select name="channels${id}[]" id="channels${id}" multiple>
-                                    <option value="-1">All</option>
-                                    <option value="channelID">Welcome</option>
-                                    <option value="channelID">General</option>
-                                    <option value="channelID">Talk About</option>
-                                    <option value="channelID">Ect.</option>
-                                </select>
-                            </div>
+                    $.ajax({
+                        url: '{{ route('dashboard.save') }}',
+                        type: 'POST',
+                        data: $(`#${element.form.id}`).serialize() +
+                            `&toSave=${element.form.id}`,
+                        //debug
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                });
+            });
+            
+            const moderators_form_id = 'moderatorsForm';
+            new MultiSelectTag('moderators', {
+                rounded: true,
+                onChange: function(values) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
-                            <div class="col-4">
-                                <h5>Penalty</h5>
-                                <select class="form-select" name="penalty${id}">
-                                    <option value="timeout">TimeOut</option>
-                                    <option value="kick">Kick</option>
-                                    <option value="ban">Ban</option>
-                                    <option value="quart">Quarantine</option>
-                                </select>
-                            </div>
-                            <div class="col-3">
-                                <h5>Timer (hour)</h5>
-                                <input name="time${id}" id="" class="form-control" type="number" min="0.1" value="1" step="0.1" >
-                            </div>
-                        </div>
-                    </div>`
-            let div = document.createElement('div');
-            div.classList.add("row", "ps-4", "mt-4");
-            div.innerHTML = template + '<hr class="mt-3">';
+                    console.log($(`#${moderators_form_id}`));
+                    console.log($(`#${moderators_form_id}`).serialize());
 
-            // Append the cloned template to the container
-            containerBlackList.appendChild(div);
-            console.log(div);
-            console.log('id :>> ', id);
-            new MultiSelectTag("channels" + id);
-            id++;
-        };
+                    $.ajax({
+                        url: '{{ route('dashboard.save') }}',
+                        type: 'POST',
+                        data: $(`#${moderators_form_id}`).serialize() +
+                            `&toSave=${moderators_form_id}`,
+                        //debug
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @endsection

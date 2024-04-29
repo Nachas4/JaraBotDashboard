@@ -19,18 +19,18 @@ class UserSeeder extends Seeder
         //     'user_id' => 711348770104672308
         // ]);
 
-        User::factory()->create([
-            'username' => 'csiszar.',
-            'global_name' => 'Klozon',
-            'avatar' => 'bc3bee1d104a43269a1e5062d2be5b02.png',
-            'user_id' => 619514971868626973
-        ]);
+        // User::factory()->create([
+        //     'username' => 'csiszar.',
+        //     'global_name' => 'Klozon',
+        //     'avatar' => 'bc3bee1d104a43269a1e5062d2be5b02.png',
+        //     'user_id' => 619514971868626973
+        // ]);
 
-        User::factory()->create([
-            'username' => 'Gyula#1498',
-            'global_name' => 'Gyula',
-            'avatar' => 'a871188ffcc050ee86fb6c1852c6ce06.gif',
-            'user_id' => 444435951041773568
-        ]);
+        // User::factory()->create([
+        //     'username' => 'Gyula#1498',
+        //     'global_name' => 'Gyula',
+        //     'avatar' => 'a871188ffcc050ee86fb6c1852c6ce06.gif',
+        //     'user_id' => 444435951041773568
+        // ]);
     }
 }

@@ -18,11 +18,9 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
-    {{-- Counter animation --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/odometer.min.js"></script>
-    {{-- Ajax jQuery --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {{-- jQuery --}}
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -51,21 +49,38 @@
                     </a>
 
 
-                    {{-- User Datas --}}
-                    <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
-                        style="height:80px;">
-                        <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle h-100">
-                        <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
-                            <span class="fs-5 text-white"
-                                style="height: min-content; margin-bottom:-10px;">Klozon</span>
-                            <span class="fs-6" style="height: min-content;font-size:80%;">csiszár</span>
-                        </div>
+                    {{-- User Data --}}
+                    @auth
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mb-2" style="height:80px;">
+                            <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
+                                class="img-fluid me-2 rounded-circle h-100">
+                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                                <span class="fs-5 text-white"
+                                    style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
+                                <span class="fs-6"
+                                    style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
+                            </div>
 
-                        {{-- Log Out --}}
-                        <a href="" class="ms-auto ">
-                            <i class="text--neon me-1 fa-solid fa-arrow-right-from-bracket"></i>
-                        </a>
-                    </div>
+                            {{-- Log Out --}}
+                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
+                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
+                        </div>
+                    @endauth
+
+                    @guest
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
+                            style="height:80px;">
+                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                                Not logged in.
+                            </div>
+
+                            {{-- Log Out --}}
+                            <a href="{{ route('discord.login') }}" class="ms-auto login-button rounded">
+                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-to-bracket"></i>
+                            </a>
+                        </div>
+                    @endguest
 
 
                     {{-- Navigation --}}
@@ -103,10 +118,13 @@
                                 <span>Welcome Message</span>
                             </div>
                             <div class="fs-5 ms-5 my-1">
-                                <span>Autorole</span>
+                                <span>Auto Responses</span>
                             </div>
                             <div class="fs-5 ms-5 my-1">
-                                <span>Automessage</span>
+                                <span>Autoroles</span>
+                            </div>
+                            <div class="fs-5 ms-5 my-1">
+                                <span>Server Settings</span>
                             </div>
                         </div>
 
@@ -134,9 +152,6 @@
                             </div>
                             <div class="fs-5 ms-5 my-1">
                                 <span>Timeout</span>
-                            </div>
-                            <div class="fs-5 ms-5 my-1">
-                                <span>Quarantine</span>
                             </div>
                         </div>
 
@@ -216,7 +231,7 @@
 
     $(document).ready(function() {
         //Load the default module
-        let url = "{{ route('docs', ['module' => ':module']) }}";
+        let url = "{{ route('doc.module', ['module' => ':module']) }}";
         url = url.replace(':module', 'general');
         $('#docs-container').load(url);
 
@@ -239,7 +254,7 @@
 
                 //Load the requested module
                 let routeName = $(this).attr('id');
-                let url = "{{ route('docs', ['module' => ':module']) }}";
+                let url = "{{ route('doc.module', ['module' => ':module']) }}";
                 url = url.replace(':module', routeName);
                 $('#docs-container').load(url);
             });

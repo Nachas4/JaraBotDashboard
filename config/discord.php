@@ -6,7 +6,7 @@ return [
     | Discord Login Values
     |--------------------------------------------------------------------------
     |
-    | This value determines the values used for discord login. Set this in your ".env" file.
+    | This determines the values used for discord login. Set this in your ".env" file.
     |
     */
 

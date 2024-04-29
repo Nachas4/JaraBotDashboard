@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->foreignId('dc_guild_id')->constrained()->onDelete('cascade');
             $table->tinyText('respond_to');
             $table->tinyText('respond_with');
-            $table->boolean('on_contain');
 
             $table->timestamps();
             $table->softDeletes();
