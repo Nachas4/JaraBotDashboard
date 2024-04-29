@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AutoResponse;
 use App\Models\AutoRole;
+use App\Models\Blacklist;
+use App\Models\Moderator;
+use App\Models\ModMessageChannel;
 use App\Models\ServerSetting;
 use App\Models\WelcomeMessage;
 use Illuminate\Http\Request;
@@ -34,6 +37,12 @@ class DashboardController extends Controller
     public function save(Request $request)
     {
         $data = (object) $request->all();
+
+        /**
+         * 
+         * General
+         *   
+         */
 
         /* Welcome Message */
         if ($data->toSave === "wMsgForm") {
@@ -71,11 +80,11 @@ class DashboardController extends Controller
         if ($data->toSave === "autoRolesForm") {
             $autoroles = AutoRole::where('dc_guild_id', $data->guildId)->get();
 
-            if (empty($data->autoRoles))
-                return response()->json(["error" => "Values cannot be null."]);
-
             foreach ($autoroles as $autorole)
                 $autorole->delete();
+
+            if (empty($data->autoRoles))
+                return response()->json(["success" => "Successfully updated the Autoroles settings."]);
 
             foreach ($data->autoRoles as $autorole) {
                 AutoRole::create([
@@ -91,12 +100,11 @@ class DashboardController extends Controller
         if ($data->toSave === "autoRespsForm") {
             $autoresponses = AutoResponse::where('dc_guild_id', $data->guildId)->get();
 
-            if (empty($data->autoResponses))
-                return response()->json(["error" => "Values cannot be null."]);
-
             foreach ($autoresponses as $autoresponse)
                 $autoresponse->delete();
 
+            if (empty($data->autoResponses))
+                return response()->json(["success" => "Successfully updated the Autoresponses settings."]);
 
             $autoresponses_toAdd = explode("\r\n", $data->autoResponses);
 
@@ -126,7 +134,6 @@ class DashboardController extends Controller
                     'pickups_enabled' => empty($data->pickups_enabled) ? $serversettings->pickups_enabled : 1,
                     'welcome_messages_enabled' => empty($data->welcome_messages_enabled) ? $serversettings->welcome_messages_enabled : 1,
                     'mod_message_channels_enabled' => empty($data->mod_message_channels_enabled) ? $serversettings->mod_message_channels_enabled : 1,
-                    'quarantine_enabled' => empty($data->quarantine_enabled) ? $serversettings->quarantine_enabled : 1,
                     'blacklist_enabled' => empty($data->blacklist_enabled) ? $serversettings->blacklist_enabled : 1,
                     'auto_roles_enabled' => empty($data->auto_roles_enabled) ? $serversettings->auto_roles_enabled : 1
                 ]);
@@ -139,13 +146,86 @@ class DashboardController extends Controller
                     'pickups_enabled' => empty($data->pickups_enabled),
                     'welcome_messages_enabled' => empty($data->welcome_messages_enabled),
                     'mod_message_channels_enabled' => empty($data->mod_message_channels_enabled),
-                    'quarantine_enabled' => empty($data->quarantine_enabled),
                     'blacklist_enabled' => empty($data->blacklist_enabled),
                     'auto_roles_enabled' => empty($data->auto_roles_enabled)
                 ]);
             }
 
             return response()->json(["success" => "Successfully updated Server Settings."]);
+        }
+
+        /**
+         * 
+         * Moderation
+         *   
+         */
+
+         /* Mod Message Channels */
+        if ($data->toSave === "modMsgChsForm") {
+            $modMsgChs = ModMessageChannel::where('dc_guild_id', $data->guildId)->first();
+
+            if ($modMsgChs !== null) {
+                $modMsgChs->update([
+                    'ban' => $data->banMsgCh,
+                    'kick' => $data->kickMsgCh,
+                    'timeout' => $data->toMsgCh,
+                    'blacklist' => $data->blklMsgCh
+                ]);
+            } else {
+                ModMessageChannel::create([
+                    'dc_guild_id' => $data->guildId,
+                    'ban' => $data->banMsgCh,
+                    'kick' => $data->kickMsgCh,
+                    'timeout' => $data->toMsgCh,
+                    'blacklist' => $data->blklMsgCh
+                ]);
+            }
+
+            return response()->json(["success" => "Successfully updated Mod Message Channel settings."]);
+        }
+
+        /* Moderators */
+        if ($data->toSave === "moderatorsForm") {
+            $moderators = Moderator::where('dc_guild_id', $data->guildId)->get();
+
+            foreach ($moderators as $moderator)
+                $moderator->delete();
+
+            if (empty($data->moderators))
+                return response()->json(["success" => "Successfully updated Moderators settings."]);
+
+            foreach ($data->moderators as $moderator) {
+                Moderator::create([
+                    'dc_guild_id' => $data->guildId,
+                    'user_id' => $moderator
+                ]);
+            }
+
+            return response()->json(["success" => "Successfully updated the Moderators settings."]);
+        }
+
+        /* Blacklist */
+        if ($data->toSave === "blacklistForm") {
+            $blacklist = Blacklist::where('dc_guild_id', $data->guildId)->get();
+
+            foreach ($blacklist as $word)
+                $word->delete();
+
+            if (empty($data->blacklist))
+                return response()->json(["success" => "Successfully updated the Blacklist settings."]);
+
+            $words_toAdd = explode(", ", $data->blacklist);
+
+            foreach ($words_toAdd as $word) {
+                trim($word);
+
+                Blacklist::create([
+                    'dc_guild_id' => $data->guildId,
+                    'word' => $word
+                ]);
+            }
+
+            return response()->json(["success" => "Successfully updated the Blacklist settings."]);
         }
     }
 }

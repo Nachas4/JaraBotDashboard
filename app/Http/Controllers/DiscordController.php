@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AccessToken;
 use App\Models\DcGuild;
+use App\Models\ModMessageChannel;
 use App\Models\ServerSetting;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -127,8 +128,26 @@ class DiscordController extends Controller
                     'owner_id' => $owner_id
                 ]);
 
-                //Also create the default ServerSettings model for this guild
-                ServerSetting::create(['dc_guild_id', $guild['id']]);
+                //Also create the default ServerSettings and ModMessageChannel models for this guild
+                ServerSetting::create([
+                    'dc_guild_id' => $guild['id'],
+                    'auto_responses_enabled' => false,
+                    'quotes_enabled' => true,
+                    'pickups_enabled' => true,
+                    'welcome_messages_enabled' => false,
+                    'mod_message_channels_enabled' => false,
+                    'blacklist_enabled' => true,
+                    'auto_roles_enabled' => false
+                ]);
+
+                $words = ['kill', 'stab', 'murder', 'hurt', 'die'];
+                $count = 0;
+
+                while ($count <= 5) {
+                    $count++;
+                    ModMessageChannel::create(['dc_guild_id' => $guild['id'], 'word'=>  $words[$count - 1]]);
+                }
+
             }
         }
 

@@ -153,9 +153,6 @@
                             <div class="fs-5 ms-5 my-1">
                                 <span>Timeout</span>
                             </div>
-                            <div class="fs-5 ms-5 my-1">
-                                <span>Quarantine</span>
-                            </div>
                         </div>
 
                         <div class="commands d-none" id="cmds-fun">

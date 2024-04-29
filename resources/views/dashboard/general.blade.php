@@ -73,10 +73,6 @@
                                 <option value="981514971867836972">Member</option>
                                 <option value="981514971867836971">Supporter</option>
                             </select>
-
-                            <button type="button" class="btn btn-outline-success btn-lg bgs-input-btn ms-4">
-                                Save
-                            </button>
                         </div>
 
                         <label for="autoRoles" class="text--grey ">Roles that every new user automatically gets.</label>
@@ -191,15 +187,6 @@ hello there->General Kenobi!"></textarea>
                                 <label for="blacklist_enabled">Blacklist</label>
                             </div>
 
-                            <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
-                                onclick="toggleSetting('quarantine_enabled');">
-                                <input type="checkbox" name="quarantine_enabled" class="custom-checkbox"
-                                    id="quarantine_enabled" @checked(false)>
-                                <div class="indicator me-2"></div>
-
-                                <label for="quarantine_enabled">Quarantine</label>
-                            </div>
-
                         </div>
 
                     </div>
@@ -222,31 +209,6 @@ hello there->General Kenobi!"></textarea>
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
                 $(element).on('focusout', function() {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    console.log($(`#${element.form.id}`));
-                    console.log($(`#${element.form.id}`).serialize());
-
-                    $.ajax({
-                        url: '{{ route('dashboard.save') }}',
-                        type: 'POST',
-                        data: $(`#${element.form.id}`).serialize() +
-                            `&toSave=${element.form.id}`,
-                        //debug
-                        success: function(response) {
-                            console.log(response);
-                        }
-                    });
-                });
-            });
-
-            const input_btns = document.querySelectorAll('.bgs-input-btn');
-            input_btns.forEach(element => {
-                $(element).on('click', function() {
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

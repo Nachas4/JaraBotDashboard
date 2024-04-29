@@ -50,6 +50,20 @@
             </div>
         </div>
 
+        <div class="docs-card col-12 mt-4">
+            <h3>Blacklisted Words</h3>
+
+            <div class="card-- mt-3" style="height: fit-content">
+                <div>
+                    <div>
+                        <p>Messages containing blacklisted words will be automatically deleted and logged to the Blacklist Mod Message Channel.</p>
+                        <div>These can only be changed by the server owner in the <a
+                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <hr class="mt-4">
 
         <div class="card-- card-info d-flex flex-row fs-5 col-12 mt-4" style="height: fit-content">
@@ -113,7 +127,7 @@
         </div>
 
 
-        <div class="docs-card col-12 col-md-6 mt-4">
+        <div class="docs-card col-12mt-4">
             <h3>Timeout a User <i class="fa-solid fa-user-check" data-toggle="tooltip" title="Only for Moderators"></i>
             </h3>
 
@@ -129,27 +143,6 @@
 
                     <div>
                         <p>Mutes a user in the server.</p>
-                        <div>Moderators can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Quarantine a User <i class="fa-solid fa-user-check" data-toggle="tooltip"
-                    title="Only for Moderators"></i></h3>
-
-            <div class="card-- mt-3" style="height: fit-content">
-                <div>
-                    <div>
-                        <h4><b>quarantine</b></h4>
-
-                        <p>Usage: <span class="usage-example">&quarantine {user}</span></p>
-                    </div>
-
-                    <div>
-                        <p>Quarantined users only have access to a sealed channel in the server.</p>
                         <div>Moderators can only be changed by the server owner in the <a
                                 href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
                     </div>
