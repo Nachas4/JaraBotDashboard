@@ -58,6 +58,11 @@ class DcGuild extends Model
         return $this->hasMany(AutoRole::class);
     }
 
+    public function pickuplines(): HasMany
+    {
+        return $this->hasMany(PickupLine::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

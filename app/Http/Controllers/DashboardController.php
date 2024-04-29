@@ -7,6 +7,8 @@ use App\Models\AutoRole;
 use App\Models\Blacklist;
 use App\Models\Moderator;
 use App\Models\ModMessageChannel;
+use App\Models\PickupLine;
+use App\Models\Quote;
 use App\Models\ServerSetting;
 use App\Models\WelcomeMessage;
 use Illuminate\Http\Request;
@@ -226,6 +228,60 @@ class DashboardController extends Controller
             }
 
             return response()->json(["success" => "Successfully updated the Blacklist settings."]);
+        }
+
+        /**
+         * 
+         * Fun
+         *   
+         */
+
+         /* Pickup Lines */
+        if ($data->toSave === "pickupsForm") {
+            $pickups = PickupLine::where('dc_guild_id', $data->guildId)->get();
+
+            foreach ($pickups as $pickup)
+                $pickup->delete();
+
+            if (empty($data->pickups))
+                return response()->json(["success" => "Successfully updated the Pickup Lines settings."]);
+
+            $pickups_toAdd = explode("\r\n", $data->pickups);
+
+            foreach ($pickups_toAdd as $pickup) {
+                trim($pickup);
+
+                PickupLine::create([
+                    'dc_guild_id' => $data->guildId,
+                    'line' => $pickup
+                ]);
+            }
+
+            return response()->json(["success" => "Successfully updated the Pickup Lines settings."]);
+        }
+
+        /* Quotes */
+        if ($data->toSave === "quotesForm") {
+            $quotes = Quote::where('dc_guild_id', $data->guildId)->get();
+
+            foreach ($quotes as $quote)
+                $quote->delete();
+
+            if (empty($data->quotes))
+                return response()->json(["success" => "Successfully updated the Quotes settings."]);
+
+            $quotes_toAdd = explode("\r\n", $data->quotes);
+
+            foreach ($quotes_toAdd as $quote) {
+                trim($quote);
+
+                Quote::create([
+                    'dc_guild_id' => $data->guildId,
+                    'content' => $quote
+                ]);
+            }
+
+            return response()->json(["success" => "Successfully updated the Quotes settings."]);
         }
     }
 }

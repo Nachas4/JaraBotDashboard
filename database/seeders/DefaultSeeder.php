@@ -9,6 +9,7 @@ use App\Models\Blacklist;
 use App\Models\DcGuild;
 use App\Models\Moderator;
 use App\Models\ModMessageChannel;
+use App\Models\PickupLine;
 use App\Models\Quote;
 use App\Models\ServerSetting;
 use App\Models\User;
@@ -32,7 +33,8 @@ class DefaultSeeder extends Seeder
                     ->has(Moderator::factory()->count(3))
                     ->has(ServerSetting::factory())
                     ->has(Blacklist::factory()->count(3))
-                    ->has(AutoRole::factory()->count(3)),
+                    ->has(AutoRole::factory()->count(3))
+                    ->has(PickupLine::factory()->count(3)),
                 'owned_guilds'
             )
             ->has(AccessToken::factory()->count(1), 'access_token')
