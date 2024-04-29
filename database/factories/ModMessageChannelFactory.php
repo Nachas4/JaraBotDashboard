@@ -20,7 +20,7 @@ class ModMessageChannelFactory extends Factory
             'ban' => fake()->numberBetween(619514971868626973, 711348770104672308),
             'kick' => fake()->numberBetween(619514971868626973, 711348770104672308),
             'timeout' => fake()->numberBetween(619514971868626973, 711348770104672308),
-            'quarantine' => fake()->numberBetween(619514971868626973, 711348770104672308)
+            'blacklist' => fake()->numberBetween(619514971868626973, 711348770104672308)
         ];
     }
 }

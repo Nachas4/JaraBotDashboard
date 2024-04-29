@@ -28,7 +28,6 @@ class ServerSetting extends Model
         'pickups_enabled',
         'welcome_messages_enabled',
         'mod_message_channels_enabled',
-        'quarantine_enabled',
         'blacklist_enabled',
         'auto_roles_enabled'
     ];

@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->boolean('pickups_enabled')->default(true);
             $table->boolean('welcome_messages_enabled')->default(false);
             $table->boolean('mod_message_channels_enabled')->default(false);
-            $table->boolean('quarantine_enabled')->default(false);
             $table->boolean('blacklist_enabled')->default(true);
             $table->boolean('auto_roles_enabled')->default(false);
 

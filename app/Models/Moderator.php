@@ -23,7 +23,6 @@ class Moderator extends Model
      */
     protected $fillable = [
         'dc_guild_id',
-        'user_id',
-        'is_admin'
+        'user_id'
     ];
 }

@@ -23,11 +23,6 @@ class DcGuild extends Model
         return $this->hasOne(ModMessageChannel::class);
     }
 
-    public function quarantine(): HasOne
-    {
-        return $this->hasOne(Quarantine::class);
-    }
-
     public function welcomemessage(): HasOne
     {
         return $this->hasOne(WelcomeMessage::class);
