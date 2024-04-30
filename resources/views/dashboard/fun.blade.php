@@ -1,12 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="card--header text-white p-2 me-4">
-        <div class="row">
-            <div class="col-12 text-center fs-3"><b>XYZ server settings</b></div>
-        </div>
+    <div class="card--header pt-2 me-4">
+        <div class="text-center fs-3 text-uppercase text--teal text-decoration-underline">XYZ server settings</div>
     </div>
-    <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
+
+    <div class="card--body p-sm-3 pt-sm-2 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
         <hr class="me-2">
 
         <h2 class="text--cyan mb-3"><b>Fun Settings</b></h2>
