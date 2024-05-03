@@ -17,14 +17,14 @@
             {{-- Mod Message Channels --}}
             <form id="modMsgChsForm">
                 @csrf
-                <input type="hidden" name="guildId" id="guildId" value="1">
+                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
                 <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
                     <h3>Mod Message Channels</h3>
 
-                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        <label for="kickMsgCh" class="form-label">Kick Message Channel</label>
-                        <select name="kickMsgCh" class="bgs-input form-select">
+                    <div class="col-12 col-sm-6 col-xl-4 mb-3">
+                        <label for="kick" class="form-label">Kick Message Channel</label>
+                        <select name="kick" class="bgs-input form-select">
                             <option disabled>Select channel</option>
                             <option value="0">None</option>
                             <option value="619514971868626978">General</option>
@@ -33,9 +33,9 @@
                         </select>
                     </div>
 
-                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        <label for="banMsgCh" class="form-label">Ban Message Channel</label>
-                        <select name="banMsgCh" class="bgs-input form-select">
+                    <div class="col-12 col-sm-6 col-xl-4 mb-3">
+                        <label for="ban" class="form-label">Ban Message Channel</label>
+                        <select name="ban" class="bgs-input form-select">
                             <option disabled>Select channel</option>
                             <option value="0">None</option>
                             <option value="619514971868626978">General</option>
@@ -44,9 +44,9 @@
                         </select>
                     </div>
 
-                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        <label for="toMsgCh" class="form-label">Timeout Message Channel</label>
-                        <select name="toMsgCh" class="bgs-input form-select">
+                    <div class="col-12 col-sm-6 col-xl-4 mb-3">
+                        <label for="timeout" class="form-label">Timeout Message Channel</label>
+                        <select name="timeout" class="bgs-input form-select">
                             <option disabled>Select channel</option>
                             <option value="0">None</option>
                             <option value="619514971868626978">General</option>
@@ -55,9 +55,9 @@
                         </select>
                     </div>
 
-                    <div class="col-12 col-sm-6 col-xl-4 mb-4">
-                        <label for="blklMsgCh" class="form-label">Blacklist Message Channel</label>
-                        <select name="blklMsgCh" class="bgs-input form-select">
+                    <div class="col-12 col-sm-6 col-xl-4 mb-3">
+                        <label for="blacklist" class="form-label">Blacklist Message Channel</label>
+                        <select name="blacklist" class="bgs-input form-select">
                             <option disabled>Select channel</option>
                             <option value="0">None</option>
                             <option value="619514971868626978">General</option>
@@ -66,13 +66,15 @@
                         </select>
                     </div>
 
+                    <div class="mb-3" id="modMsgChsForm-errors"></div>
+                    
                 </div>
             </form>
 
             {{-- Moderators --}}
             <form id="moderatorsForm">
                 @csrf
-                <input type="hidden" name="guildId" id="guildId" value="1">
+                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
                 <div class="row">
                     <div class="col-12 col-lg-8">
@@ -88,6 +90,8 @@
 
                             <label for="moderators" class="text--grey ">These people have the power to perform kicks, bans
                                 and timeouts.</label>
+
+                            <div id="moderatorsForm-errors"></div>
                         </div>
                     </div>
                 </div>
@@ -96,7 +100,7 @@
             {{-- Blacklist --}}
             <form id="blacklistForm">
                 @csrf
-                <input type="hidden" name="guildId" id="guildId" value="1">
+                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
                 <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
                     <h3>Word Blacklist</h3>
@@ -104,8 +108,12 @@
                     <div class="mb-4">
                         {{-- Placeholder must be like this because reasons --}}
                         <textarea name="blacklist" class="bgs-input form-control flex-fill" rows="3">kill, stab, murder, hurt, die</textarea>
-                        <label for="blacklist">Messages containing blacklisted words will be automatically deleted and
+                        <label for="blacklist"><b>Be sure to seperate each word with ", "!</b>
+                            <br>
+                            Messages containing blacklisted words will be automatically deleted and
                             logged to the Blacklist Mod Message Channel.</label>
+
+                        <div id="blacklistForm-errors"></div>
                     </div>
                 </div>
             </form>
@@ -116,6 +124,7 @@
 
     <script>
         //Autosave in the background with Ajax (bgs => background-save)
+        const forceDelete = 0; // set to 1 (true) if storage space is a concern
         $(document).ready(function() {
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
@@ -129,19 +138,43 @@
                     console.log($(`#${element.form.id}`));
                     console.log($(`#${element.form.id}`).serialize());
 
+                    let route = '';
+
+                    switch (element.form.id) {
+                        case 'modMsgChsForm':
+                            route = '{{ route('modMsgChs.save') }}'
+                            break;
+                        case 'blacklistForm':
+                            route = '{{ route('blacklist.save') }}'
+                            break;
+                        default:
+                            break;
+                    }
+
                     $.ajax({
-                        url: '{{ route('dashboard.save') }}',
+                        url: route,
                         type: 'POST',
                         data: $(`#${element.form.id}`).serialize() +
-                            `&toSave=${element.form.id}`,
+                            `&forceDelete=${forceDelete}`,
                         //debug
                         success: function(response) {
+                            let errorContainer = document.getElementById(
+                                `${element.form.id}-errors`);
+                            errorContainer.innerHTML = '';
+
                             console.log(response);
+                        },
+                        //validation errors
+                        error: function(response) {
+                            let errors = response['responseJSON']['errors'];
+                            console.log(errors);
+
+                            displayErrors(element.form.id, errors);
                         }
                     });
                 });
             });
-            
+
             const moderators_form_id = 'moderatorsForm';
             new MultiSelectTag('moderators', {
                 rounded: true,
@@ -156,17 +189,42 @@
                     console.log($(`#${moderators_form_id}`).serialize());
 
                     $.ajax({
-                        url: '{{ route('dashboard.save') }}',
+                        url: '{{ route('moderators.save') }}',
                         type: 'POST',
                         data: $(`#${moderators_form_id}`).serialize() +
-                            `&toSave=${moderators_form_id}`,
+                            `&forceDelete=${forceDelete}`,
                         //debug
                         success: function(response) {
+                            let errorContainer = document.getElementById(
+                                `${moderators_form_id}-errors`);
+                            errorContainer.innerHTML = '';
+
                             console.log(response);
+                        },
+                        //validation errors
+                        error: function(response) {
+                            let errors = response['responseJSON']['errors'];
+                            console.log(errors);
+
+                            displayErrors(moderators_form_id, errors);
                         }
                     });
                 }
             });
         });
+
+        let displayErrors = (form, errors) => {
+            const errorContainer = document.getElementById(`${form}-errors`);
+            errorContainer.innerHTML = '';
+
+            Object.keys(errors).forEach(errorKey => {
+                let errorMessage = errors[errorKey][0];
+                let errorElement = document.createElement('div');
+                errorElement.className = 'text-danger';
+                errorElement.textContent = errorMessage;
+
+                errorContainer.appendChild(errorElement);
+            });
+        }
     </script>
 @endsection

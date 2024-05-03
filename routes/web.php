@@ -1,9 +1,17 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AutoResponseController;
+use App\Http\Controllers\AutoRoleController;
+use App\Http\Controllers\BlacklistController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\DocsController;
+use App\Http\Controllers\ModeratorController;
+use App\Http\Controllers\ModMessageChannelController;
+use App\Http\Controllers\PickupLineController;
+use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\ServerSettingController;
 use App\Http\Controllers\WelcomeMessageController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -49,7 +57,15 @@ Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'moder
 Route::get('/dashboard/minigame/{server}', [DashboardController::class, 'miniGame'])->name('dashboard.minigame');
 
 /* Ajax POST template for saving automatically to DB */
-Route::post('/save', [DashboardController::class, 'save'])->name('dashboard.save');
+Route::post('/save-autoResps', [AutoResponseController::class, 'storeOrUpdate'])->name('autoResps.save');
+Route::post('/save-autoRoles', [AutoRoleController::class, 'storeOrUpdate'])->name('autoRoles.save');
+Route::post('/save-blacklist', [BlacklistController::class, 'storeOrUpdate'])->name('blacklist.save');
+Route::post('/save-moderators', [ModeratorController::class, 'storeOrUpdate'])->name('moderators.save');
+Route::post('/save-modMsgChs', [ModMessageChannelController::class, 'storeOrUpdate'])->name('modMsgChs.save');
+Route::post('/save-wMsg', [WelcomeMessageController::class, 'storeOrUpdate'])->name('wMsg.save');
+Route::post('/save-pickups', [PickupLineController::class, 'storeOrUpdate'])->name('pickups.save');
+Route::post('/save-serverSetts', [ServerSettingController::class, 'storeOrUpdate'])->name('serverSetts.save');
+Route::post('/save-quotes', [QuoteController::class, 'storeOrUpdate'])->name('quotes.save');
 
 /*
 |--------------------------------------------------------------------------

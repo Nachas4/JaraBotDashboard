@@ -14,7 +14,7 @@
         {{-- Pickup Lines --}}
         <form id="pickupsForm">
             @csrf
-            <input type="hidden" name="guildId" id="guildId" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
             <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Pickup Lines</h3>
@@ -24,6 +24,8 @@
                     <textarea name="pickups" class="bgs-input form-control flex-fill" rows="3"
                         placeholder="I hope you know CPR, because you just took my breath away!
 If you were a vegetable, you'd be a 'cute-cumber."></textarea>
+
+                    <div id="pickupsForm-errors"></div>
                 </div>
             </div>
         </form>
@@ -31,17 +33,20 @@ If you were a vegetable, you'd be a 'cute-cumber."></textarea>
         {{-- Quotes --}}
         <form id="quotesForm">
             @csrf
-            <input type="hidden" name="guildId" id="guildId" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
             <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Quotes</h3>
 
                 <div class="mb-4">
                     {{-- Placeholder must be like this because reasons --}}
-                    <textarea name="quotes" class="bgs-input form-control flex-fill" rows="3"
+                    <textarea name="quotes" id="quotes" class="bgs-input form-control flex-fill" rows="3"
                         placeholder="Be yourself; everyone else is already taken.
 A room without books is like a body without a soul."></textarea>
+
+                    <div id="quotesForm-errors"></div>
                 </div>
+
             </div>
         </form>
 
@@ -50,6 +55,7 @@ A room without books is like a body without a soul."></textarea>
 
     <script>
         //Autosave in the background with Ajax (bgs => background-save)
+        const forceDelete = 0; // set to 1 (true) if storage space is a concern
         $(document).ready(function() {
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
@@ -63,18 +69,56 @@ A room without books is like a body without a soul."></textarea>
                     console.log($(`#${element.form.id}`));
                     console.log($(`#${element.form.id}`).serialize());
 
+                    let route = '';
+
+                    switch (element.form.id) {
+                        case 'pickupsForm':
+                            route = '{{ route('pickups.save') }}'
+                            break;
+                        case 'quotesForm':
+                            route = '{{ route('quotes.save') }}'
+                            break;
+                        default:
+                            break;
+                    }
+
                     $.ajax({
-                        url: '{{ route('dashboard.save') }}',
+                        url: route,
                         type: 'POST',
                         data: $(`#${element.form.id}`).serialize() +
-                            `&toSave=${element.form.id}`,
+                            `&forceDelete=${forceDelete}`,
                         //debug
                         success: function(response) {
+                            let errorContainer = document.getElementById(
+                                `${element.form.id}-errors`);
+                            errorContainer.innerHTML = '';
+
                             console.log(response);
+                        },
+                        //validation errors
+                        error: function(response) {
+                            let errors = response['responseJSON']['errors'];                            
+                            displayErrors(element.form.id, errors);
+
+                            console.log(errors);
                         }
                     });
                 });
             })
         });
+
+        let displayErrors = (form, errors) => {
+            const errorContainer = document.getElementById(`${form}-errors`);
+            errorContainer.innerHTML = '';
+
+            Object.keys(errors).forEach(errorKey => {
+                let errorMessage = errors[errorKey][0];
+                let errorElement = document.createElement('div');
+                errorElement.className = 'text-danger';
+                errorElement.textContent = errorMessage;
+
+                errorContainer.appendChild(errorElement);
+            });
+        }
     </script>
 @endsection
