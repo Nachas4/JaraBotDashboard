@@ -1,11 +1,13 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="card--header pt-2 me-4">
-            <div class="text-center fs-3 text-uppercase text--teal text-decoration-underline">XYZ server settings</div>
+    <div class="card--header text-white p-2 me-4">
+        <div class="row">
+            <div class="col-12 text-center fs-3"><b>XYZ server settings</b></div>
+        </div>
     </div>
 
-    <div class="card--body p-sm-3 pt-sm-2 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
+    <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
 
         <hr class="me-2">
 
@@ -14,22 +16,22 @@
         {{-- Welcome Message --}}
         <form id="wMsgForm">
             @csrf
-            <input type="hidden" name="guildId" id="guildId" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
             <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Welcome message</h3>
 
                 <div class="col-12 col-lg-12 col-xl-4 mb-4 d-flex align-items-start flex-column">
-                    <textarea name="wMsg" class="bgs-input form-control flex-fill" rows="3"
+                    <textarea name="message" class="bgs-input form-control flex-fill" rows="3"
                         placeholder="We welcome ${user} to the server!"></textarea>
                 </div>
 
-                <div class="col-12 col-md-6 col-xl-4 mb-4">
+                <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
 
                         <div class="col-12 mb-3">
                             <h5>Channel</h5>
-                            <select name="wMsgChannel" class="bgs-input form-select">
+                            <select name="channel_id" class="bgs-input form-select">
                                 <option disabled>Select channel</option>
                                 <option value="711348770104672308">Welcome</option>
                                 <option value="619514971868626978">General</option>
@@ -40,8 +42,9 @@
 
                         <div class="col-12">
                             <h5>Background Image</h5>
-                            <input name="wMsgImg" type="file" id="file" class="bgs-input d-none" />
-                            <label for="file" class="btn btn-primary button">Select file</label>
+                            <input name="bg_image" type="file" id="wMsgImg" class="d-none bgs-input-file"
+                                {{-- onchange="saveImg()" --}} />
+                            <label for="wMsgImg" class="btn btn-primary button">Select file</label>
                         </div>
 
                     </div>
@@ -51,13 +54,15 @@
                     <img src="{{ asset('th3.png') }}" class="img-thumbnail" style="height: 150px;">
                 </div>
 
+                <div class="mb-4 pt-2" id="wMsgForm-errors"></div>
+
             </div>
         </form>
 
         {{-- Autoroles --}}
         <form id="autoRolesForm">
             @csrf
-            <input type="hidden" name="guildId" id="guildId" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
             <div class="row">
                 <div class="col-12 col-lg-8">
@@ -74,6 +79,8 @@
                         </div>
 
                         <label for="autoRoles" class="text--grey ">Roles that every new user automatically gets.</label>
+
+                        <div id="autoRolesForm-errors"></div>
                     </div>
                 </div>
             </div>
@@ -82,7 +89,7 @@
         {{-- Auto Responses --}}
         <form id="autoRespsForm">
             @csrf
-            <input type="hidden" name="guildId" id="guildId" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
             <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Auto Responses</h3>
@@ -92,6 +99,8 @@
                     <textarea name="autoResponses" class="bgs-input form-control flex-fill" rows="3"
                         placeholder="help->Hey there! Please visit this channel if you want to know more about the server: #server-rules
 hello there->General Kenobi!"></textarea>
+
+                    <div class="mt-2" id="autoRespsForm-errors"></div>
                 </div>
             </div>
         </form>
@@ -100,7 +109,7 @@ hello there->General Kenobi!"></textarea>
         {{-- TODO: replace  @checked(false) and all other values on this page with read values from database --}}
         <form id="serverSettsForm">
             @csrf
-            <input type="hidden" name="guildId" id="guildId" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
             <div class="row">
                 <div class="col">
@@ -112,8 +121,7 @@ hello there->General Kenobi!"></textarea>
                             </button>
                         </div>
 
-                        <div class="d-grid fs-5"
-                            style="max-width:1000px;grid-template-columns: repeat(auto-fit,minmax(10px,230px)); ">
+                        <div class="d-flex flex-row justify-content-start gap-5 fs-5 mb-3">
 
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('welcome_messages_enabled');">
@@ -122,15 +130,6 @@ hello there->General Kenobi!"></textarea>
                                 <div class="indicator me-2"></div>
 
                                 <label for="welcome_messages_enabled">Welcome Messages</label>
-                            </div>
-                            
-                            <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
-                                onclick="toggleSetting('mod_message_channels_enabled');">
-                                <input type="checkbox" name="mod_message_channels_enabled" class="custom-checkbox"
-                                    id="mod_message_channels_enabled" @checked(false)>
-                                <div class="indicator me-2"></div>
-
-                                <label for="mod_message_channels_enabled">Mod Message Channels</label>
                             </div>
 
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
@@ -151,9 +150,18 @@ hello there->General Kenobi!"></textarea>
                                 <label for="auto_roles_enabled">Auto Roles</label>
                             </div>
 
+                        </div>
 
+                        <div class="d-flex flex-row justify-content-start gap-5 fs-5 mb-3">
 
+                            <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
+                                onclick="toggleSetting('mod_message_channels_enabled');">
+                                <input type="checkbox" name="mod_message_channels_enabled" class="custom-checkbox"
+                                    id="mod_message_channels_enabled" @checked(false)>
+                                <div class="indicator me-2"></div>
 
+                                <label for="mod_message_channels_enabled">Mod Message Channels</label>
+                            </div>
 
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('pickups_enabled');">
@@ -173,6 +181,10 @@ hello there->General Kenobi!"></textarea>
                                 <label for="quotes_enabled">Quotes</label>
                             </div>
 
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-start gap-5 fs-5 mb-3">
+
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('blacklist_enabled');">
                                 <input type="checkbox" name="blacklist_enabled" class="custom-checkbox"
@@ -183,6 +195,8 @@ hello there->General Kenobi!"></textarea>
                             </div>
 
                         </div>
+
+                        <div id="serverSettsForm-errors"></div>
 
                     </div>
                 </div>
@@ -199,7 +213,13 @@ hello there->General Kenobi!"></textarea>
             checkbox.checked = !checkbox.checked;
         }
 
+        // let saveImg = () => {
+        //     console.log($('#wMsgImg').val());
+        //     $('#wMsgForm').submit();
+        // }
+
         //Autosave in the background with Ajax (bgs => background-save)
+        const forceDelete = 0; // set to 1 (true) if storage space is a concern
         $(document).ready(function() {
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
@@ -213,14 +233,77 @@ hello there->General Kenobi!"></textarea>
                     console.log($(`#${element.form.id}`));
                     console.log($(`#${element.form.id}`).serialize());
 
+                    let route = '';
+
+                    switch (element.form.id) {
+                        case 'wMsgForm':
+                            route = '{{ route('wMsg.save') }}'
+                            break;
+                        case 'autoRespsForm':
+                            route = '{{ route('autoResps.save') }}'
+                            break;
+                        case 'serverSettsForm':
+                            route = '{{ route('serverSetts.save') }}'
+                            break;
+                        default:
+                            break;
+                    }
+
                     $.ajax({
-                        url: '{{ route('dashboard.save') }}',
+                        url: route,
                         type: 'POST',
                         data: $(`#${element.form.id}`).serialize() +
-                            `&toSave=${element.form.id}`,
+                            `&forceDelete=${forceDelete}`,
                         //debug
                         success: function(response) {
+                            let errorContainer = document.getElementById(
+                                `${element.form.id}-errors`);
+                            errorContainer.innerHTML = '';
+
                             console.log(response);
+                        },
+                        //validation errors
+                        error: function(response) {
+                            let errors = response['responseJSON']['errors'];
+                            console.log(errors);
+
+                            displayErrors(element.form.id, errors);
+                        }
+                    });
+                });
+            });
+
+            const file_inputs = document.querySelectorAll('.bgs-input-btn');
+            file_inputs.forEach(element => {
+                $(element).on('click', function() {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    console.log($(`#${element.form.id}`));
+                    console.log($(`#${element.form.id}`).serialize());
+
+                    $.ajax({
+                        url: '{{ route('serverSetts.save') }}',
+                        type: 'POST',
+                        data: $(`#${element.form.id}`).serialize() +
+                            `&forceDelete=${forceDelete}`,
+                        //debug
+                        success: function(response) {
+                            let errorContainer = document.getElementById(
+                                `${element.form.id}-errors`);
+                            errorContainer.innerHTML = '';
+
+                            console.log(response);
+                        },
+                        //validation errors
+                        error: function(response) {
+                            let errors = response['responseJSON']['errors'];
+                            console.log(errors);
+
+                            displayErrors(element.form.id, errors);
                         }
                     });
                 });
@@ -240,17 +323,42 @@ hello there->General Kenobi!"></textarea>
                     console.log($(`#${autoroles_form_id}`).serialize());
 
                     $.ajax({
-                        url: '{{ route('dashboard.save') }}',
+                        url: '{{ route('autoRoles.save') }}',
                         type: 'POST',
                         data: $(`#${autoroles_form_id}`).serialize() +
-                            `&toSave=${autoroles_form_id}`,
+                            `&forceDelete=${forceDelete}`,
                         //debug
                         success: function(response) {
+                            let errorContainer = document.getElementById(
+                                `${autoroles_form_id}-errors`);
+                            errorContainer.innerHTML = '';
+
                             console.log(response);
+                        },
+                        //validation errors
+                        error: function(response) {
+                            let errors = response['responseJSON']['errors'];
+                            console.log(errors);
+
+                            displayErrors(autoroles_form_id, errors);
                         }
                     });
                 }
             });
         });
+
+        let displayErrors = (form, errors) => {
+            const errorContainer = document.getElementById(`${form}-errors`);
+            errorContainer.innerHTML = '';
+
+            Object.keys(errors).forEach(errorKey => {
+                let errorMessage = errors[errorKey][0];
+                let errorElement = document.createElement('div');
+                errorElement.className = 'text-danger';
+                errorElement.textContent = errorMessage;
+
+                errorContainer.appendChild(errorElement);
+            });
+        }
     </script>
 @endsection

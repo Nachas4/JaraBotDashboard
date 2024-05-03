@@ -220,8 +220,7 @@ option {
 }
 
 .card--header {
-    /* border: 2px solid #131414; */
-    color: var(--clr-teal) !important;
+    border: 2px solid #131414;
 }
 
 .logo {
