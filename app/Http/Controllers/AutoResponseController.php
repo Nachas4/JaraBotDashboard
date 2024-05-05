@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrUpdateAutoResponseRequest;
 use App\Models\AutoResponse;
+use Illuminate\Support\Facades\Validator;
 
 class AutoResponseController extends Controller
 {
@@ -27,17 +28,26 @@ class AutoResponseController extends Controller
 
         foreach ($autoresponses_toAdd as $autoresponse) {
             trim($autoresponse);
-            $autoresponse = explode("->", $autoresponse);
+            $exploded = explode("->", $autoresponse);
+            $exploded = ['respond_to' => $exploded[0], 'respond_with' => $exploded[1]];
+            
+            if (!str_contains($autoresponse, '->') || empty($exploded['respond_with'])) {
+                return response()->json(['errors' => ["seperationError" => ["Autoresponses must have two parts seperated by '->'."]]], 500);
+            }
 
-            if (empty($autoresponse[1])) continue;
+            $validator = Validator::make($exploded, [
+                'respond_to' => 'max:255',
+                'respond_with' => 'max:255'
+            ]);
 
-            if (strlen($autoresponse[0]) > 255 || strlen($autoresponse[1]) > 255)
-                return response()->json(['error' => 'Length cannot be more than 255 characters.'], 500);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 500);
+            }
 
             AutoResponse::create([
                 'dc_guild_id' => $data->dc_guild_id,
-                'respond_to' => $autoresponse[0],
-                'respond_with' => $autoresponse[1]
+                'respond_to' => $exploded['respond_to'],
+                'respond_with' => $exploded['respond_with']
             ]);
         }
 

@@ -27,7 +27,7 @@ class StoreOrUpdateWelcomeMessageRequest extends FormRequest
         return [
             'dc_guild_id' => 'required|string|max:255',
             'channel_id' => 'required|max:255',
-            'message' => 'required|max:255',
+            'message' => 'max:255',
             // 'bg_image'=> '',
         ];
     }

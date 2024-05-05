@@ -27,7 +27,7 @@ class StoreOrUpdateBlacklistRequest extends FormRequest
         return [
             //255*20 because max num of blacklist is 20, +40 because ', ' seperator is 40 chars in 20 blacklist entries
             'dc_guild_id' => 'required|string|max:255',
-            'blacklist' => 'required|max:5140'
+            'blacklist' => 'max:5140'
         ];
     }
 }

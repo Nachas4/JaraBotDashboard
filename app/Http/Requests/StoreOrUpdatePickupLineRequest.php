@@ -27,7 +27,7 @@ class StoreOrUpdatePickupLineRequest extends FormRequest
         return [
             //255*10 because max num of pickups is 10
             'dc_guild_id' => 'required|string|max:255',
-            'pickups' => 'required|max:2550'
+            'pickups' => 'max:2550'
         ];
     }
 }
