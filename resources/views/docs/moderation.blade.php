@@ -85,7 +85,7 @@
         </div>
 
         <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Kick a User <i class="fa-solid fa-user-check" data-toggle="tooltip" title="Only for Moderators"></i>
+            <h3>Kick a User <i class="fa-solid fa-user-check" data-title="Only for Moderators"></i>
             </h3>
 
             <div class="card-- mt-3" style="height: fit-content">
@@ -106,7 +106,7 @@
         </div>
 
         <div class="docs-card col-12 col-md-6 mt-4">
-            <h3>Ban a User <i class="fa-solid fa-user-check" data-toggle="tooltip" title="Only for Moderators"></i>
+            <h3>Ban a User <i class="fa-solid fa-user-check" data-title="Only for Moderators"></i>
             </h3>
 
             <div class="card-- mt-3" style="height: fit-content">
@@ -128,7 +128,7 @@
 
 
         <div class="docs-card col-12mt-4">
-            <h3>Timeout a User <i class="fa-solid fa-user-check" data-toggle="tooltip" title="Only for Moderators"></i>
+            <h3>Timeout a User <i class="fa-solid fa-user-check" data-title="Only for Moderators"></i>
             </h3>
 
             <div class="card-- mt-3" style="height: fit-content">

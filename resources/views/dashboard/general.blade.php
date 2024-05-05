@@ -18,10 +18,10 @@
             @csrf
             <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
-            <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
+            <div class="row px-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Welcome message</h3>
 
-                <div class="col-12 col-lg-12 col-xl-4 mb-4">
+                <div class="col-12 col-lg-12 col-xl-4">
                     <div class="d-flex w-100 h-100">
                         <textarea name="message" id="message" class="bgs-input form-control flex-fill" rows="3"
                             placeholder="We welcome ${user} to the server!"></textarea>
@@ -35,7 +35,7 @@
                 <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
 
-                        <div class="col-12 mb-3">
+                        <div class="col-12 mb-3 mt-3 mt-xl-0">
                             <h5>Channel</h5>
 
                             <div class="d-flex">
@@ -55,6 +55,7 @@
 
                         <div class="col-12">
                             <h5>Background Image</h5>
+
                             <input name="bg_image" type="file" id="bg_image" class="d-none bgs-input-file"
                                 {{-- onchange="saveImg()" --}} />
                             <div class="d-flex flex-row">
@@ -70,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6 col-xl-4 pt-2 d-flex justify-content-md-end justify-content-center">
+                <div class="col-12 col-md-6 col-xl-4 pt-3 d-flex justify-content-md-end justify-content-center">
                     <img src="{{ asset('th3.png') }}" class="img-thumbnail" style="height: 150px;">
                 </div>
 

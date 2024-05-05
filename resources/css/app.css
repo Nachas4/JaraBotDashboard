@@ -377,6 +377,15 @@ p {
     z-index: 2;
 }
 
+.nav--:hover{
+    -moz-box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.75);
+    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+}
+.nav--{
+    padding: 5px 0;
+}
+
 /* -------------------------------------- */
 
 /* ------------MULTI SELECT-------------- */
