@@ -29,10 +29,10 @@ class AutoResponseController extends Controller
         foreach ($autoresponses_toAdd as $autoresponse) {
             trim($autoresponse);
             $exploded = explode("->", $autoresponse);
-            $exploded = ['respond_to' => $exploded[0], 'respond_with' => $exploded[1]];
+            $exploded = ['respond_to' => $exploded[0], 'respond_with' => $exploded[1] ?? null];
             
             if (!str_contains($autoresponse, '->') || empty($exploded['respond_with'])) {
-                return response()->json(['errors' => ["seperationError" => ["Autoresponses must have two parts seperated by '->'."]]], 500);
+                return response()->json(['errors' => ["seperationError" => ["Autoresponses must have two parts seperated by '->'."]]], 422);
             }
 
             $validator = Validator::make($exploded, [
@@ -41,7 +41,7 @@ class AutoResponseController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 500);
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
             AutoResponse::create([
