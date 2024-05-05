@@ -20,12 +20,18 @@
                 <h3>Pickup Lines</h3>
 
                 <div class="mb-4">
-                    {{-- Placeholder must be like this because reasons --}}
-                    <textarea name="pickups" class="bgs-input form-control flex-fill" rows="3"
-                        placeholder="I hope you know CPR, because you just took my breath away!
+                    <div class="d-flex">
+                        {{-- Placeholder must be like this because reasons --}}
+                        <textarea name="pickups" id="pickups" class="bgs-input form-control flex-fill" rows="3"
+                            placeholder="I hope you know CPR, because you just took my breath away!
 If you were a vegetable, you'd be a 'cute-cumber."></textarea>
+                        <div class="d-flex align-items-end ps-2">
+                            <i class="fa-solid fa-check fs-5" id="pickups-feedback" style="color: green"
+                                data-title="Save Feedback"></i>
+                        </div>
+                    </div>
 
-                    <div id="pickupsForm-errors"></div>
+                    <div class="pt-2" id="pickupsForm-errors"></div>
                 </div>
             </div>
         </form>
@@ -39,12 +45,18 @@ If you were a vegetable, you'd be a 'cute-cumber."></textarea>
                 <h3>Quotes</h3>
 
                 <div class="mb-4">
-                    {{-- Placeholder must be like this because reasons --}}
-                    <textarea name="quotes" id="quotes" class="bgs-input form-control flex-fill" rows="3"
-                        placeholder="Be yourself; everyone else is already taken.
+                    <div class="d-flex">
+                        {{-- Placeholder must be like this because reasons --}}
+                        <textarea name="quotes" id="quotes" class="bgs-input form-control flex-fill" rows="3"
+                            placeholder="Be yourself; everyone else is already taken.
 A room without books is like a body without a soul."></textarea>
+                        <div class="d-flex align-items-end ps-2">
+                            <i class="fa-solid fa-check fs-5" id="quotes-feedback" style="color: green"
+                                data-title="Save Feedback"></i>
+                        </div>
+                    </div>
 
-                    <div id="quotesForm-errors"></div>
+                    <div class="pt-2" id="quotesForm-errors"></div>
                 </div>
 
             </div>
@@ -59,6 +71,15 @@ A room without books is like a body without a soul."></textarea>
         $(document).ready(function() {
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
+                const elementFeedback = document.getElementById(`${element.id}-feedback`);
+                const errorContainer = document.getElementById(`${element.form.id}-errors`);
+
+                $(element).on("input", function(event) {
+                    elementFeedback.classList.remove('fa-check', 'fa-xmark');
+                    elementFeedback.classList.add('fa-spinner');
+                    elementFeedback.style.color = 'cornflowerblue';
+                });
+
                 $(element).on('focusout', function() {
                     $.ajaxSetup({
                         headers: {
@@ -87,29 +108,34 @@ A room without books is like a body without a soul."></textarea>
                         type: 'POST',
                         data: $(`#${element.form.id}`).serialize() +
                             `&forceDelete=${forceDelete}`,
-                        //debug
                         success: function(response) {
-                            let errorContainer = document.getElementById(
-                                `${element.form.id}-errors`);
+                            elementFeedback.classList.remove('fa-xmark', 'fa-spinner');
+                            elementFeedback.classList.add('fa-check');
+                            elementFeedback.style.color = 'green';
+
                             errorContainer.innerHTML = '';
 
                             console.log(response);
                         },
                         //validation errors
                         error: function(response) {
-                            let errors = response['responseJSON']['errors'];                            
-                            displayErrors(element.form.id, errors);
+                            // console.log(response['responseJSON']);
+                            elementFeedback.classList.remove('fa-check', 'fa-spinner');
+                            elementFeedback.classList.add('fa-xmark');
+                            elementFeedback.style.color = 'red';
 
+                            let errors = response['responseJSON']['errors'];
                             console.log(errors);
+
+                            displayErrors(errorContainer, errors);
                         }
                     });
                 });
             })
         });
 
-        let displayErrors = (form, errors) => {
-            const errorContainer = document.getElementById(`${form}-errors`);
-            errorContainer.innerHTML = '';
+        let displayErrors = (container, errors) => {
+            container.innerHTML = '';
 
             Object.keys(errors).forEach(errorKey => {
                 let errorMessage = errors[errorKey][0];
@@ -117,7 +143,7 @@ A room without books is like a body without a soul."></textarea>
                 errorElement.className = 'text-danger';
                 errorElement.textContent = errorMessage;
 
-                errorContainer.appendChild(errorElement);
+                container.appendChild(errorElement);
             });
         }
     </script>
