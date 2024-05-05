@@ -6,7 +6,7 @@
     --clr-greyD: #212529;
     --clr-grey: #323233;
     --clr-yellow: #ffcd4b;
-    --crl-neon: #75dd75;
+    --clr-neon: #75dd75;
     --clr-pink: #f86f54;
     --clr-teal: #88e0e0;
 
@@ -71,7 +71,7 @@ main {
 }
 .text--neon *,
 .text--neon {
-    color: var(--crl-neon) !important;
+    color: var(--clr-neon) !important;
 }
 .text--teal *,
 .text--teal {
@@ -98,7 +98,7 @@ option {
     background-color: var(--clr-pink);
 }
 .bg--neon {
-    background-color: var(--crl-neon);
+    background-color: var(--clr-neon);
 }
 .bg--yellow {
     background-color: var(--clr-yellow);

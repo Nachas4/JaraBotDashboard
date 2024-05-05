@@ -16,7 +16,7 @@
             @csrf
             <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
-            <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
+            <div class="row px-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Pickup Lines</h3>
 
                 <div class="mb-4">
@@ -41,7 +41,7 @@ If you were a vegetable, you'd be a 'cute-cumber."></textarea>
             @csrf
             <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
-            <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
+            <div class="row px-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Quotes</h3>
 
                 <div class="mb-4">
