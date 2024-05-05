@@ -26,7 +26,7 @@
                         <textarea name="message" id="message" class="bgs-input form-control flex-fill" rows="3"
                             placeholder="We welcome ${user} to the server!"></textarea>
                         <div class="d-flex align-items-end ps-2">
-                            <i class="fa-solid fa-check fs-5" id="message-feedback" style="color: green"
+                            <i class="fa-solid fa-check fs-5" id="message-feedback" style="color: var(--clr-neon)"
                                 data-title="Save Feedback"></i>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                                     <option value="762514972868926974">Etc.</option>
                                 </select>
                                 <div class="d-flex align-items-center ps-2">
-                                    <i class="fa-solid fa-check fs-5" id="channel_id-feedback" style="color: green"
-                                        data-title="Save Feedback"></i>
+                                    <i class="fa-solid fa-check fs-5" id="channel_id-feedback"
+                                        style="color: var(--clr-neon)" data-title="Save Feedback"></i>
                                 </div>
                             </div>
                         </div>
@@ -57,12 +57,12 @@
                             <h5>Background Image</h5>
 
                             <input name="bg_image" type="file" id="bg_image" class="d-none bgs-input-file"
-                                {{-- onchange="saveImg()" --}} />
+                                {{-- onchange="saveImg(this)" --}} accept="image/jpeg,image/png" />
                             <div class="d-flex flex-row">
                                 <label for="bg_image" class="btn btn-primary button">Select file</label>
 
                                 <div class="d-flex align-items-center ps-2">
-                                    <i class="fa-solid fa-check fs-5" id="bg_image-feedback" style="color: green"
+                                    <i class="fa-solid fa-check fs-5" id="bg_image-feedback" style="color: var(--clr-neon)"
                                         data-title="Save Feedback"></i>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="col-12 col-md-6 col-xl-4 pt-3 d-flex justify-content-md-end justify-content-center">
-                    <img src="{{ asset('th3.png') }}" class="img-thumbnail" style="height: 150px;">
+                    <img src="{{ asset('storage/wm_images/WM_placeholder.png') }}" class="img-thumbnail" style="height: 150px;">
                 </div>
 
                 <div class="mb-4 pt-2" id="wMsgForm-errors"></div>
@@ -87,7 +87,7 @@
 
             <div class="row">
                 <div class="col-12 col-lg-8">
-                    <div class="ps-4 pe-4 mb-4 me-3 no--search">
+                    <div class="px-4 mb-4 me-3 no--search">
                         <h3>Autoroles</h3>
                         <div class="d-flex flex-row flex-fill align-items-center">
                             <select name="autoRoles[]" id="autoRoles" multiple>
@@ -99,7 +99,7 @@
                             </select>
 
                             <div class="d-flex align-items-center ps-2">
-                                <i class="fa-solid fa-check fs-5" id="autoRoles-feedback" style="color: green"
+                                <i class="fa-solid fa-check fs-5" id="autoRoles-feedback" style="color: var(--clr-neon)"
                                     data-title="Save Feedback"></i>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
             @csrf
             <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
-            <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
+            <div class="row px-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Auto Responses</h3>
 
                 <div class="mb-4">
@@ -127,7 +127,7 @@
 hello there->General Kenobi!"></textarea>
 
                         <div class="d-flex align-items-center ps-2">
-                            <i class="fa-solid fa-check fs-5" id="autoResponses-feedback" style="color: green"
+                            <i class="fa-solid fa-check fs-5" id="autoResponses-feedback" style="color: var(--clr-neon)"
                                 data-title="Save Feedback"></i>
                         </div>
                     </div>
@@ -145,7 +145,7 @@ hello there->General Kenobi!"></textarea>
 
             <div class="row">
                 <div class="col">
-                    <div class="ps-4 pe-4 mb-4 me-3">
+                    <div class="px-4 mb-4 me-3">
                         <div class="d-flex flex-row align-items-center mb-3">
                             <h3 class="m-0">Server Modules</h3>
 
@@ -156,7 +156,7 @@ hello there->General Kenobi!"></textarea>
 
                             <div class="d-flex align-items-center ps-2">
                                 <i class="fa-solid fa-check fs-5" id="serverSettsSaveButton-feedback"
-                                    style="color: green" data-title="Save Feedback"></i>
+                                    style="color: var(--clr-neon)" data-title="Save Feedback"></i>
                             </div>
                         </div>
 
@@ -252,10 +252,9 @@ hello there->General Kenobi!"></textarea>
             checkbox.checked = !checkbox.checked;
         }
 
-        // let saveImg = () => {
-        //     console.log($('#wMsgImg').val());
-        //     $('#wMsgForm').submit();
-        // }
+        let saveImg = (element) => {
+            console.log(element.files);
+        }
 
         //Autosave in the background with Ajax (bgs => background-save)
         const forceDelete = 0; // set to 1 (true) if storage space is a concern
@@ -268,7 +267,7 @@ hello there->General Kenobi!"></textarea>
                 $(element).on("input", function(event) {
                     elementFeedback.classList.remove('fa-check', 'fa-xmark');
                     elementFeedback.classList.add('fa-spinner');
-                    elementFeedback.style.color = 'cornflowerblue';
+                    elementFeedback.style.color = 'var(--clr-teal)';
                 });
 
                 $(element).on('focusout', function() {
@@ -305,7 +304,7 @@ hello there->General Kenobi!"></textarea>
                         success: function(response) {
                             elementFeedback.classList.remove('fa-xmark', 'fa-spinner');
                             elementFeedback.classList.add('fa-check');
-                            elementFeedback.style.color = 'green';
+                            elementFeedback.style.color = 'var(--clr-neon)';
 
                             errorContainer.innerHTML = '';
 
@@ -316,7 +315,7 @@ hello there->General Kenobi!"></textarea>
                             // console.log(response['responseJSON']);
                             elementFeedback.classList.remove('fa-check', 'fa-spinner');
                             elementFeedback.classList.add('fa-xmark');
-                            elementFeedback.style.color = 'red';
+                            elementFeedback.style.color = 'var(--clr-pink)';
 
                             let errors = response['responseJSON']['errors'];
                             console.log(errors);
@@ -335,7 +334,7 @@ hello there->General Kenobi!"></textarea>
                 $(element).on('click', function() {
                     elementFeedback.classList.remove('fa-check', 'fa-xmark');
                     elementFeedback.classList.add('fa-spinner');
-                    elementFeedback.style.color = 'cornflowerblue';
+                    elementFeedback.style.color = 'var(--clr-teal)';
 
                     $.ajaxSetup({
                         headers: {
@@ -354,7 +353,7 @@ hello there->General Kenobi!"></textarea>
                         success: function(response) {
                             elementFeedback.classList.remove('fa-xmark', 'fa-spinner');
                             elementFeedback.classList.add('fa-check');
-                            elementFeedback.style.color = 'green';
+                            elementFeedback.style.color = 'var(--clr-neon)';
 
                             errorContainer.innerHTML = '';
 
@@ -364,7 +363,7 @@ hello there->General Kenobi!"></textarea>
                         error: function(response) {
                             elementFeedback.classList.remove('fa-check', 'fa-spinner');
                             elementFeedback.classList.add('fa-xmark');
-                            elementFeedback.style.color = 'red';
+                            elementFeedback.style.color = 'var(--clr-pink)';
 
                             let errors = response['responseJSON']['errors'];
                             console.log(errors);
@@ -375,17 +374,67 @@ hello there->General Kenobi!"></textarea>
                 });
             });
 
+            const file_inputs = document.querySelectorAll('.bgs-input-file');
+            file_inputs.forEach(element => {
+                const elementFeedback = document.getElementById(`${element.id}-feedback`);
+                const errorContainer = document.getElementById(`${element.form.id}-errors`);
+
+                $(element).on('click', function() {
+                    elementFeedback.classList.remove('fa-check', 'fa-xmark');
+                    elementFeedback.classList.add('fa-spinner');
+                    elementFeedback.style.color = 'var(--clr-teal)';
+                });
+
+                $(element).on('change', async function() {
+                    console.log(element.form);
+
+                    let formData = new FormData(element.form);
+                    let tokenHeader = new Headers();
+                    tokenHeader.append('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr(
+                        'content'));
+
+                    let response = await fetch('{{ route('wMsg.save') }}', {
+                        headers: tokenHeader,
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    let result = await response.json();
+                    console.log(result);
+
+                    if (response.ok) {
+                        elementFeedback.classList.remove('fa-xmark',
+                            'fa-spinner');
+                        elementFeedback.classList.add('fa-check');
+                        elementFeedback.style.color = 'var(--clr-neon)';
+
+                        errorContainer.innerHTML = '';
+                    } else {
+                        elementFeedback.classList.remove('fa-check',
+                            'fa-spinner');
+                        elementFeedback.classList.add('fa-xmark');
+                        elementFeedback.style.color = 'var(--clr-pink)';
+
+                        let errors = result['errors'];
+                        console.log(errors);
+
+                        displayErrors(errorContainer, errors);
+                    }
+                });
+            });
+
             const autoroles_form_id = 'autoRolesForm';
             const autoroles_input_id = 'autoRoles';
             new MultiSelectTag(autoroles_input_id, {
                 rounded: true,
                 onChange: function(values) {
-                    const elementFeedback = document.getElementById(`${autoroles_input_id}-feedback`);
+                    const elementFeedback = document.getElementById(
+                        `${autoroles_input_id}-feedback`);
                     const errorContainer = document.getElementById(`${autoroles_form_id}-errors`);
 
                     elementFeedback.classList.remove('fa-check', 'fa-xmark');
                     elementFeedback.classList.add('fa-spinner');
-                    elementFeedback.style.color = 'cornflowerblue';
+                    elementFeedback.style.color = 'var(--clr-teal)';
 
                     $.ajaxSetup({
                         headers: {
@@ -404,7 +453,7 @@ hello there->General Kenobi!"></textarea>
                         success: function(response) {
                             elementFeedback.classList.remove('fa-xmark', 'fa-spinner');
                             elementFeedback.classList.add('fa-check');
-                            elementFeedback.style.color = 'green';
+                            elementFeedback.style.color = 'var(--clr-neon)';
 
                             errorContainer.innerHTML = '';
 
@@ -414,7 +463,7 @@ hello there->General Kenobi!"></textarea>
                         error: function(response) {
                             elementFeedback.classList.remove('fa-check', 'fa-spinner');
                             elementFeedback.classList.add('fa-xmark');
-                            elementFeedback.style.color = 'red';
+                            elementFeedback.style.color = 'var(--clr-pink)';
 
                             let errors = response['responseJSON']['errors'];
                             console.log(errors);
