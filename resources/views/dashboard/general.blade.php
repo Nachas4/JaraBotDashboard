@@ -377,7 +377,7 @@ hello there->General Kenobi!"></textarea>
 
             const autoroles_form_id = 'autoRolesForm';
             const autoroles_input_id = 'autoRoles';
-            new MultiSelectTag('autoRoles', {
+            new MultiSelectTag(autoroles_input_id, {
                 rounded: true,
                 onChange: function(values) {
                     const elementFeedback = document.getElementById(`${autoroles_input_id}-feedback`);

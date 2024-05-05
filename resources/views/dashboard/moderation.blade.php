@@ -20,11 +20,18 @@
                 <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
 
                 <div class="row ps-4 pe-4 pt-3 mb-4 me-3 bg--black rounded">
-                    <h3>Mod Message Channels</h3>
+                    <div class="d-flex">
+                        <h3>Mod Message Channels</h3>
+
+                        <div class="d-flex align-items-center mb-2 ps-2">
+                            <i class="fa-solid fa-check fs-5" id="modMsgChs-feedback" style="color: green"
+                                data-title="Save Feedback"></i>
+                        </div>
+                    </div>
 
                     <div class="col-12 col-sm-6 col-xl-4 mb-3">
                         <label for="kick" class="form-label">Kick Message Channel</label>
-                        <select name="kick" class="bgs-input form-select">
+                        <select name="kick" id="kick" class="bgs-input form-select">
                             <option disabled>Select channel</option>
                             <option value="0">None</option>
                             <option value="619514971868626978">General</option>
@@ -35,7 +42,7 @@
 
                     <div class="col-12 col-sm-6 col-xl-4 mb-3">
                         <label for="ban" class="form-label">Ban Message Channel</label>
-                        <select name="ban" class="bgs-input form-select">
+                        <select name="ban" id="ban" class="bgs-input form-select">
                             <option disabled>Select channel</option>
                             <option value="0">None</option>
                             <option value="619514971868626978">General</option>
@@ -46,7 +53,7 @@
 
                     <div class="col-12 col-sm-6 col-xl-4 mb-3">
                         <label for="timeout" class="form-label">Timeout Message Channel</label>
-                        <select name="timeout" class="bgs-input form-select">
+                        <select name="timeout" id="timeout" class="bgs-input form-select">
                             <option disabled>Select channel</option>
                             <option value="0">None</option>
                             <option value="619514971868626978">General</option>
@@ -57,7 +64,7 @@
 
                     <div class="col-12 col-sm-6 col-xl-4 mb-3">
                         <label for="blacklist" class="form-label">Blacklist Message Channel</label>
-                        <select name="blacklist" class="bgs-input form-select">
+                        <select name="blacklist" id="blacklist" class="bgs-input form-select">
                             <option disabled>Select channel</option>
                             <option value="0">None</option>
                             <option value="619514971868626978">General</option>
@@ -67,7 +74,7 @@
                     </div>
 
                     <div class="mb-3" id="modMsgChsForm-errors"></div>
-                    
+
                 </div>
             </form>
 
@@ -86,6 +93,11 @@
                                     <option value="2">Klozon</option>
                                     <option value="3">hason4</option>
                                 </select>
+
+                                <div class="d-flex align-items-center ps-2">
+                                    <i class="fa-solid fa-check fs-5" id="moderators-feedback" style="color: green"
+                                        data-title="Save Feedback"></i>
+                                </div>
                             </div>
 
                             <label for="moderators" class="text--grey ">These people have the power to perform kicks, bans
@@ -107,7 +119,14 @@
 
                     <div class="mb-4">
                         {{-- Placeholder must be like this because reasons --}}
-                        <textarea name="blacklist" class="bgs-input form-control flex-fill" rows="3">kill, stab, murder, hurt, die</textarea>
+                        <div class="d-flex">
+                            <textarea name="blacklist" id="blacklist-ta" class="bgs-input form-control flex-fill" rows="3">kill, stab, murder, hurt, die</textarea>
+                            <div class="d-flex align-items-end ps-2">
+                                <i class="fa-solid fa-check fs-5" id="blacklist-ta-feedback" style="color: green"
+                                    data-title="Save Feedback"></i>
+                            </div>
+                        </div>
+
                         <label for="blacklist"><b>Be sure to seperate each word with ", "!</b>
                             <br>
                             Messages containing blacklisted words will be automatically deleted and
@@ -128,6 +147,25 @@
         $(document).ready(function() {
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
+                let elementFeedback = document.getElementById(`${element.id}-feedback`);
+                
+                if (element.id == 'kick'||element.id == 'ban'||element.id == 'timeout'||element.id == 'blacklist') {
+                    elementFeedback = document.getElementById('modMsgChs-feedback');
+                }
+                
+                let elementId = element.id.replace('kick', 'modMsgChs')
+                    .replace('ban', 'modMsgChs')
+                    .replace('timeout', 'modMsgChs')
+                    .replace('blacklist', 'modMsgChs');
+
+                const errorContainer = document.getElementById(`${element.form.id}-errors`);
+
+                $(element).on("input", function(event) {
+                    elementFeedback.classList.remove('fa-check', 'fa-xmark');
+                    elementFeedback.classList.add('fa-spinner');
+                    elementFeedback.style.color = 'cornflowerblue';
+                });
+
                 $(element).on('focusout', function() {
                     $.ajaxSetup({
                         headers: {
@@ -156,29 +194,44 @@
                         type: 'POST',
                         data: $(`#${element.form.id}`).serialize() +
                             `&forceDelete=${forceDelete}`,
-                        //debug
                         success: function(response) {
-                            let errorContainer = document.getElementById(
-                                `${element.form.id}-errors`);
+                            elementFeedback.classList.remove('fa-xmark', 'fa-spinner');
+                            elementFeedback.classList.add('fa-check');
+                            elementFeedback.style.color = 'green';
+
                             errorContainer.innerHTML = '';
 
                             console.log(response);
                         },
                         //validation errors
                         error: function(response) {
+                            // console.log(response['responseJSON']);
+                            elementFeedback.classList.remove('fa-check', 'fa-spinner');
+                            elementFeedback.classList.add('fa-xmark');
+                            elementFeedback.style.color = 'red';
+
                             let errors = response['responseJSON']['errors'];
                             console.log(errors);
 
-                            displayErrors(element.form.id, errors);
+                            displayErrors(errorContainer, errors);
                         }
                     });
                 });
             });
 
             const moderators_form_id = 'moderatorsForm';
-            new MultiSelectTag('moderators', {
+            const moderators_input_id = 'moderators';
+            new MultiSelectTag(moderators_input_id, {
                 rounded: true,
                 onChange: function(values) {
+                    console.log(moderators_form_id);
+                    const elementFeedback = document.getElementById(`${moderators_input_id}-feedback`);
+                    const errorContainer = document.getElementById(`${moderators_form_id}-errors`);
+
+                    elementFeedback.classList.remove('fa-check', 'fa-xmark');
+                    elementFeedback.classList.add('fa-spinner');
+                    elementFeedback.style.color = 'cornflowerblue';
+
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -193,29 +246,33 @@
                         type: 'POST',
                         data: $(`#${moderators_form_id}`).serialize() +
                             `&forceDelete=${forceDelete}`,
-                        //debug
                         success: function(response) {
-                            let errorContainer = document.getElementById(
-                                `${moderators_form_id}-errors`);
+                            elementFeedback.classList.remove('fa-xmark', 'fa-spinner');
+                            elementFeedback.classList.add('fa-check');
+                            elementFeedback.style.color = 'green';
+
                             errorContainer.innerHTML = '';
 
                             console.log(response);
                         },
                         //validation errors
                         error: function(response) {
+                            elementFeedback.classList.remove('fa-check', 'fa-spinner');
+                            elementFeedback.classList.add('fa-xmark');
+                            elementFeedback.style.color = 'red';
+
                             let errors = response['responseJSON']['errors'];
                             console.log(errors);
 
-                            displayErrors(moderators_form_id, errors);
+                            displayErrors(errorContainer, errors);
                         }
                     });
                 }
             });
         });
 
-        let displayErrors = (form, errors) => {
-            const errorContainer = document.getElementById(`${form}-errors`);
-            errorContainer.innerHTML = '';
+        let displayErrors = (container, errors) => {
+            container.innerHTML = '';
 
             Object.keys(errors).forEach(errorKey => {
                 let errorMessage = errors[errorKey][0];
@@ -223,7 +280,7 @@
                 errorElement.className = 'text-danger';
                 errorElement.textContent = errorMessage;
 
-                errorContainer.appendChild(errorElement);
+                container.appendChild(errorElement);
             });
         }
     </script>
