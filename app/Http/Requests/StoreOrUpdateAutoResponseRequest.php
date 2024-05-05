@@ -27,7 +27,7 @@ class StoreOrUpdateAutoResponseRequest extends FormRequest
         return [
             //255*10 because max num of autoResponses is 10, +20 because '->' seperator is 20 chars in 10 autoResponses
             'dc_guild_id' => 'required|string|max:255',
-            'autoResponses' => 'required|max:2570'
+            'autoResponses' => 'max:2570'
         ];
     }
 }

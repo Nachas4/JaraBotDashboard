@@ -26,7 +26,7 @@ class StoreOrUpdateModeratorRequest extends FormRequest
     {
         return [
             'dc_guild_id' => 'required|string|max:255',
-            'moderators' => 'required|array'
+            'moderators' => 'array'
         ];
     }
 }

@@ -27,7 +27,7 @@ class StoreOrUpdateQuoteRequest extends FormRequest
         return [
             //255*10 because max num of quotes is 10
             'dc_guild_id' => 'required|string|max:255',
-            'quotes' => 'required|max:2550'
+            'quotes' => 'max:2550'
         ];
     }
 }

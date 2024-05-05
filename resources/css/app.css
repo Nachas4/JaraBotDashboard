@@ -377,6 +377,15 @@ p {
     z-index: 2;
 }
 
+.nav--:hover{
+    -moz-box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.75);
+    box-shadow: inset 0px 0px 0px 2px rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+}
+.nav--{
+    padding: 5px 0;
+}
+
 /* -------------------------------------- */
 
 /* ------------MULTI SELECT-------------- */
@@ -424,4 +433,37 @@ p {
 
 .mult-select-tag li {
     color: black;
+}
+
+/* -------------------------------------- */
+
+/* ----------- SAVE FEEDBACK ------------ */
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+
+[data-title]:after {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    content: attr(data-title);
+    font-size: 12px;
+    font-weight: 10;
+    position: absolute;
+    bottom: -1.6em;
+    border-radius: 3px;
+    border: 1px solid white;
+    left: 100%;
+    padding: 5px 4px;
+    color: white;
+    white-space: nowrap; 
+    background-color: var(--clr-dark);
+    opacity: 0;
+    z-index: 99999;
+    visibility: hidden;
+}
+
+[data-title] {
+    position: relative;
 }
