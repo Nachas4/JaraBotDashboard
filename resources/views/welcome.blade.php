@@ -63,12 +63,8 @@
                                     <i class="fa-brands fa-discord text-white"></i>
                                 </div>
                                 <h1>Login with Discord</h1>
-                                <p class="card--p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
-                                    fugit excepturi
-                                    cum.
-                                    Quidem,
-                                    ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore
-                                    vel?</p>
+                                <p class="card--p">
+                                    </p>
                                 <a href="{{ route('discord.login') }}" class="btn btn-primary button mt-auto">Login</a>
                             </div>
                         @endguest
@@ -78,11 +74,11 @@
                 <div class="col-lg-4 col-sm-12 col-md-12 col-12 pb-md-3 pb-4 text-center order-md-1 order-lg-0 order-1">
                     <div class="card-- pt-5">
                         <h1>Welcome</h1>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia fugit
-                            excepturi cum.
-                            Quidem,
-                            ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore cumque
-                            temporibus vel?</p>
+                        <p>🎉 Welcome to Our Discord Bot Dashboard! 🤖✨
+
+                            Manage Your Discord Bot with Ease!
+                            
+                            Get ready to elevate your Discord server experience! Our dashboard provides you with intuitive tools to effortlessly manage your Discord bot, customize settings, and interact with your community. </p>
                     </div>
                 </div>
 
@@ -97,12 +93,7 @@
                                 <i class="fa-solid fa-book text-white" style="font-size: 60px; width: auto !important"></i>
                             </div>
                             <h1>Documentation</h1>
-                            <p class="card--p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem rerum quia
-                                fugit excepturi
-                                cum.
-                                Quidem,
-                                ullam! Magni reiciendis veniam porro ipsam aperiam eaque repudiandae fuga libero, tempore
-                                vel?</p>
+                            <p class="card--p">Here you can find the jarabot documentation and /commands</p>
                             <a href="{{ route('docs') }}" class="btn btn-primary button mt-auto">Learn More</a>
                         </div>
                     </div>
@@ -116,24 +107,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>About Us</h1>
+                    <h1>🤖 About Us 🌟</h1>
                 </div>
                 <div class="col-12">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, perspiciatis laborum illum
-                        placeat pariatur aliquam. Maxime necessitatibus impedit exercitationem. Saepe modi facilis velit?
-                        Accusamus ipsam minima, dolorem ut illum nobis!
+                    <p>Welcome to Jarabots, your ultimate destination for Discord bot management! Our team is passionate about empowering bot owners like you to create engaging and vibrant communities on Discord.
                     </p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id unde animi ipsum assumenda earum
-                        asperiores numquam hic a laboriosam sed quasi quod, nostrum, nobis temporibus esse necessitatibus
-                        voluptates modi ipsam.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti delectus tempore dolores illo,
-                        aperiam possimus eos quaerat animi voluptatum iste, sapiente quas culpa sed est vitae aut nisi
-                        assumenda perspiciatis.
+                    <p>At Jarabots, we believe in the power of technology to bring people together. With years of experience in bot development and community management, we understand the unique challenges and opportunities that come with running a Discord server.
                     </p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt error voluptas blanditiis fugit ut
-                        consequuntur ullam voluptatum natus maxime, quis vero, alias iste. Consectetur ad unde inventore
-                        maiores vel laborum.
+                    <p>Our mission is to provide you with intuitive tools and resources to streamline the bot management process, enhance user experience, and foster a thriving community atmosphere. Whether you're a hobbyist developer, a content creator, or a seasoned professional, we're here to support you every step of the way.
+
                     </p>
+                    <p>
+                        Join us on this exciting journey as we continue to innovate and evolve, making Discord bot management simpler, more enjoyable, and more rewarding for everyone involved.
+                    </p>
+                    <p>
+                        Thank you for choosing Jarabots. Let's build something amazing together!
+                    </p>
+
                 </div>
             </div>
         </div>
@@ -144,7 +134,7 @@
 
 
     {{-- STATISRIC --}}
-    <div class="container mb-5 mt-5 mb-md-5" style="padding-top: 1px !important;">
+    <div class="container mb-5 mt-5 mb-md-5 d-none" style="padding-top: 1px !important;">
         <div class="row">
             <div class="col-lg-6 col-md-12 mb-lg-0 mb-sm-3 pb-3">
                 <div class="card--small h-100">
