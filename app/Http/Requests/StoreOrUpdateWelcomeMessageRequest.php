@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\DcGuild;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class StoreOrUpdateWelcomeMessageRequest extends FormRequest
 {
@@ -26,9 +26,8 @@ class StoreOrUpdateWelcomeMessageRequest extends FormRequest
     {
         return [
             'dc_guild_id' => 'required|string|max:255',
-            'channel_id' => 'required|max:255',
-            'message' => 'max:255',
-            // 'bg_image'=> '',
+            'channel_id' => 'sometimes|required|max:255',
+            'message' => 'max:255'
         ];
     }
 }
