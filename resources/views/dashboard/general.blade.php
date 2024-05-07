@@ -143,7 +143,7 @@
                             <input name="bg_image" type="file" id="bg_image"
                                 class="d-none bgs-input-file"accept="image/jpeg,image/png" />
                             <div class="d-flex flex-row">
-                                <label for="bg_image" class="btn btn-primary button">Select file</label>
+                                <label for="bg_image" class="btn btn-primary button" style="z-index: -99999">Select file</label>
 
                                 <div class="d-flex align-items-center ps-2">
                                     <i class="fa-solid fa-check fs-5" id="bg_image-feedback" style="color: var(--clr-neon)"
@@ -217,15 +217,7 @@
                         {{-- Placeholder must be like this because reasons --}}
                         <textarea name="autoResponses" id="autoResponses" class="bgs-input form-control flex-fill" rows="3"
                             placeholder="help->Hey there! Please visit this channel if you want to know more about the server: #server-rules
-hello there->General Kenobi!">
-@php
-    if ($autoResps !== null) {
-        foreach ($autoResps as $item) {
-echo trim($item->respond_to . '->' . $item->respond_with) . "\r\n";
-        }
-    }
-@endphp
-                        </textarea>
+hello there->General Kenobi!">@php if ($autoResps !== null) {foreach ($autoResps as $item) {echo trim($item->respond_to . '->' . $item->respond_with) . "\r\n";}}@endphp</textarea>
 
                         <div class="d-flex align-items-center ps-2">
                             <i class="fa-solid fa-check fs-5" id="autoResponses-feedback" style="color: var(--clr-neon)"
