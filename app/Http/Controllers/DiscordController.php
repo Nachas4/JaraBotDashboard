@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AccessToken;
+use App\Models\Blacklist;
 use App\Models\DcGuild;
-use App\Models\ModMessageChannel;
 use App\Models\ServerSetting;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -45,12 +45,28 @@ class DiscordController extends Controller
 
             $access_token = $response['access_token'];
         } catch (\Throwable $th) {
-            return redirect('welcome')->with('error', 'There was an error while logging in using Discord: '.$th->getMessage());
+            return redirect('welcome')->with('error', 'There was an error while logging in using Discord: ' . $th->getMessage());
         }
 
         // After a successful response, extract user data
         $userData = Http::withToken($access_token)->get('https://discord.com/api/users/@me')->json();
-        $userPfpExt = DiscordController::getPfpExt($userData['id'], $userData['avatar']);
+
+        $global_name = $userData['username'];
+        if ($userData['global_name'] !== null) {
+            $global_name = $userData['global_name'];
+        }
+
+        $avatar = 'PFP_placeholder';
+        $userPfpExt = 'png';
+        if ($userData['avatar'] !== null) {
+            $avatar = $userData['avatar'];
+            $userPfpExt = DiscordController::getPfpExt($userData['id'], $userData['avatar']);
+        }
+
+        $banner_color = '#5f9ea0';
+        if ($userData['banner_color'] !== null) {
+            $banner_color = $userData['banner_color'];
+        }
 
         //Create new or update existing user
         $success = false;
@@ -58,13 +74,11 @@ class DiscordController extends Controller
         if (count($user->get()) !== 0) {
             $user->update([
                 'username' => $userData['username'],
-                'global_name' => $userData['global_name'],
-                'avatar' => '' . $userData['avatar'] . '.' . $userPfpExt . '',
-                'banner_color' => $userData['banner_color'],
+                'global_name' => $global_name,
+                'avatar' => '' . $avatar . '.' . $userPfpExt . '',
+                'banner_color' => $banner_color,
                 'mfa_enabled' => $userData['mfa_enabled'],
             ]);
-
-
 
             $old_access_token = $user->get()[0]->access_token();
             $old_access_token->update([
@@ -76,9 +90,9 @@ class DiscordController extends Controller
             $userData = [
                 'user_id' => $userData['id'],
                 'username' => $userData['username'],
-                'global_name' => $userData['global_name'],
-                'avatar' => '' . $userData['avatar'] . '.' . $userPfpExt,
-                'banner_color' => $userData['banner_color'],
+                'global_name' => $global_name,
+                'avatar' => '' . $avatar . '.' . $userPfpExt,
+                'banner_color' => $banner_color,
                 'mfa_enabled' => $userData['mfa_enabled'],
             ];
 
@@ -90,7 +104,7 @@ class DiscordController extends Controller
 
             //create, update or delete guild info belonging to user
             $userGuilds = Http::withToken($access_token)->get('https://discord.com/api/users/@me/guilds')->json();
-            DiscordController::reCheckUserGuilds($user->id, $userGuilds);
+            DiscordController::processUserGuilds($user->id, $userGuilds);
 
             $this->guard()->login($user);
 
@@ -102,57 +116,56 @@ class DiscordController extends Controller
         }
     }
 
-    private function reCheckUserGuilds($owner_id, $currentGuilds)
+    private function processUserGuilds($owner_id, $currentGuilds)
     {
         foreach ($currentGuilds as $guild) {
             //We only care about guilds belonging to user
             if (!$guild['owner'])
                 continue;
 
-            $guildIconExt = DiscordController::getIconExt($guild['id'], $guild['icon']);
+            $guildIcon = 'PH_placeholder_image';
+            $guildIconExt = 'png';
+
+            if ($guild['icon'] !== null) {
+                $guildIcon = $guild['icon'];
+                $guildIconExt = DiscordController::getIconExt($guild['id'], $guild['icon']);
+            }
 
             //Create new or update existing guild
             $dcGuild = DcGuild::where('guild_id', $guild['id']);
             if (count($dcGuild->get()) !== 0) {
                 $dcGuild->update([
-                    'guild_id' => $guild['id'],
                     'name' => $guild['name'],
-                    'icon' => '' . $guild['icon'] . '.' . $guildIconExt . '',
+                    'icon' => '' . $guildIcon . '.' . $guildIconExt . '',
                     'owner_id' => $owner_id
                 ]);
             } else {
                 $dcGuild = DcGuild::create([
                     'guild_id' => $guild['id'],
                     'name' => $guild['name'],
-                    'icon' => '' . $guild['icon'] . '.' . $guildIconExt . '',
+                    'icon' => '' . $guildIcon . '.' . $guildIconExt . '',
                     'owner_id' => $owner_id
                 ]);
 
-                
-                /*
-                 * Also fix these two!! 
-                 */
+                //Also create the default ServerSettngs and Blacklist models for this guild
+                ServerSetting::create([
+                    'dc_guild_id' => $dcGuild->id,
+                    'auto_responses_enabled' => false,
+                    'quotes_enabled' => true,
+                    'pickups_enabled' => true,
+                    'welcome_messages_enabled' => false,
+                    'mod_message_channels_enabled' => false,
+                    'blacklist_enabled' => true,
+                    'auto_roles_enabled' => false
+                ]);
 
-                //Also create the default ServerSettings and ModMessageChannel models for this guild
-                // ServerSetting::create([
-                //     'dc_guild_id' => $guild['id'],
-                //     'auto_responses_enabled' => false,
-                //     'quotes_enabled' => true,
-                //     'pickups_enabled' => true,
-                //     'welcome_messages_enabled' => false,
-                //     'mod_message_channels_enabled' => false,
-                //     'blacklist_enabled' => true,
-                //     'auto_roles_enabled' => false
-                // ]);
+                $words = ['kill', 'stab', 'murder', 'hurt', 'die'];
+                $count = 0;
 
-                // $words = ['kill', 'stab', 'murder', 'hurt', 'die'];
-                // $count = 0;
-
-                // while ($count <= 5) {
-                //     $count++;
-                //     ModMessageChannel::create(['dc_guild_id' => $guild['id'], 'word'=>  $words[$count - 1]]);
-                // }
-
+                while ($count < 5) {
+                    Blacklist::create(['dc_guild_id' => $dcGuild->id, 'word' => $words[$count]]);
+                    $count++;
+                }
             }
         }
 
