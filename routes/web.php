@@ -45,28 +45,6 @@ Route::get('/docs', function () {
 //jQuery dynamic page loading used here
 Route::get('/docs/{module}', [DocsController::class, 'load_module'])->name('doc.module');
 
-
-/*
-|--------------------------------------------------------------------------
-| Dashboard Routes (only for logged in users)
-|--------------------------------------------------------------------------
-*/
-Route::get('/dashboard/general/{server}', [DashboardController::class, 'general'])->name('dashboard.general');
-Route::get('/dashboard/fun/{server}', [DashboardController::class, 'fun'])->name('dashboard.fun');
-Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'moderation'])->name('dashboard.moderation');
-Route::get('/dashboard/minigame/{server}', [DashboardController::class, 'miniGame'])->name('dashboard.minigame');
-
-/* Ajax POST template for saving automatically to DB */
-Route::post('/save-autoResps', [AutoResponseController::class, 'storeOrUpdate'])->name('autoResps.save');
-Route::post('/save-autoRoles', [AutoRoleController::class, 'storeOrUpdate'])->name('autoRoles.save');
-Route::post('/save-blacklist', [BlacklistController::class, 'storeOrUpdate'])->name('blacklist.save');
-Route::post('/save-moderators', [ModeratorController::class, 'storeOrUpdate'])->name('moderators.save');
-Route::post('/save-modMsgChs', [ModMessageChannelController::class, 'storeOrUpdate'])->name('modMsgChs.save');
-Route::post('/save-wMsg', [WelcomeMessageController::class, 'storeOrUpdate'])->name('wMsg.save');
-Route::post('/save-pickups', [PickupLineController::class, 'storeOrUpdate'])->name('pickups.save');
-Route::post('/save-serverSetts', [ServerSettingController::class, 'storeOrUpdate'])->name('serverSetts.save');
-Route::post('/save-quotes', [QuoteController::class, 'storeOrUpdate'])->name('quotes.save');
-
 /*
 |--------------------------------------------------------------------------
 | Discord OAuth2 Login Routes
@@ -77,7 +55,7 @@ Route::get('/login/discord/callback', [DiscordController::class, 'OAuthCallback'
 
 
 Route::get('/welcome', function () {
-    return view('welcome'); 
+    return view('welcome');
 })->name('welcome');
 
 /** Only for logged in users **/
@@ -89,7 +67,19 @@ Route::middleware(Authenticate::class)->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/dashboard', function () {
-        return redirect()->route('dashboard.general', ['server' => "asdasdasd"]);
-    });
+    Route::get('/dashboard/general/{server}', [DashboardController::class, 'general'])->name('dashboard.general');
+    Route::get('/dashboard/fun/{server}', [DashboardController::class, 'fun'])->name('dashboard.fun');
+    Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'moderation'])->name('dashboard.moderation');
+    Route::get('/dashboard/minigame/{server}', [DashboardController::class, 'miniGame'])->name('dashboard.minigame');
+
+    /* Ajax POST template for saving automatically to DB */
+    Route::post('/save-autoResps', [AutoResponseController::class, 'storeOrUpdate'])->name('autoResps.save');
+    Route::post('/save-autoRoles', [AutoRoleController::class, 'storeOrUpdate'])->name('autoRoles.save');
+    Route::post('/save-blacklist', [BlacklistController::class, 'storeOrUpdate'])->name('blacklist.save');
+    Route::post('/save-moderators', [ModeratorController::class, 'storeOrUpdate'])->name('moderators.save');
+    Route::post('/save-modMsgChs', [ModMessageChannelController::class, 'storeOrUpdate'])->name('modMsgChs.save');
+    Route::post('/save-wMsg', [WelcomeMessageController::class, 'storeOrUpdate'])->name('wMsg.save');
+    Route::post('/save-pickups', [PickupLineController::class, 'storeOrUpdate'])->name('pickups.save');
+    Route::post('/save-serverSetts', [ServerSettingController::class, 'storeOrUpdate'])->name('serverSetts.save');
+    Route::post('/save-quotes', [QuoteController::class, 'storeOrUpdate'])->name('quotes.save');
 });

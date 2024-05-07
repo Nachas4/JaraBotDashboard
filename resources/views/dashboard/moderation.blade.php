@@ -1,8 +1,17 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    @php
+        use App\Models\DcGuild;
+
+        $guild = DcGuild::where('guild_id', $server)->first();
+
+        $modMsgChs = $guild->modmessagechannels()->get()->first();
+        $blacklist = $guild->blacklist()->get();
+    @endphp
+
     <div class="d-flex justify-content-center card--header text-white p-2 mx-4 mb-3">
-        <div class="fs-3"><b>XYZ server settings</b></div>
+        <div class="text-center fs-3"><b>{{ $guild->name }} server settings</b></div>
     </div>
 
     <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
@@ -115,7 +124,19 @@
                     <div class="mb-4">
                         {{-- Placeholder must be like this because reasons --}}
                         <div class="d-flex">
-                            <textarea name="blacklist" id="blacklist-ta" class="bgs-input form-control flex-fill" rows="3">kill, stab, murder, hurt, die</textarea>
+                            <textarea name="blacklist" id="blacklist-ta" class="bgs-input form-control flex-fill" rows="3">
+@php
+    if ($blacklist !== null) {
+        $count = count($blacklist);
+        foreach ($blacklist as $item) {
+            $count--;
+            
+            echo trim($item->word);
+            if ($count !== 0) echo ', ';
+        }
+    }
+@endphp
+                            </textarea>
                             <div class="d-flex align-items-end ps-2">
                                 <i class="fa-solid fa-check fs-5" id="blacklist-ta-feedback" style="color: green"
                                     data-title="Save Feedback"></i>

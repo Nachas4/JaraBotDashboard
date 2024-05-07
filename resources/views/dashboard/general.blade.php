@@ -1,22 +1,93 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="card--header text-white p-2 me-4">
-        <div class="row">
-            <div class="col-12 text-center fs-3"><b>XYZ server settings</b></div>
-        </div>
+    @php
+        use App\Models\DcGuild;
+        use GuzzleHttp\Client;
+
+        $guild = DcGuild::where('guild_id', $server)->first();
+
+        $wcMsg = $guild->welcomemessage()->get()->first();
+        $autoResps = $guild->autoresponses()->get();
+        $serverSetts = $guild->serversetting()->get()->first();
+        $textChannels = [];
+
+        $autoRoles = $guild->autoroles()->get();
+        $roleIds = [];
+
+        foreach ($autoRoles as $role) {
+            $roleIds[] = [$role->role_id];
+        }
+
+        $regularRoles = [];
+
+        //Channel list
+        if (empty($_GLOBALS['channels'])) {
+            $channelsUrl = "https://discord.com/api/v10/guilds/{$guild->guild_id}/channels";
+            $client = new Client();
+
+            $response = $client->request('GET', $channelsUrl, [
+                'headers' => [
+                    'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
+                ],
+            ]);
+
+            $channels = json_decode($response->getBody(), true);
+
+            foreach ($channels as $channel) {
+                if ($channel['type'] === 0) {
+                    $textChannels[] = [
+                        'name' => $channel['name'],
+                        'id' => $channel['id'],
+                        'selected' => $channel['id'] === $wcMsg->channel_id,
+                    ];
+                }
+            }
+
+            $_GLOBALS['channels'] = $textChannels;
+        }
+
+        //Role list
+        if (empty($_GLOBALS['roles'])) {
+            $rolesUrl = "https://discord.com/api/v10/guilds/{$guild->guild_id}/roles";
+            $client = new Client();
+
+            $response = $client->request('GET', $rolesUrl, [
+                'headers' => [
+                    'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
+                ],
+            ]);
+
+            $roles = json_decode($response->getBody(), true);
+
+            foreach ($roles as $role) {
+                if (!$role['managed'] && !$role['hoist'] && !$role['mentionable']) {
+                    $huh = in_array($channel['id'], $roleIds);
+                    echo $huh;
+                    $regularRoles[] = [
+                        'name' => $role['name'],
+                        'id' => $role['id'],
+                        'selected' => in_array($channel['id'], $roleIds),
+                    ];
+                }
+            }
+
+            $_GLOBALS['roles'] = $regularRoles;
+        }
+
+    @endphp
+
+    <div class="d-flex justify-content-center card--header text-white p-2 mx-4 mb-3">
+        <div class="text-center fs-3"><b>{{ $guild->name }} server settings</b></div>
     </div>
 
     <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
-
-        <hr class="me-2">
-
         <h2 class="text--cyan mb-3"><b>General Settings</b></h2>
 
         {{-- Welcome Message --}}
         <form id="wMsgForm">
             @csrf
-            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="{{ $guild->id }}">
 
             <div class="row px-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Welcome message</h3>
@@ -24,7 +95,7 @@
                 <div class="col-12 col-lg-12 col-xl-4">
                     <div class="d-flex w-100 h-100">
                         <textarea name="message" id="message" class="bgs-input form-control flex-fill" rows="3"
-                            placeholder="We welcome ${user} to the server!"></textarea>
+                            placeholder="We welcome ${user} to the server!">@if($wcMsg !== null){{ $wcMsg->message }}@endif</textarea>
                         <div class="d-flex align-items-end ps-2">
                             <i class="fa-solid fa-check fs-5" id="message-feedback" style="color: var(--clr-neon)"
                                 data-title="Save Feedback"></i>
@@ -41,10 +112,23 @@
                             <div class="d-flex">
                                 <select name="channel_id" id="channel_id" class="bgs-input form-select">
                                     <option disabled>Select channel</option>
-                                    <option value="711348770104672308">Welcome</option>
-                                    <option value="619514971868626978">General</option>
-                                    <option value="981514971867836971">Talk About</option>
-                                    <option value="762514972868926974">Etc.</option>
+                                    @php
+                                        foreach ($_GLOBALS['channels'] as $channel) {
+                                            if ($channel['selected']) {
+                                                echo '<option selected value=' .
+                                                    $channel['id'] .
+                                                    '>' .
+                                                    $channel['name'] .
+                                                    '</option>';
+                                            } else {
+                                                echo '<option value=' .
+                                                    $channel['id'] .
+                                                    '>' .
+                                                    $channel['name'] .
+                                                    '</option>';
+                                            }
+                                        }
+                                    @endphp
                                 </select>
                                 <div class="d-flex align-items-center ps-2">
                                     <i class="fa-solid fa-check fs-5" id="channel_id-feedback"
@@ -56,8 +140,8 @@
                         <div class="col-12">
                             <h5>Background Image</h5>
 
-                            <input name="bg_image" type="file" id="bg_image" class="d-none bgs-input-file"
-                                {{-- onchange="saveImg(this)" --}} accept="image/jpeg,image/png" />
+                            <input name="bg_image" type="file" id="bg_image"
+                                class="d-none bgs-input-file"accept="image/jpeg,image/png" />
                             <div class="d-flex flex-row">
                                 <label for="bg_image" class="btn btn-primary button">Select file</label>
 
@@ -72,7 +156,8 @@
                 </div>
 
                 <div class="col-12 col-md-6 col-xl-4 pt-3 d-flex justify-content-md-end justify-content-center">
-                    <img src="{{ asset('storage/wm_images/WM_placeholder.png') }}" class="img-thumbnail" style="height: 150px;">
+                    <img src="@if ($wcMsg !== null) {{ asset('storage/wm_images/' . $wcMsg->bg_image) }} @endif"
+                        class="img-thumbnail" alt="Backgound Image" style="height: 150px;">
                 </div>
 
                 <div class="mb-4 pt-2" id="wMsgForm-errors"></div>
@@ -83,7 +168,7 @@
         {{-- Autoroles --}}
         <form id="autoRolesForm">
             @csrf
-            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="{{ $guild->id }}">
 
             <div class="row">
                 <div class="col-12 col-lg-8">
@@ -91,11 +176,19 @@
                         <h3>Autoroles</h3>
                         <div class="d-flex flex-row flex-fill align-items-center">
                             <select name="autoRoles[]" id="autoRoles" multiple>
-                                <option value="981514971867836975">Admin</option>
-                                <option value="981514971867836974">Staff</option>
-                                <option value="981514971867836973">Moderator</option>
-                                <option value="981514971867836972">Member</option>
-                                <option value="981514971867836971">Supporter</option>
+                                @php
+                                    foreach ($_GLOBALS['roles'] as $role) {
+                                        if ($role['selected']) {
+                                            echo '<option selected value=' .
+                                                $role['id'] .
+                                                '>' .
+                                                $role['name'] .
+                                                '</option>';
+                                        } else {
+                                            echo '<option value=' . $role['id'] . '>' . $role['name'] . '</option>';
+                                        }
+                                    }
+                                @endphp
                             </select>
 
                             <div class="d-flex align-items-center ps-2">
@@ -114,7 +207,7 @@
         {{-- Auto Responses --}}
         <form id="autoRespsForm">
             @csrf
-            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="{{ $guild->id }}">
 
             <div class="row px-4 pt-3 mb-4 me-3 bg--black rounded">
                 <h3>Auto Responses</h3>
@@ -124,7 +217,15 @@
                         {{-- Placeholder must be like this because reasons --}}
                         <textarea name="autoResponses" id="autoResponses" class="bgs-input form-control flex-fill" rows="3"
                             placeholder="help->Hey there! Please visit this channel if you want to know more about the server: #server-rules
-hello there->General Kenobi!"></textarea>
+hello there->General Kenobi!">
+@php
+    if ($autoResps !== null) {
+        foreach ($autoResps as $item) {
+echo trim($item->respond_to . '->' . $item->respond_with) . "\r\n";
+        }
+    }
+@endphp
+                        </textarea>
 
                         <div class="d-flex align-items-center ps-2">
                             <i class="fa-solid fa-check fs-5" id="autoResponses-feedback" style="color: var(--clr-neon)"
@@ -138,10 +239,9 @@ hello there->General Kenobi!"></textarea>
         </form>
 
         {{-- Server Settings --}}
-        {{-- TODO: replace  @checked(false) and all other values on this page with read values from database --}}
         <form id="serverSettsForm">
             @csrf
-            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
+            <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="{{ $guild->id }}">
 
             <div class="row">
                 <div class="col">
@@ -165,7 +265,7 @@ hello there->General Kenobi!"></textarea>
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('welcome_messages_enabled');">
                                 <input type="checkbox" name="welcome_messages_enabled" class="custom-checkbox"
-                                    id="welcome_messages_enabled" @checked(false)>
+                                    id="welcome_messages_enabled" @checked($serverSetts->welcome_messages_enabled)>
                                 <div class="indicator me-2"></div>
 
                                 <label for="welcome_messages_enabled">Welcome Messages</label>
@@ -174,7 +274,7 @@ hello there->General Kenobi!"></textarea>
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('auto_responses_enabled');">
                                 <input type="checkbox" name="auto_responses_enabled" class="custom-checkbox"
-                                    id="auto_responses_enabled" @checked(false)>
+                                    id="auto_responses_enabled" @checked($serverSetts->auto_responses_enabled)>
                                 <div class="indicator me-2"></div>
 
                                 <label for="auto_responses_enabled">Auto Responses</label>
@@ -183,7 +283,7 @@ hello there->General Kenobi!"></textarea>
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('auto_roles_enabled');">
                                 <input type="checkbox" name="auto_roles_enabled" class="custom-checkbox"
-                                    id="auto_roles_enabled" @checked(false)>
+                                    id="auto_roles_enabled" @checked($serverSetts->auto_roles_enabled)>
                                 <div class="indicator me-2"></div>
 
                                 <label for="auto_roles_enabled">Auto Roles</label>
@@ -196,7 +296,7 @@ hello there->General Kenobi!"></textarea>
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('mod_message_channels_enabled');">
                                 <input type="checkbox" name="mod_message_channels_enabled" class="custom-checkbox"
-                                    id="mod_message_channels_enabled" @checked(false)>
+                                    id="mod_message_channels_enabled" @checked($serverSetts->mod_message_channels_enabled)>
                                 <div class="indicator me-2"></div>
 
                                 <label for="mod_message_channels_enabled">Mod Message Channels</label>
@@ -205,7 +305,7 @@ hello there->General Kenobi!"></textarea>
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('pickups_enabled');">
                                 <input type="checkbox" name="pickups_enabled" class="custom-checkbox"
-                                    id="pickups_enabled" @checked(true)>
+                                    id="pickups_enabled" @checked($serverSetts->pickups_enabled)>
                                 <div class="indicator me-2"></div>
 
                                 <label for="pickups_enabled">Pickups</label>
@@ -214,7 +314,7 @@ hello there->General Kenobi!"></textarea>
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('quotes_enabled');">
                                 <input type="checkbox" name="quotes_enabled" class="custom-checkbox" id="quotes_enabled"
-                                    @checked(true)>
+                                    @checked($serverSetts->quotes_enabled)>
                                 <div class="indicator me-2"></div>
 
                                 <label for="quotes_enabled">Quotes</label>
@@ -227,7 +327,7 @@ hello there->General Kenobi!"></textarea>
                             <div class="setting-checkbox px-2 rounded user-select-none d-flex flex-row align-items-center"
                                 onclick="toggleSetting('blacklist_enabled');">
                                 <input type="checkbox" name="blacklist_enabled" class="custom-checkbox"
-                                    id="blacklist_enabled" @checked(true)>
+                                    id="blacklist_enabled" @checked($serverSetts->blacklist_enabled)>
                                 <div class="indicator me-2"></div>
 
                                 <label for="blacklist_enabled">Blacklist</label>
@@ -241,8 +341,6 @@ hello there->General Kenobi!"></textarea>
                 </div>
             </div>
         </form>
-
-        <hr>
     </div>
 
 
@@ -250,10 +348,6 @@ hello there->General Kenobi!"></textarea>
         let toggleSetting = (id) => {
             let checkbox = document.getElementById(id);
             checkbox.checked = !checkbox.checked;
-        }
-
-        let saveImg = (element) => {
-            console.log(element.files);
         }
 
         //Autosave in the background with Ajax (bgs => background-save)
@@ -385,6 +479,12 @@ hello there->General Kenobi!"></textarea>
                     elementFeedback.style.color = 'var(--clr-teal)';
                 });
 
+                $(element).on('cancel', function() {
+                    elementFeedback.classList.remove('fa-spinner', 'fa-xmark');
+                    elementFeedback.classList.add('fa-check');
+                    elementFeedback.style.color = 'var(--clr-neon)';
+                });
+
                 $(element).on('change', async function() {
                     console.log(element.form);
 
@@ -422,6 +522,8 @@ hello there->General Kenobi!"></textarea>
                     }
                 });
             });
+
+
 
             const autoroles_form_id = 'autoRolesForm';
             const autoroles_input_id = 'autoRoles';

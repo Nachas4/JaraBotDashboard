@@ -28,7 +28,7 @@
     {{-- https://github.com/habibmhamadi/multi-select-tag --}}
     <script src="{{ asset('js/multi-select-tag.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/multi-select-tag.css') }}">
-    
+
     {{-- jQuery --}}
     <script src="{{ asset('js/jquery.min.js') }}"></script>
 
@@ -61,43 +61,24 @@
                     </a>
 
 
+
                     {{-- User Data --}}
-                    @auth {{-- Only for development, remove @auth at end --}}
-                        {{-- User Data --}}
-                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2" style="height:80px;">
-                            <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
-                                class="img-fluid me-2 rounded-circle h-100">
-                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
-                                <span class="fs-5 text-white"
-                                    style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
-                                <span class="fs-6"
-                                    style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
-                            </div>
-
-                            {{-- Log Out --}}
-                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
-                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
-                            </a>
+                    <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
+                        style="height:80px;">
+                        <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
+                            class="img-fluid me-2 rounded-circle h-100">
+                        <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                            <span class="fs-5 text-white"
+                                style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
+                            <span class="fs-6"
+                                style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
                         </div>
-                    @endauth
 
-                    @guest {{-- Only for development --}}
-                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
-                            style="height:80px;">
-                            <img src="{{ asset('pfp-2.jpg') }}" class="img-fluid me-2 rounded-circle h-100">
-                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
-                                <span class="fs-5 text-white"
-                                    style="height: min-content; margin-bottom:-10px;">Klozon</span>
-                                <span class="fs-6" style="height: min-content;font-size:80%;">csiszár</span>
-                            </div>
-
-                            {{-- Log Out --}}
-                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
-                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
-                            </a>
-                        </div>
-                    @endguest
-
+                        {{-- Log Out --}}
+                        <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
+                            <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
+                        </a>
+                    </div>
 
                     {{-- Navigation --}}
                     <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mt-2 mb-2"
@@ -154,129 +135,37 @@
                             </div>
                         </a>
                     </div>
-
-
-                    {{-- Notifications
-                    <div class="d-flex mt-2 mb-3 w-100 justify-content-between ">
-                        <span>Notifications</span>
-                        <a class="text-secondary">View All ></a>
-                    </div>
-                    <div style="max-height:300px !important;"
-                        class="d-flex mb-2 flex-column justify-content-between w-100 rounded  h-100 ">
-                        <div
-                            class="notification bg--pink rounded-3 flex-fill d-flex flex-column justify-content-between">
-                            <span class="text-black fw-bold fs-6">Evetnt started</span>
-                            <span class="text-black fs-6">XYZ server</span>
-                            <span class="text-muted fs-6">01.23 16:00</span>
-                        </div>
-                        <div
-                            class="notification bg--neon rounded-3 flex-fill mt-3 mb-3 d-flex flex-column justify-content-between">
-                            <span class="text-black fw-bold fs-6">Evetnt started</span>
-                            <span class="text-black fs-6">XYZ server</span>
-                            <span class="text-muted fs-6">01.23 16:00</span>
-                        </div>
-                        <div
-                            class="notification bg--yellow rounded-3 flex-fill d-flex flex-column justify-content-between">
-                            <span class="text-black fw-bold fs-6">Evetnt started</span>
-                            <span class="text-black fs-6">XYZ server</span>
-                            <span class="text-muted fs-6">01.23 16:00</span>
-                        </div>
-                    </div> --}}
-
                 </div>
             </div>
         </div>
 
-
-
-
-
-
-
-
-
-
         {{-- Right  Side --}}
         <div class="d-flex flex-column p-3 flex-fill">
-
-            {{-- <div class="card-- d-flex justify-content-start p-3 w-100" style="width: 100%;height: 150px; gap:15px;overflow:scroll; ">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list rounded">
-
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-                <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded">
-            </div> --}}
 
             {{-- SERVERS SLIDER --}}
             <div class="card-- p-3 mb-4 w-100" style="height: 140px;z-index:2;">
                 <div class="d-flex justify-content-start h-100 w-100 overflow-auto" style="overflow-y: hidden;"
                     id="servers">
 
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-                    <img src="{{ asset('pfp-1.png') }}" alt="" class="server--list img-fluid rounded"
-                        draggable="false">
-
-
+                    @foreach (Auth::user()->owned_guilds as $item)
+                        @if (str_contains($item->icon, 'placeholder'))
+                            <img onclick="{{ route('dashboard.general', $item->guild_id) }}"
+                                src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                                alt="{{ $item->name }}" class="server--list img-fluid rounded" draggable="false"
+                                style="cursor: pointer;">
+                        @else
+                            <img onclick="{{ route('dashboard.general', $item->guild_id) }}"
+                                src="https://cdn.discordapp.com/icons/{{ $item->guild_id }}/{{ $item->icon }}"
+                                alt="{{ $item->name }}" class="server--list img-fluid rounded" draggable="false"
+                                style="cursor: pointer;">
+                        @endif
+                    @endforeach
                 </div>
             </div>
             <main class="w-100 h-100">
                 <div class="card-- d-flex flex-column w-100 h-100 pe-0">
                     {{-- CONTENT --}}
                     @yield('content')
-
-
-                    {{-- Card Dasboard Sample --}}
-                    {{-- <div class="card-- d-flex flex-column w-100 h-100">
-                        <div class="card--header text-white p-2 mb-3">
-                            <div class="row">
-                                <div class="col-3 text-decoration-underline"><b>Some shit</b></div>
-                                <div class="col-3">fuck this</div>
-                                <div class="col-3">CSS -_-</div>
-                                <div class="col-3">sdf</div>
-                            </div>
-                        </div>
-                        <div class="card--body p-3 h-100 text-white rounded">
-                            
-                        </div>
-                    </div> --}}
 
                 </div>
             </main>
@@ -313,7 +202,6 @@
     let servers = document.getElementById('servers');
     servers.addEventListener("wheel", function(e) {
         if (e.wheelDelta > 0) {
-            console.log(e);
             this.scrollLeft -= 30;
         } else {
             this.scrollLeft += 30;
