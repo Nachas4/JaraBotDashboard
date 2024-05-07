@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\DcGuild;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\Auth;
 
 class StoreOrUpdateWelcomeMessageRequest extends FormRequest
 {
@@ -13,8 +13,8 @@ class StoreOrUpdateWelcomeMessageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        //return Auth::check() && DcGuild::find($_REQUEST['dc_guild_id'])->owner_id === Auth::user()->id;
-        return true;
+        return Auth::check() && DcGuild::find($_REQUEST['dc_guild_id'])->owner_id === Auth::user()->id;
+        // return true;
     }
 
     /**

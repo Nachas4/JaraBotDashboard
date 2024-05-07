@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\DcGuild;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreOrUpdateServerSettingRequest extends FormRequest
 {
@@ -11,8 +13,8 @@ class StoreOrUpdateServerSettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        //return Auth::check() && DcGuild::find($_REQUEST['dc_guild_id'])->owner_id === Auth::user()->id;
-        return true;
+        return Auth::check() && DcGuild::find($_REQUEST['dc_guild_id'])->owner_id === Auth::user()->id;
+        // return true;
     }
 
     /**
