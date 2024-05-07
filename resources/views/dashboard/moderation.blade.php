@@ -1,17 +1,12 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="card--header text-white p-2 me-4">
-        <div class="row">
-            <div class="col-12 text-center fs-3"><b>XYZ server settings</b></div>
-        </div>
+    <div class="d-flex justify-content-center card--header text-white p-2 mx-4 mb-3">
+        <div class="fs-3"><b>XYZ server settings</b></div>
     </div>
 
     <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
         <div class="me-3">
-
-            <hr class="me-2">
-
             <h2 class="text--cyan mb-3"><b>Moderation Settings</b></h2>
 
             {{-- Mod Message Channels --}}
@@ -137,7 +132,6 @@
                 </div>
             </form>
         </div>
-
     </div>
 
 
@@ -148,11 +142,12 @@
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
                 let elementFeedback = document.getElementById(`${element.id}-feedback`);
-                
-                if (element.id == 'kick'||element.id == 'ban'||element.id == 'timeout'||element.id == 'blacklist') {
+
+                if (element.id == 'kick' || element.id == 'ban' || element.id == 'timeout' || element.id ==
+                    'blacklist') {
                     elementFeedback = document.getElementById('modMsgChs-feedback');
                 }
-                
+
                 let elementId = element.id.replace('kick', 'modMsgChs')
                     .replace('ban', 'modMsgChs')
                     .replace('timeout', 'modMsgChs')
