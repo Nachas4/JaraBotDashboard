@@ -3,15 +3,51 @@
 @section('content')
     @php
         use App\Models\DcGuild;
+        use GuzzleHttp\Client;
 
         $guild = DcGuild::where('guild_id', $server)->first();
 
         $modMsgChs = $guild->modmessagechannels()->get()->first();
         $blacklist = $guild->blacklist()->get();
+        
+        $moderators = $guild->moderators()->get();
+        $memberIds = [];
+
+        foreach ($moderators as $mod) {
+            $memberIds[] = $mod->user_id;
+        }
+
+        $members = [];
+
+        // Moderators
+        $membersUrl = "https://discord.com/api/v10/guilds/{$guild->guild_id}/members?limit=1000";
+        $client = new Client();
+
+        $response = $client->request('GET', $membersUrl, [
+            'headers' => [
+                'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
+            ],
+        ]);
+
+        $allMembers = json_decode($response->getBody(), true);
+
+        foreach ($allMembers as $member) {
+            $user = $member['user'];
+
+            if (empty($user['bot'])) {
+                $members[] = [
+                    'id' => $user['id'],
+                    'name' => $user['global_name'] ?? $user['username'],
+                    'selected' => in_array($user['id'], $memberIds)
+                ];
+            }
+        }
+
+        $_GLOBALS['members'] = $members;
     @endphp
 
     <div class="d-flex justify-content-center card--header text-white p-2 mx-4 mb-3">
-        <div class="text-center fs-3"><b>{{ $guild->name }} server settings</b></div>
+        <div class="text-center fs-3"><b>{{ $guild->name }}</b></div>
     </div>
 
     <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
@@ -21,7 +57,7 @@
             {{-- Mod Message Channels --}}
             <form id="modMsgChsForm">
                 @csrf
-                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
+                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="{{ $guild->id }}">
 
                 <div class="row px-4 pt-3 mb-4 me-3 bg--black rounded">
                     <div class="d-flex">
@@ -85,7 +121,7 @@
             {{-- Moderators --}}
             <form id="moderatorsForm">
                 @csrf
-                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
+                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="{{ $guild->id }}">
 
                 <div class="row">
                     <div class="col-12 col-lg-8">
@@ -93,9 +129,19 @@
                             <h3>Moderators</h3>
                             <div class="d-flex flex-row flex-fill align-items-center">
                                 <select name="moderators[]" id="moderators" multiple>
-                                    <option value="1">Nachas4</option>
-                                    <option value="2">Klozon</option>
-                                    <option value="3">hason4</option>
+                                    @php
+                                        foreach ($_GLOBALS['members'] as $member) {
+                                            if ($member['selected']) {
+                                                echo '<option selected value=' .
+                                                    $member['id'] .
+                                                    '>' .
+                                                    $member['name'] .
+                                                    '</option>';
+                                            } else {
+                                                echo '<option value=' . $member['id'] . '>' . $member['name'] . '</option>';
+                                            }
+                                        }
+                                    @endphp
                                 </select>
 
                                 <div class="d-flex align-items-center ps-2">
@@ -116,7 +162,7 @@
             {{-- Blacklist --}}
             <form id="blacklistForm">
                 @csrf
-                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="1">
+                <input type="hidden" name="dc_guild_id" id="dc_guild_id" value="{{ $guild->id }}">
 
                 <div class="row px-4 pt-3 mb-4 me-3 bg--black rounded">
                     <h3>Word Blacklist</h3>
@@ -130,9 +176,11 @@
         $count = count($blacklist);
         foreach ($blacklist as $item) {
             $count--;
-            
+
             echo trim($item->word);
-            if ($count !== 0) echo ', ';
+            if ($count !== 0) {
+                echo ', ';
+            }
         }
     }
 @endphp
@@ -273,6 +321,7 @@
                         },
                         //validation errors
                         error: function(response) {
+                            console.log(response);
                             elementFeedback.classList.remove('fa-check', 'fa-spinner');
                             elementFeedback.classList.add('fa-xmark');
                             elementFeedback.style.color = 'red';

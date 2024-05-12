@@ -7,6 +7,7 @@ use App\Models\Blacklist;
 use App\Models\DcGuild;
 use App\Models\ServerSetting;
 use App\Models\User;
+use App\Models\WelcomeMessage;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -163,7 +164,7 @@ class DiscordController extends Controller
                     'owner_id' => $owner_id
                 ]);
 
-                //Also create the default ServerSettngs and Blacklist models for this guild
+                //Also create the default ServerSettngs, Blacklist and Welcome Message models for this guild
                 ServerSetting::create([
                     'dc_guild_id' => $dcGuild->id,
                     'auto_responses_enabled' => false,
@@ -182,6 +183,10 @@ class DiscordController extends Controller
                     Blacklist::create(['dc_guild_id' => $dcGuild->id, 'word' => $words[$count]]);
                     $count++;
                 }
+
+                WelcomeMessage::create([
+                    'dc_guild_id' => $dcGuild->id,
+                ]);
             }
         }
 

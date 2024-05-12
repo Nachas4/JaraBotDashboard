@@ -19,7 +19,7 @@ class ModeratorFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->randomElement(User::all('id'))
+            'user_id' => fake()->numberBetween(619514971868626973, 711348770104672308)
         ];
     }
 }
