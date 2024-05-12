@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 use App\Models\DcGuild;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function general($server)
     {
+        if (Auth::check() && DcGuild::find($server)->owner_id !== Auth::user()->id) {
+            return back();
+        }
+
         if (empty($server) || !DcGuild::where('guild_id', $server)->exists()) {
             return back();
         }
@@ -16,6 +21,10 @@ class DashboardController extends Controller
 
     public function fun($server)
     {
+        if (Auth::check() && DcGuild::find($server)->owner_id !== Auth::user()->id) {
+            return back();
+        }
+
         if (empty($server) || !DcGuild::where('guild_id', $server)->exists()) {
             return back();
         }
@@ -25,6 +34,10 @@ class DashboardController extends Controller
 
     public function miniGame($server)
     {
+        if (Auth::check() && DcGuild::find($server)->owner_id !== Auth::user()->id) {
+            return back();
+        }
+        
         if (empty($server) || !DcGuild::where('guild_id', $server)->exists()) {
             return back();
         }
@@ -34,6 +47,10 @@ class DashboardController extends Controller
 
     public function moderation($server)
     {
+        if (Auth::check() && DcGuild::find($server)->owner_id !== Auth::user()->id) {
+            return back();
+        }
+        
         if (empty($server) || !DcGuild::where('guild_id', $server)->exists()) {
             return back();
         }

@@ -13,7 +13,7 @@ class StoreOrUpdateAutoResponseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (Auth::check() && DcGuild::find($_REQUEST['dc_guild_id'])->owner_id === Auth::user()->id);
+        return Auth::check() && DcGuild::find($_REQUEST['dc_guild_id'])->owner_id === Auth::user()->id;
         // return true;
     }
 

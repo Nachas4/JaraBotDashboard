@@ -52,7 +52,11 @@
                                 </div>
 
                                 <p class="card--p mt-2">See all the features and settings our Dashboard offers.</p>
-                                <a href="{{ route('dashboard.general', ['server' => 'asdasdasd']) }}"
+                                @php
+
+                                    $server = Auth::user()->owned_guilds()->first()->guild_id ?? '';
+                                @endphp
+                                <a href="{{ route('dashboard.general', ['server' => $server]) }}"
                                     class="btn btn-primary button mt-auto">Dashboard</a>
                             </div>
                         @endauth
@@ -63,8 +67,7 @@
                                     <i class="fa-brands fa-discord text-white"></i>
                                 </div>
                                 <h1>Login with Discord</h1>
-                                <p class="card--p">
-                                    </p>
+                                <p class="card--p">Login using your discord account to access your Dashboard. Also, if you don't have a server of your own, you won't be able to access it.</p>
                                 <a href="{{ route('discord.login') }}" class="btn btn-primary button mt-auto">Login</a>
                             </div>
                         @endguest
@@ -77,8 +80,10 @@
                         <p>🎉 Welcome to Our Discord Bot Dashboard! 🤖✨
 
                             Manage Your Discord Bot with Ease!
-                            
-                            Get ready to elevate your Discord server experience! Our dashboard provides you with intuitive tools to effortlessly manage your Discord bot, customize settings, and interact with your community. </p>
+
+                            Get ready to elevate your Discord server experience! Our dashboard provides you with intuitive
+                            tools to effortlessly manage your Discord bot, customize settings, and interact with your
+                            community. </p>
                     </div>
                 </div>
 
@@ -93,7 +98,7 @@
                                 <i class="fa-solid fa-book text-white" style="font-size: 60px; width: auto !important"></i>
                             </div>
                             <h1>Documentation</h1>
-                            <p class="card--p">Here you can find the jarabot documentation and /commands</p>
+                            <p class="card--p">Here you can find the JaraBot documentation and / commands</p>
                             <a href="{{ route('docs') }}" class="btn btn-primary button mt-auto">Learn More</a>
                         </div>
                     </div>
@@ -110,20 +115,20 @@
                     <h1>🤖 About Us 🌟</h1>
                 </div>
                 <div class="col-12">
-                    <p>Welcome to Jarabots, your ultimate destination for Discord bot management! Our team is passionate about empowering bot owners like you to create engaging and vibrant communities on Discord.
+                    <p>Welcome to Jarabots, your ultimate destination for Discord bot management!
                     </p>
-                    <p>At Jarabots, we believe in the power of technology to bring people together. With years of experience in bot development and community management, we understand the unique challenges and opportunities that come with running a Discord server.
+                    <p>At Jarabots, we believe in the power of technology to bring people together. We understand the unique
+                        challenges that come with running a Discord server, so we have made an easy-to-use bot with a
+                        matching easy-to-use dashboard.
                     </p>
-                    <p>Our mission is to provide you with intuitive tools and resources to streamline the bot management process, enhance user experience, and foster a thriving community atmosphere. Whether you're a hobbyist developer, a content creator, or a seasoned professional, we're here to support you every step of the way.
-
-                    </p>
-                    <p>
-                        Join us on this exciting journey as we continue to innovate and evolve, making Discord bot management simpler, more enjoyable, and more rewarding for everyone involved.
+                    <p>Our mission is to provide you with intuitive tools and resources to streamline the bot management
+                        process, enhance user experience, and foster a thriving community atmosphere. Whether you're a
+                        hobbyist developer, a content creator, or a seasoned professional, we're here to support you every
+                        step of the way.
                     </p>
                     <p>
                         Thank you for choosing Jarabots. Let's build something amazing together!
                     </p>
-
                 </div>
             </div>
         </div>
@@ -133,7 +138,7 @@
     <div class="mt-5 mb-5 d-none d-md-block">‎ </div>
 
 
-    {{-- STATISRIC --}}
+    {{-- STATISTIC --}}
     <div class="container mb-5 mt-5 mb-md-5 d-none" style="padding-top: 1px !important;">
         <div class="row">
             <div class="col-lg-6 col-md-12 mb-lg-0 mb-sm-3 pb-3">
