@@ -18,6 +18,15 @@ class DiscordController extends Controller
 {
     public function RedirectToDiscord()
     {
+        if (Auth::check()) {
+            $userGuilds = Auth::user()->owned_guilds()->get();
+
+            if ($userGuilds)
+                return redirect()->route('dashboard.general', ['server' => $userGuilds[0]->guild_id]);
+            else
+                return redirect()->route('welcome')->with(['message' => 'You do not have any owned servers. If you wish to access the dashboard, you\'ll need to create one.']);
+        }
+
         $discordOAuthUrl = config('discord.oauth2_login_url');
         return redirect($discordOAuthUrl);
     }
@@ -25,6 +34,10 @@ class DiscordController extends Controller
 
     public function OAuthCallback(Request $request)
     {
+        if (str_contains($request->getRequestUri(), 'error=access_denied&error_description=The+resource+owner+or+authorization+server+denied+the+request')) {
+            return redirect()->route('welcome');
+        }
+
         // Retrieve the authorization code from the query parameters
         $code = $request->query('code');
 
@@ -104,11 +117,14 @@ class DiscordController extends Controller
 
             //create, update or delete guild info belonging to user
             $userGuilds = Http::withToken($access_token)->get('https://discord.com/api/users/@me/guilds')->json();
-            DiscordController::processUserGuilds($user->id, $userGuilds);
+            $userGuilds = DiscordController::processUserGuilds($user->id, $userGuilds);
 
             $this->guard()->login($user);
 
-            return redirect()->route('dashboard.general', ['server' => "asdasdasd"]);
+            if ($userGuilds)
+                return redirect()->route('dashboard.general', ['server' => $userGuilds[0]->guild_id]);
+            else
+                return redirect()->route('welcome')->with(['message' => 'You do not have any owned servers. If you wish to access the dashboard, you\'ll need to create one.']);
         } else {
             User::where('user_id', $userData['id'])->forceDelete();
 
@@ -186,6 +202,8 @@ class DiscordController extends Controller
         }
 
         //No need to search for restorable guilds, as deleteing a guild in discord is permanent.
+
+        return User::find($owner_id)->owned_guilds()->get();
     }
 
     /**
