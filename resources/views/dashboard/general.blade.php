@@ -343,7 +343,7 @@ hello there->General Kenobi!">@php if ($autoResps !== null) {foreach ($autoResps
         }
 
         //Autosave in the background with Ajax (bgs => background-save)
-        const forceDelete = 0; // set to 1 (true) if storage space is a concern
+        const forceDelete = {{ config('app.forcedelete') }};
         $(document).ready(function() {
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {
