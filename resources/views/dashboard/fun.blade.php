@@ -11,7 +11,7 @@
     @endphp
 
     <div class="d-flex justify-content-center card--header text-white p-2 mx-4 mb-3">
-        <div class="text-center fs-3"><b>{{ $guild->name }} server settings</b></div>
+        <div class="text-center fs-3"><b>{{ $guild->name }}</b></div>
     </div>
 
     <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
@@ -37,8 +37,7 @@ If you were a vegetable, you'd be a 'cute-cumber.">
             echo trim($item->line) . "\r\n";
         }
     }
-@endphp
-                    </textarea>
+@endphp</textarea>
                         <div class="d-flex align-items-end ps-2">
                             <i class="fa-solid fa-check fs-5" id="pickups-feedback" style="color: green"
                                 data-title="Save Feedback"></i>
@@ -70,8 +69,7 @@ A room without books is like a body without a soul.">
             echo trim($item->content) . "\r\n";
         }
     }
-@endphp
-                        </textarea>
+@endphp</textarea>
                         <div class="d-flex align-items-end ps-2">
                             <i class="fa-solid fa-check fs-5" id="quotes-feedback" style="color: green"
                                 data-title="Save Feedback"></i>
@@ -88,7 +86,7 @@ A room without books is like a body without a soul.">
 
     <script>
         //Autosave in the background with Ajax (bgs => background-save)
-        const forceDelete = 0; // set to 1 (true) if storage space is a concern
+        const forceDelete = {{ config('app.forcedelete') }};
         $(document).ready(function() {
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {

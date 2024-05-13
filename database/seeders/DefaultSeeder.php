@@ -39,7 +39,5 @@ class DefaultSeeder extends Seeder
             )
             ->has(AccessToken::factory()->count(1), 'access_token')
             ->create();
-
-        // Moderator::factory()->create();
     }
 }

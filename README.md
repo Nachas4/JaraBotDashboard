@@ -9,6 +9,7 @@ Some stuff needs to be done first to run it, because a large chunk of the projec
 - Create own `.env` file from `.env.example`
     - Set `APP_NAME` to `Jara Bot Dashboard`
     - Set `DB_DATABASE` to `jarabot` (will also help if you create the db)
+    - While developing, `APP_ENV` should be `local`, otherwise set to `prod`
 - Run `php artisan migrate:fresh --seed`
 
 You also will need to set these `.env` variables for Discord OAuth2 and the dashboard to work:

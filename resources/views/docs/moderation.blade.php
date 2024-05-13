@@ -1,3 +1,11 @@
+@php
+    $server = '69';
+
+if (Auth::check()) {
+        $server = Auth::user()->owned_guilds()->first()->guild_id ?? '';
+    }
+@endphp
+
 <div class="text-white p-2 mb-3">
     <div class="row">
         <div class="col-12 text-center text-light fs-3"><i class="fa-solid fa-user-check me-2"></i><b>Moderation
@@ -24,7 +32,7 @@
                     <div>
                         <p>Where do I see the ban message of an annoying griefer? Oh, here!</p>
                         <div>These can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a></div>
+                                href="{{ route('dashboard.moderation', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -44,7 +52,7 @@
                     <div>
                         <p>A list of people who shouldn't see you breaking the server rules.</p>
                         <div>They can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.moderation', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -56,9 +64,9 @@
             <div class="card-- mt-3" style="height: fit-content">
                 <div>
                     <div>
-                        <p>Messages containing blacklisted words will be automatically deleted and logged to the Blacklist Mod Message Channel.</p>
+                        <p>Messages containing blacklisted words will be automatically deleted and logged to the <a href="{{ route('dashboard.moderation', ['server' => $server]) }}">Blacklist Mod Message Channel</a>.</p>
                         <div>These can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.moderation', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -70,7 +78,7 @@
             <div class="d-flex align-items-center">
                 <i class="fa-solid fa-warning fa-xl mb-1 ms-1 me-3"></i>
             </div>
-            <div>The following commands will send messages to the <a href="">Moderation Message Channels</a>.</div>
+            <div>The following commands will send messages to the <a href="{{ route('dashboard.moderation', ['server' => $server]) }}">Moderation Message Channels</a>.</div>
         </div>
 
         <div class="card-- card-info d-flex flex-row fs-5 col-12 mt-1" style="height: fit-content">
@@ -99,7 +107,7 @@
                     <div>
                         <p>Kicks a user from the server.</p>
                         <div>Moderators can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.moderation', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -120,7 +128,7 @@
                     <div>
                         <p>Bans a user from the server.</p>
                         <div>Moderators can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.moderation', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -144,7 +152,7 @@
                     <div>
                         <p>Mutes a user in the server.</p>
                         <div>Moderators can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.moderation', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>

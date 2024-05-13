@@ -35,6 +35,39 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
+@php
+    use GuzzleHttp\Client;
+    use App\Models\DcGuild;
+
+    $guild = DcGuild::where('guild_id', $server)->first();
+
+    $editableGuilds = [];
+
+    $guildsUrl = 'https://discord.com/api/v10/users/@me/guilds';
+    $client = new Client();
+
+    $response = $client->request('GET', $guildsUrl, [
+        'headers' => [
+            'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
+            'Content-Type' => 'application/json',
+        ],
+    ]);
+
+    $guilds = json_decode($response->getBody(), true);
+    $userGuilds = Auth::user()->owned_guilds()->get();
+    $guildIds = [];
+
+    foreach ($userGuilds as $guild) {
+        $guildIds[] = $guild->guild_id;
+    }
+
+    foreach ($guilds as $guild) {
+        if (in_array($guild['id'], $guildIds)) {
+            $editableGuilds[] = $guild;
+        }
+    }
+@endphp
+
 <body class="bg--black overflow-hidden">
     <div class="d-flex vh-100">
 
@@ -45,7 +78,7 @@
         </div>
 
         {{-- MENU  on Left --}}
-        <div class="menu-closed h-100 p-3" style="z-index:10;" id="menu">
+        <div class="menu-closed h-100 p-3" style="z-index:1000;" id="menu">
             <div class="card-- p-4 h-100 overflow-auto">
                 <div class="d-flex flex-column justify-content-start h-100">
 
@@ -63,22 +96,42 @@
 
 
                     {{-- User Data --}}
-                    <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
-                        style="height:80px;">
-                        <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
-                            class="img-fluid me-2 rounded-circle h-100">
-                        <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
-                            <span class="fs-5 text-white"
-                                style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
-                            <span class="fs-6"
-                                style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
-                        </div>
+                    @guest
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
+                            style="height:80px;">
+                            <img src="{{ asset('storage/placeholders/PFP_placeholder.png') }}"
+                                class="img-fluid me-2 rounded-circle h-100">
+                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                                <span class="fs-5 text-white" style="height: min-content; margin-bottom:-10px;">Dev
+                                    Guy</span>
+                                <span class="fs-6" style="height: min-content;font-size:80%;">Pro Dev Guy</span>
+                            </div>
 
-                        {{-- Log Out --}}
-                        <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
-                            <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
-                        </a>
-                    </div>
+                            {{-- Log Out --}}
+                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
+                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
+                        </div>
+                    @endguest
+
+                    @auth
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
+                            style="height:80px;">
+                            <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
+                                class="img-fluid me-2 rounded-circle h-100">
+                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                                <span class="fs-5 text-white"
+                                    style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
+                                <span class="fs-6"
+                                    style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
+                            </div>
+
+                            {{-- Log Out --}}
+                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
+                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
+                        </div>
+                    @endauth
 
                     {{-- Navigation --}}
                     <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mt-2 mb-2"
@@ -147,19 +200,36 @@
                 <div class="d-flex justify-content-start h-100 w-100 overflow-auto" style="overflow-y: hidden;"
                     id="servers">
 
-                    @foreach (Auth::user()->owned_guilds as $item)
-                        @if (str_contains($item->icon, 'placeholder'))
-                            <img onclick="{{ route('dashboard.general', $item->guild_id) }}"
-                                src="{{ asset('storage/placeholders/PH_image_square.png') }}"
-                                alt="{{ $item->name }}" class="server--list img-fluid rounded" draggable="false"
-                                style="cursor: pointer;">
-                        @else
-                            <img onclick="{{ route('dashboard.general', $item->guild_id) }}"
-                                src="https://cdn.discordapp.com/icons/{{ $item->guild_id }}/{{ $item->icon }}"
-                                alt="{{ $item->name }}" class="server--list img-fluid rounded" draggable="false"
-                                style="cursor: pointer;">
-                        @endif
-                    @endforeach
+                    @guest
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                    @endguest
+
+                    @auth
+                        @foreach ($editableGuilds as $item)
+                            @if (str_contains($item['icon'], 'placeholder'))
+                                <img @if ($item['id'] === $guild['id']) @else onclick="window.location.href = '{{ route('dashboard.general', $item['id']) }}';" @endif
+                                    src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                                    alt="{{ $item['name'] }}" class="server--list img-fluid rounded" draggable="false"
+                                    style="cursor: pointer;">
+                            @else
+                                <img @if ($item['id'] === $guild['id']) @else onclick="window.location.href = '{{ route('dashboard.general', $item['id']) }}';" @endif
+                                    src="https://cdn.discordapp.com/icons/{{ $item['id'] }}/{{ $item['icon'] }}"
+                                    alt="{{ $item['name'] }}" class="server--list img-fluid rounded" draggable="false"
+                                    style="cursor: pointer;">
+                            @endif
+                        @endforeach
+                    @endauth
                 </div>
             </div>
             <main class="w-100 h-100">

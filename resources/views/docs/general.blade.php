@@ -1,3 +1,11 @@
+@php
+    $server = '69';
+
+if (Auth::check()) {
+        $server = Auth::user()->owned_guilds()->first()->guild_id ?? '';
+    }
+@endphp
+
 <div class="text-white p-2 mb-3">
     <div class="row">
         <div class="col-12 text-center text-light fs-3"><i class="fa-solid fa-house me-2"></i><b>General Commands</b>
@@ -23,7 +31,7 @@
                     <div>
                         <p>Sends a template welcome message.</p>
                         <div>This can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.general', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -44,7 +52,7 @@
                     <div>
                         <p>Get a list of all the autoresponses the server has set up.</p>
                         <div>This can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.general', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -65,7 +73,7 @@
                     <div>
                         <p>Get a list of all the autoroles the server has set up.</p>
                         <div>This can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.general', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -86,7 +94,7 @@
                     <div>
                         <p>See what modules are enabled on this server.</p>
                         <div>These can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.general', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>

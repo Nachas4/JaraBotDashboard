@@ -42,9 +42,9 @@ class WelcomeMessageController extends Controller
             $ext = '.jpg';
             $filename = 'WM_image_' . $data->dc_guild_id . $ext;
 
-            Storage::delete('wm_images/' . $filename);
+            Storage::delete('public/wm_images/' . $filename);
 
-            Storage::putFileAs('wm_images', new \Illuminate\Http\File($bg_image), $filename);
+            Storage::putFileAs('public/wm_images', new \Illuminate\Http\File($bg_image), $filename);
         }
 
         $wcmMsg = WelcomeMessage::where('dc_guild_id', $data->dc_guild_id)->first();

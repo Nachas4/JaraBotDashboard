@@ -68,10 +68,10 @@
                             <h5>Contacts</h5>
                             <span>Klozon - klozon0@gmail.com</span>
                             <span>Nachas4 - nachas4@tuta.io</span>
-                            <span>Hason4 - lorem</span>
+                            <span>Hason4 - simon.g20011@gmail.com</span>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-1">
                         <div class="d-flex flex-column">
                             <h5> <i class="fa-brands fa-github"></i>  Github</h5>
                             
@@ -79,6 +79,10 @@
                             <a class="footer-link" target="_blank" href="https://github.com/Nachas4">Nachas4</a>
                             <a class="footer-link" target="_blank" href="https://github.com/Hason42069">Hason42069</a>
                         </div>
+                    </div>
+                    <div class="col-2">
+                        <h5 style="opacity: 0">Github</h5>
+                        <a class="footer-link" target="_blank" href="https://github.com/Nachas4/JaraBotDashboard">JaraBotDashboard</a>
                     </div>
                 </div>
             </div>

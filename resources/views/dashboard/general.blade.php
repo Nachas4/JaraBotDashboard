@@ -16,69 +16,63 @@
         $roleIds = [];
 
         foreach ($autoRoles as $role) {
-            $roleIds[] = [$role->role_id];
+            $roleIds[] = $role->role_id;
         }
 
         $regularRoles = [];
 
         //Channel list
-        if (empty($_GLOBALS['channels'])) {
-            $channelsUrl = "https://discord.com/api/v10/guilds/{$guild->guild_id}/channels";
-            $client = new Client();
+        $channelsUrl = "https://discord.com/api/v10/guilds/{$guild->guild_id}/channels";
+        $client = new Client();
 
-            $response = $client->request('GET', $channelsUrl, [
-                'headers' => [
-                    'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
-                ],
-            ]);
+        $response = $client->request('GET', $channelsUrl, [
+            'headers' => [
+                'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
+            ],
+        ]);
 
-            $channels = json_decode($response->getBody(), true);
+        $channels = json_decode($response->getBody(), true);
 
-            foreach ($channels as $channel) {
-                if ($channel['type'] === 0) {
-                    $textChannels[] = [
-                        'name' => $channel['name'],
-                        'id' => $channel['id'],
-                        'selected' => $channel['id'] === $wcMsg->channel_id,
-                    ];
-                }
+        foreach ($channels as $channel) {
+            if ($channel['type'] === 0) {
+                $textChannels[] = [
+                    'name' => $channel['name'],
+                    'id' => $channel['id'],
+                    'selected' => $channel['id'] === $wcMsg->channel_id,
+                ];
             }
-
-            $_GLOBALS['channels'] = $textChannels;
         }
+
+        $_GLOBALS['channels'] = $textChannels;
 
         //Role list
-        if (empty($_GLOBALS['roles'])) {
-            $rolesUrl = "https://discord.com/api/v10/guilds/{$guild->guild_id}/roles";
-            $client = new Client();
+        $rolesUrl = "https://discord.com/api/v10/guilds/{$guild->guild_id}/roles";
+        $client = new Client();
 
-            $response = $client->request('GET', $rolesUrl, [
-                'headers' => [
-                    'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
-                ],
-            ]);
+        $response = $client->request('GET', $rolesUrl, [
+            'headers' => [
+                'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
+            ],
+        ]);
 
-            $roles = json_decode($response->getBody(), true);
+        $roles = json_decode($response->getBody(), true);
 
-            foreach ($roles as $role) {
-                if (!$role['managed'] && !$role['hoist'] && !$role['mentionable']) {
-                    $huh = in_array($channel['id'], $roleIds);
-                    echo $huh;
-                    $regularRoles[] = [
-                        'name' => $role['name'],
-                        'id' => $role['id'],
-                        'selected' => in_array($channel['id'], $roleIds),
-                    ];
-                }
+        foreach ($roles as $role) {
+            if (!$role['managed'] && !$role['hoist'] && !$role['mentionable'] && $role['name'] !== '@everyone') {
+                $regularRoles[] = [
+                    'name' => $role['name'],
+                    'id' => $role['id'],
+                    'selected' => in_array($role['id'], $roleIds),
+                ];
             }
-
-            $_GLOBALS['roles'] = $regularRoles;
         }
+
+        $_GLOBALS['roles'] = $regularRoles;
 
     @endphp
 
     <div class="d-flex justify-content-center card--header text-white p-2 mx-4 mb-3">
-        <div class="text-center fs-3"><b>{{ $guild->name }} server settings</b></div>
+        <div class="text-center fs-3"><b>{{ $guild->name }}</b></div>
     </div>
 
     <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
@@ -95,7 +89,11 @@
                 <div class="col-12 col-lg-12 col-xl-4">
                     <div class="d-flex w-100 h-100">
                         <textarea name="message" id="message" class="bgs-input form-control flex-fill" rows="3"
-                            placeholder="We welcome ${user} to the server!">@if($wcMsg !== null){{ $wcMsg->message }}@endif</textarea>
+                            placeholder="We welcome ${user} to the server!">
+@if ($wcMsg !== null)
+{{ $wcMsg->message }}
+@endif
+</textarea>
                         <div class="d-flex align-items-end ps-2">
                             <i class="fa-solid fa-check fs-5" id="message-feedback" style="color: var(--clr-neon)"
                                 data-title="Save Feedback"></i>
@@ -143,7 +141,8 @@
                             <input name="bg_image" type="file" id="bg_image"
                                 class="d-none bgs-input-file"accept="image/jpeg,image/png" />
                             <div class="d-flex flex-row">
-                                <label for="bg_image" class="btn btn-primary button" style="z-index: -99999">Select file</label>
+                                <label for="bg_image" class="btn btn-primary button" style="z-index: -99999">Select
+                                    file</label>
 
                                 <div class="d-flex align-items-center ps-2">
                                     <i class="fa-solid fa-check fs-5" id="bg_image-feedback" style="color: var(--clr-neon)"
@@ -157,7 +156,7 @@
 
                 <div class="col-12 col-md-6 col-xl-4 pt-3 d-flex justify-content-md-end justify-content-center">
                     <img src="@if ($wcMsg !== null) {{ asset('storage/wm_images/' . $wcMsg->bg_image) }} @endif"
-                        class="img-thumbnail" alt="Backgound Image" style="height: 150px;">
+                        id="welcome-picture" class="img-thumbnail" alt="Backgound Image" style="height: 150px;">
                 </div>
 
                 <div class="mb-4 pt-2" id="wMsgForm-errors"></div>
@@ -217,7 +216,13 @@
                         {{-- Placeholder must be like this because reasons --}}
                         <textarea name="autoResponses" id="autoResponses" class="bgs-input form-control flex-fill" rows="3"
                             placeholder="help->Hey there! Please visit this channel if you want to know more about the server: #server-rules
-hello there->General Kenobi!">@php if ($autoResps !== null) {foreach ($autoResps as $item) {echo trim($item->respond_to . '->' . $item->respond_with) . "\r\n";}}@endphp</textarea>
+hello there->General Kenobi!">@php
+    if ($autoResps !== null) {
+        foreach ($autoResps as $item) {
+            echo trim($item->respond_to . '->' . $item->respond_with) . "\r\n";
+        }
+    }
+@endphp</textarea>
 
                         <div class="d-flex align-items-center ps-2">
                             <i class="fa-solid fa-check fs-5" id="autoResponses-feedback" style="color: var(--clr-neon)"
@@ -343,7 +348,7 @@ hello there->General Kenobi!">@php if ($autoResps !== null) {foreach ($autoResps
         }
 
         //Autosave in the background with Ajax (bgs => background-save)
-        const forceDelete = 0; // set to 1 (true) if storage space is a concern
+        const forceDelete = {{ config('app.forcedelete') }};
         $(document).ready(function() {
             const inputs = document.querySelectorAll('.bgs-input');
             inputs.forEach(element => {

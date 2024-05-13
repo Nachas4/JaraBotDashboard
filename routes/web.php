@@ -16,20 +16,9 @@ use App\Http\Controllers\WelcomeMessageController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -53,20 +42,22 @@ Route::get('/docs/{module}', [DocsController::class, 'load_module'])->name('doc.
 Route::get('/login/discord', [DiscordController::class, 'RedirectToDiscord'])->name('discord.login');
 Route::get('/login/discord/callback', [DiscordController::class, 'OAuthCallback']);
 
+/*
+|--------------------------------------------------------------------------
+| Dashboard Routes
+|--------------------------------------------------------------------------
+*/
+if (config('app.env') === 'local') {
+    dashboard_routes();
+}
+else {
+    /** Only for logged in users **/
+    Route::middleware(Authenticate::class)->group(function () {
+        dashboard_routes();
+    });
+}
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
-
-/** Only for logged in users **/
-Route::middleware(Authenticate::class)->group(function () {
-
-    /*
-    |--------------------------------------------------------------------------
-    | Dashboard Routes
-    |--------------------------------------------------------------------------
-    */
-
+function dashboard_routes() {
     Route::get('/dashboard/general/{server}', [DashboardController::class, 'general'])->name('dashboard.general');
     Route::get('/dashboard/fun/{server}', [DashboardController::class, 'fun'])->name('dashboard.fun');
     Route::get('/dashboard/moderation/{server}', [DashboardController::class, 'moderation'])->name('dashboard.moderation');
@@ -82,4 +73,4 @@ Route::middleware(Authenticate::class)->group(function () {
     Route::post('/save-pickups', [PickupLineController::class, 'storeOrUpdate'])->name('pickups.save');
     Route::post('/save-serverSetts', [ServerSettingController::class, 'storeOrUpdate'])->name('serverSetts.save');
     Route::post('/save-quotes', [QuoteController::class, 'storeOrUpdate'])->name('quotes.save');
-});
+}
