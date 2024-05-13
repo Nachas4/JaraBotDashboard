@@ -58,7 +58,7 @@
         $roles = json_decode($response->getBody(), true);
 
         foreach ($roles as $role) {
-            if (!$role['managed'] && !$role['hoist'] && !$role['mentionable']) {
+            if (!$role['managed'] && !$role['hoist'] && !$role['mentionable'] && $role['name'] !== '@everyone') {
                 $regularRoles[] = [
                     'name' => $role['name'],
                     'id' => $role['id'],
