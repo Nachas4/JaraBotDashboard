@@ -35,6 +35,39 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
+@php
+    use GuzzleHttp\Client;
+    use App\Models\DcGuild;
+
+    $guild = DcGuild::where('guild_id', $server)->first();
+
+    $editableGuilds = [];
+
+    $guildsUrl = 'https://discord.com/api/v10/users/@me/guilds';
+    $client = new Client();
+
+    $response = $client->request('GET', $guildsUrl, [
+        'headers' => [
+            'Authorization' => 'Bot ' . config('discord.discord_bot_token'),
+            'Content-Type' => 'application/json',
+        ],
+    ]);
+
+    $guilds = json_decode($response->getBody(), true);
+    $userGuilds = Auth::user()->owned_guilds()->get();
+    $guildIds = [];
+
+    foreach ($userGuilds as $guild) {
+        $guildIds[] = $guild->guild_id;
+    }
+
+    foreach ($guilds as $guild) {
+        if (in_array($guild['id'], $guildIds)) {
+            $editableGuilds[] = $guild;
+        }
+    }
+@endphp
+
 <body class="bg--black overflow-hidden">
     <div class="d-flex vh-100">
 
@@ -45,7 +78,7 @@
         </div>
 
         {{-- MENU  on Left --}}
-        <div class="menu-closed h-100 p-3" style="z-index:10;" id="menu">
+        <div class="menu-closed h-100 p-3" style="z-index:1000;" id="menu">
             <div class="card-- p-4 h-100 overflow-auto">
                 <div class="d-flex flex-column justify-content-start h-100">
 
@@ -184,16 +217,16 @@
                     @endguest
 
                     @auth
-                        @foreach (Auth::user()->owned_guilds as $item)
-                            @if (str_contains($item->icon, 'placeholder'))
-                                <img @if ($item->guild_id === $guild->guild_id) @else onclick="window.location.href = '{{ route('dashboard.general', $item->guild_id) }}';" @endif
+                        @foreach ($editableGuilds as $item)
+                            @if (str_contains($item['icon'], 'placeholder'))
+                                <img @if ($item['id'] === $guild['id']) @else onclick="window.location.href = '{{ route('dashboard.general', $item['id']) }}';" @endif
                                     src="{{ asset('storage/placeholders/PH_image_square.png') }}"
-                                    alt="{{ $item->name }}" class="server--list img-fluid rounded" draggable="false"
+                                    alt="{{ $item['name'] }}" class="server--list img-fluid rounded" draggable="false"
                                     style="cursor: pointer;">
                             @else
-                                <img @if ($item->guild_id === $guild->guild_id) @else onclick="window.location.href = '{{ route('dashboard.general', $item->guild_id) }}';" @endif
-                                    src="https://cdn.discordapp.com/icons/{{ $item->guild_id }}/{{ $item->icon }}"
-                                    alt="{{ $item->name }}" class="server--list img-fluid rounded" draggable="false"
+                                <img @if ($item['id'] === $guild['id']) @else onclick="window.location.href = '{{ route('dashboard.general', $item['id']) }}';" @endif
+                                    src="https://cdn.discordapp.com/icons/{{ $item['id'] }}/{{ $item['icon'] }}"
+                                    alt="{{ $item['name'] }}" class="server--list img-fluid rounded" draggable="false"
                                     style="cursor: pointer;">
                             @endif
                         @endforeach
