@@ -1,3 +1,11 @@
+@php
+    $server = '69';
+
+    if (Auth::check()) {
+        $server = Auth::user()->owned_guilds()->first()->guild_id;
+    }
+@endphp
+
 <div class="text-white p-2 mb-3">
     <div class="row">
         <div class="col-12 text-center text-light fs-3"><i class="fa-solid fa-face-laugh-wink me-2"></i><b>Fun
@@ -25,7 +33,8 @@
                     <div>
                         <p>Can't think of a pickup line? We got your back!</p>
                         <div>Pickup Lines can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a></div>
+                                href="{{ route('dashboard.fun', ['server' => $server]) }}">dashboard</a>.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,7 +54,7 @@
                     <div>
                         <p>Important or funny quotes from famous people and your friends.</p>
                         <div>Quotes can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.fun', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -65,7 +74,7 @@
                     <div>
                         <p>A list of all the unique Pickup Lines in the server.</p>
                         <div>Pickup Lines can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.fun', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>
@@ -85,7 +94,7 @@
                     <div>
                         <p>A list of all the unique Quotes in the server.</p>
                         <div>Quotes can only be changed by the server owner in the <a
-                                href="{{-- {{ route('dashboard') }} --}}">dashboard</a>.</div>
+                                href="{{ route('dashboard.fun', ['server' => $server]) }}">dashboard</a>.</div>
                     </div>
                 </div>
             </div>

@@ -14,6 +14,10 @@
     color: var(--bs-warning)
 }
 
+.card-info:hover .fa-triangle-exclamation {
+    color: var(--bs-danger)
+}
+
 .card-info:hover .fa-circle-exclamation {
     color: var(--bs-info)
 }

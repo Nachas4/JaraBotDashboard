@@ -97,7 +97,6 @@
 
                     {{-- User Data --}}
                     @guest
-
                         <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
                             style="height:80px;">
                             <img src="{{ asset('storage/placeholders/PFP_placeholder.png') }}"
