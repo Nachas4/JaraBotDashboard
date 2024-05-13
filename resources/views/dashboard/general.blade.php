@@ -72,7 +72,7 @@
     @endphp
 
     <div class="d-flex justify-content-center card--header text-white p-2 mx-4 mb-3">
-        <div class="text-center fs-3"><b>{{ $guild->name }} server settings</b></div>
+        <div class="text-center fs-3"><b>{{ $guild->name }}</b></div>
     </div>
 
     <div class="card--body p-sm-3 h-100 text-white rounded overflow-auto" style="overflow-x: hidden !important;">
@@ -156,7 +156,7 @@
 
                 <div class="col-12 col-md-6 col-xl-4 pt-3 d-flex justify-content-md-end justify-content-center">
                     <img src="@if ($wcMsg !== null) {{ asset('storage/wm_images/' . $wcMsg->bg_image) }} @endif"
-                        class="img-thumbnail" alt="Backgound Image" style="height: 150px;">
+                        id="welcome-picture" class="img-thumbnail" alt="Backgound Image" style="height: 150px;">
                 </div>
 
                 <div class="mb-4 pt-2" id="wMsgForm-errors"></div>
@@ -217,11 +217,11 @@
                         <textarea name="autoResponses" id="autoResponses" class="bgs-input form-control flex-fill" rows="3"
                             placeholder="help->Hey there! Please visit this channel if you want to know more about the server: #server-rules
 hello there->General Kenobi!">@php
-if ($autoResps !== null) {
-    foreach ($autoResps as $item) {
-        echo trim($item->respond_to . '->' . $item->respond_with) . "\r\n";
+    if ($autoResps !== null) {
+        foreach ($autoResps as $item) {
+            echo trim($item->respond_to . '->' . $item->respond_with) . "\r\n";
+        }
     }
-}
 @endphp</textarea>
 
                         <div class="d-flex align-items-center ps-2">
