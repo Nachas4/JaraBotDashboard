@@ -63,22 +63,41 @@
 
 
                     {{-- User Data --}}
-                    <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
-                        style="height:80px;">
-                        <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
-                            class="img-fluid me-2 rounded-circle h-100">
-                        <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
-                            <span class="fs-5 text-white"
-                                style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
-                            <span class="fs-6"
-                                style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
-                        </div>
+                    @if (config('app.env') === 'local')
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
+                            style="height:80px;">
+                            <img src="{{ asset('storage/placeholders/PFP_placeholder.png') }}"
+                                class="img-fluid me-2 rounded-circle h-100">
+                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                                <span class="fs-5 text-white"
+                                    style="height: min-content; margin-bottom:-10px;">Dev Guy</span>
+                                <span class="fs-6"
+                                    style="height: min-content;font-size:80%;">Pro Dev Guy</span>
+                            </div>
 
-                        {{-- Log Out --}}
-                        <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
-                            <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
-                        </a>
-                    </div>
+                            {{-- Log Out --}}
+                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
+                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
+                        </div>
+                    @else
+                        <div class="card--holder p-3 d-flex align-items-center w-100 rounded mt-4 mb-2"
+                            style="height:80px;">
+                            <img src="{{ 'https://cdn.discordapp.com/avatars/' . Auth()->user()->user_id . '/' . Auth()->user()->avatar }}"
+                                class="img-fluid me-2 rounded-circle h-100">
+                            <div class="d-flex flex-column justify-content-center h-100 align-items-start text--grey">
+                                <span class="fs-5 text-white"
+                                    style="height: min-content; margin-bottom:-10px;">{{ Auth()->user()->global_name }}</span>
+                                <span class="fs-6"
+                                    style="height: min-content;font-size:80%;">{{ Auth()->user()->username }}</span>
+                            </div>
+
+                            {{-- Log Out --}}
+                            <a href="{{ route('logout') }}" class="ms-auto logout-button rounded">
+                                <i class="text--neon mt-1 ms-2 fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
+                        </div>
+                    @endif
 
                     {{-- Navigation --}}
                     <div class="d-flex flex-column justify-content-around text--grey w-100 rounded mt-2 mb-2"
@@ -147,19 +166,35 @@
                 <div class="d-flex justify-content-start h-100 w-100 overflow-auto" style="overflow-y: hidden;"
                     id="servers">
 
-                    @foreach (Auth::user()->owned_guilds as $item)
-                        @if (str_contains($item->icon, 'placeholder'))
-                            <img onclick="{{ route('dashboard.general', $item->guild_id) }}"
-                                src="{{ asset('storage/placeholders/PH_image_square.png') }}"
-                                alt="{{ $item->name }}" class="server--list img-fluid rounded" draggable="false"
-                                style="cursor: pointer;">
-                        @else
-                            <img onclick="{{ route('dashboard.general', $item->guild_id) }}"
-                                src="https://cdn.discordapp.com/icons/{{ $item->guild_id }}/{{ $item->icon }}"
-                                alt="{{ $item->name }}" class="server--list img-fluid rounded" draggable="false"
-                                style="cursor: pointer;">
-                        @endif
-                    @endforeach
+                    @if (config('app.env') === 'local')
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                        <img src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                            class="server--list img-fluid rounded" draggable="false" style="cursor: pointer;">
+                    @else
+                        @foreach (Auth::user()->owned_guilds as $item)
+                            @if (str_contains($item->icon, 'placeholder'))
+                                <img @if ($item->guild_id === $guild->guild_id) @else onclick="window.location.href = '{{ route('dashboard.general', $item->guild_id) }}';" @endif
+                                    src="{{ asset('storage/placeholders/PH_image_square.png') }}"
+                                    alt="{{ $item->name }}" class="server--list img-fluid rounded"
+                                    draggable="false" style="cursor: pointer;">
+                            @else
+                                <img @if ($item->guild_id === $guild->guild_id) @else onclick="window.location.href = '{{ route('dashboard.general', $item->guild_id) }}';" @endif
+                                    src="https://cdn.discordapp.com/icons/{{ $item->guild_id }}/{{ $item->icon }}"
+                                    alt="{{ $item->name }}" class="server--list img-fluid rounded"
+                                    draggable="false" style="cursor: pointer;">
+                            @endif
+                        @endforeach
+                    @endif
+
                 </div>
             </div>
             <main class="w-100 h-100">
